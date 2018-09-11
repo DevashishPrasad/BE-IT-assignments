@@ -91,12 +91,12 @@ void multiplication(int a[10][10], int b[10][10], int c[10][10], int r1, int c1,
 	}
 
 	for(i=0; i<r2; i++)
-	{
-		for(j=0; j<c2; j++)
 		{
-			c[i][j] = 0;
+			for(j=0; j<c2; j++)
+			{
+				c[i][j] = 0;
+			}
 		}
-	}
 
 	for(i=0; i<r2; i++)
 	{
@@ -125,38 +125,43 @@ void transpose(int a[10][10], int c[10][10], int r1, int c1, int r2, int c2)
 
 void saddle(int a[10][10], int r1, int c1)
 {
-	int i, j, ind=0, k, min, max, flg=0;
+	int i, j, ind=0, k, min=0, max=0, pos3=0, pos2=0, flg = 0;
 
 	for(i=0; i<r1; i++)
 	{
 		min = a[i][0];
 		for(j=0; j<c1; j++)
 		{
-			if(min > a[i][j])
+			if(min >= a[i][j])
 			{
 				min = a[i][j];
+				pos3 = i;
 				ind = j;
 			}
 		}
+
 		max = a[0][ind];
 		for(k=0; k < r1; k++)
 		{
-			if(max < a[k][ind])
+			if(max <= a[k][ind])
 			{
 				max = a[k][ind];
+				pos2 = k;
 			}
 		}
 
-		if(min == max)
+		if(min == max && pos2 == pos3)
 		{
-			flg = 1;
+			flg++;
+			if(flg > 1)
+				continue;
 			printf("\n %d \n",min);
 		}
 	}
-
 	if(flg == 0)
+	{
 		printf("\n Not found");
-
+	}
 }
 int main(void) {
 
