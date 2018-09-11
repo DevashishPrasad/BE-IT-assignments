@@ -3,7 +3,7 @@
  Name        : matrix.c
  Author      : Devashish (23364)
  Version     : 1.4
- Copyright   : GNU Public License
+ Copyright   : GNU public
  Description : Matrix operations with pointers
  ============================================================================
  */
@@ -125,38 +125,75 @@ void transpose(int *a, int *c, int r1, int c1, int r2, int c2)
 
 void saddle(int *a, int r1, int c1)
 {
-	int i, j, ind=0, k, min, max, flg=0;
+//	int i, j, ind=0, k, min, max, pos1, pos2;
+//
+//	for(i=0; i<r1; i++)
+//	{
+//		min = *(a + i * c1 + 0);
+//		for(j=0; j<c1; j++)
+//		{
+//			if(min > *(a + i * c1 + j))
+//			{
+//				min = *(a + i * c1 + j);
+//				ind = j;
+//				pos1 = i;
+//			}
+//		}
+//	}
+//
+//	max = *(a + 0 * c1 + ind);
+//	for(k=0; k < r1; k++)
+//	{
+//		if(max < *(a + k * c1 + ind))
+//		{
+//			max = *(a + k * c1 + ind);
+//			pos2 = k;
+//		}
+//	}
+//
+//	if(min == max)
+//	{
+//		if(pos1 == pos2)
+//			printf("\n %d \n",min);
+//	}
+//	else
+//		printf("\n Not found");
+
+	int i, j, ind=0, k, min=0, max=0, pos3=0, pos2=0, flg = 0;
 
 	for(i=0; i<r1; i++)
 	{
 		min = *(a + i * c1 + 0);
 		for(j=0; j<c1; j++)
 		{
-			if(min > *(a + i * c1 + j))
+			if(min >= *(a + i * c1 + j))
 			{
 				min = *(a + i * c1 + j);
+				pos3 = i;
 				ind = j;
 			}
 		}
 		max = *(a + 0 * c1 + ind);
 		for(k=0; k < r1; k++)
 		{
-			if(max < *(a + k * c1 + ind))
+			if(max <= *(a + k * c1 + ind))
 			{
 				max = *(a + k * c1 + ind);
+				pos2 = k;
 			}
 		}
-
-		if(min == max)
+		if(min == max && pos2 == pos3)
 		{
-			flg = 1;
+			flg++;
+			if(flg > 1)
+				continue;
 			printf("\n %d \n",min);
 		}
 	}
-
 	if(flg == 0)
+	{
 		printf("\n Not found");
-
+	}
 }
 int main(void) {
 
@@ -215,6 +252,10 @@ int main(void) {
 					printf("\n\nError! Matrices are empty");
 				else
 				{
+					printf("\n\nMatrix 1 - \n");
+					display(a, r1, c1);
+					printf("\n\nMatrix 1 - \n");
+					display(b, r2, c2);
 					printf("\n\nAddition of your matrices - \n");
 					c = (int*) malloc((r1*c1)*sizeof(int));
 					addition(a, b, c, r1, c1, r2, c2);
