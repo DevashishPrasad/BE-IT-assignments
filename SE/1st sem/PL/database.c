@@ -3,10 +3,10 @@
  Name        : database.c
  Author      : Devashish (23364)
  Version     : 1.0
- Copyright   : GNU public
+ Copyright   : GNU Public License
  Description : Database using array of structures
- Problem     : Create a database using array of structures and perform 
-               following operations - 
+ Problem     : Create a database using array of structures and perform
+               following operations -
                1. Create database
                2. Display database
                3. Add record
@@ -63,7 +63,7 @@ void createdb(struct database record[100], int n)
 void display(struct database record[100], int n)
 {
     int i;
-    
+
     printf("\nID\tPHONE     \tSALARY\t\tNAME");
     for(i=0; i<n; i++)
     {
@@ -113,7 +113,7 @@ void search(struct database record[100],int no, int id)
             val = i;
             break;
         }
-    
+
     if(val == -1)
         printf("\nNo record found...");
     else
@@ -135,7 +135,7 @@ void modify(struct database record[100],int no, int id)
             val = i;
             break;
         }
-    
+
     if(val == -1)
         printf("\nNo Record  with ID %d Exist...",id);
     else
@@ -163,15 +163,19 @@ void delete(struct database record[100],int no, int id)
             val = i;
             break;
         }
-    
+
     if(val == -1)
-        printf("\nNo Record  with ID %d Exist...",id);
+        printf("\nNo Record  with ID %d exists...",id);
     else
     {
-        record[val].id = NULL;
-        strcpy(record[val].name, "---");
-        strcpy(record[val].phone, "----------");
-        record[val].salary = 0;
+    	for(i = val; i<no; i++)
+    	{
+			record[i].id = record[i + 1].id;
+			strcpy(record[i].name, record[i + 1].name);
+			strcpy(record[i].phone, record[i + 1].phone);
+			record[i].salary = record[i + 1].salary;
+
+    	}
         printf("\nRecord Deleted");
     }
 }
@@ -180,7 +184,7 @@ int main(void) {
 
 	int ch,no=0,i;
     struct database records[100];
-               
+
 	do{
 		printf("\n ******* MENU ******* ");
 		printf("\n 1. Create database");
@@ -220,7 +224,7 @@ int main(void) {
                     {
                         printf("\nEnter the ID of the employee to be searched - ");
 					    scanf("%d",&i);
-                        search(records, no, i);  
+                        search(records, no, i);
                     }
 					break;
 			case 5:
@@ -230,19 +234,19 @@ int main(void) {
                     {
                         printf("\nEnter the ID of the employee to be modified - ");
 					    scanf("%d",&i);
-                        modify(records, no, i);  
+                        modify(records, no, i);
                     }
 
 					break;
 			case 6:
-                    
+
                     if(no == 0)
 						printf("\nError! Database is empty, please create database and then proceed\n");
 					else
                     {
                         printf("\nEnter the ID of the employee to be deleted - ");
 					    scanf("%d",&i);
-                        delete(records, no, i);  
+                        delete(records, no, i);
                     }
 
 					break;
