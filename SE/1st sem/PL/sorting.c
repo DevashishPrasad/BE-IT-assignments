@@ -25,24 +25,6 @@ struct database{
     int roll;
     float percent;
 };
-
-// void selectionSort(int arr[], int n)
-// {
-//     int i, j, min_idx;
- 
-//     // One by one move boundary of unsorted subarray
-//     for (i = 0; i < n-1; i++)
-//     {
-//         // Find the minimum element in unsorted array
-//         min_idx = i;
-//         for (j = i+1; j < n; j++)
-//           if (arr[j] < arr[min_idx])
-//             min_idx = j;
- 
-//         // Swap the found minimum element with the first element
-//         swap(&arr[min_idx], &arr[i]);
-//     }
-// }
 void createdb(struct database record[100], int n)
 {
     int i,j,flg=0;
@@ -99,51 +81,132 @@ int add(struct database record[100], int n)
     }
     printf("\nEnter the name of the student - ");
     scanf ("%s", &record[n].name);
-    printf("\nEnter the phone number of the student - ");
     
     printf("\nEnter the percentage of the student - ");
     scanf ("%ld", &record[n].percent);
     n++;
     return n;
 }
-void search(struct database record[100],int no, int roll)
+void selectionSort(struct database record[100], int n)
 {
-    int i,val=-1;
+    int i, j, k, max_idx, swap=0, com=0;
+    struct database temp;
 
-    for(i = 0; i<no; i++)
-        if(record[i].roll == roll)
-        {
-            val = i;
-            break;
-        }
+    printf("\nInitial - ");
+    for (k = 0; k < n; k++)       
+        printf("%d ", record[k].roll);
 
-    if(val == -1)
-        printf("\nNo record found...");
-    else
+    for (i = 0; i < n-1; i++)
     {
-        printf("\nRecord Found");
-        printf("\nroll\tPHONE     \tSALARY\t\tNAME");
-        printf("\n%d\t%s\t%ld",record[val].roll, record[val].phone, record[val].salary);
-        printf("\t\t");
-        puts(record[val].name);
+        max_idx = i;
+        for (j = i+1; j < n; j++)
+        {
+            com++;
+            if (record[j].roll > record[max_idx].roll)
+            {
+                max_idx = j;
+            }
+        }
+         
+        swap++;
+        temp = record[i];
+        record[i] = record[max_idx];
+        record[max_idx] = temp;
+
+        printf("\nPASS %d - ",i);
+        for (k = 0; k < n; k++)       
+            printf("%d ", record[k].roll);
     }
+    printf("\nComparisons - %d",com);
+    printf("\nSwaps - %d",swap);
 }
 
-void swap(struct database *record1, struct database *record2)
-{
-    struct database *temp;
-    temp = record1;
-    record1 = record2;
-    record2 = temp;
-}
- 
 void bubbleSort(struct database record[100], int n)
 {
-   int i, j;
-   for (i = 0; i < n-1; i++)       
-       for (j = 0; j < n-i-1; j++) 
-           if (record[j].roll > record[j+1].roll)
-              swap(&record[j], &record[j+1]);
+    int i, j, k,com=0,swap=0;
+    struct database temp;
+
+    printf("\nInitial - ");
+    for (k = 0; k < n; k++)       
+        printf("%d ", record[k].roll);
+
+    for (i = 0; i < n-1; i++)       
+    {    
+        for (j = 0; j < n-i-1; j++) 
+        {
+            com++;
+            if (record[j].roll > record[j+1].roll)
+            {
+                swap++;
+                temp = record[j];
+                record[j] = record[j+1];
+                record[j+1] = temp;
+            }
+        }
+
+        printf("\nPASS %d - ",i);
+        for (k = 0; k < n; k++)       
+           printf("%d ", record[k].roll);
+    }
+
+    printf("\nComparisons - %d",com);
+    printf("\nSwaps - %d",swap);
+}
+
+void binarySearch(struct database record[100], int no, int search)
+{
+    bubbleSort(record, no);
+    int c, first, last, middle;
+    
+    first = 0;
+    last = no - 1;
+    middle = (first+last)/2;
+    
+    while (first <= last) 
+    {
+        if (record[middle].roll < search)
+            first = middle + 1;    
+        else if (record[middle].roll == search) 
+        {
+            printf("\n\n%d found at location %d.\n", search, middle+1);
+            break;
+        }
+        else
+            last = middle - 1;
+    
+        middle = (first + last)/2;
+    }
+    if (first > last)
+        printf("\n\nNot found! %d isn't present in the database.\n", search);
+}
+
+void binSearch(struct database record[100], int no, int search, int first, int last)
+{
+    bubbleSort(record, no);
+    int middle;
+    middle = (first+last)/2;
+    
+    if (first == last)
+    {
+        printf("\n\nNot found! %d isn't present in the database.\n", search);
+        return;
+    }
+    else if (record[middle].roll == search) 
+    {
+        printf("\n\n%d found in the list\n", search);
+        return;
+    }
+    else if (record[middle].roll < search)
+    {
+        first = middle + 1;
+        binSearch(record, no/2, search, first, last);
+    }
+    else
+    {
+        first = 0;
+        last = middle - 1;
+        binSearch(record, no/2, search, first, last);
+    }
 }
 
 int main(void) {
@@ -152,14 +215,15 @@ int main(void) {
     struct database records[100];
 
 	do{
-		printf("\n\n\n ******* MENU ******* ");
+		printf("\n\n\n\n ******* MENU ******* ");
 		printf("\n 1. Create database");
 		printf("\n 2. Display database");
 		printf("\n 3. Add record");
 		printf("\n 4. Ascending order (Bubble Sort)");
 		printf("\n 5. Descending order (Selection Sort)");
 		printf("\n 6. Search (Binary Search)");
-		printf("\n 7. exit");
+        printf("\n 7. Search (Binary Search recursion)");
+		printf("\n 8. exit");
 		printf("\n Enter your choice - ");
 		scanf("%d",&ch);
 
@@ -189,34 +253,44 @@ int main(void) {
 					else
                     {
                         bubbleSort(records, no);
+                        printf("\n\nSorted records");
                         display(records, no);
                     }
 					break;
-			// case 5:
-		    //         if(no == 0)
-			// 			printf("\nError! Database is empty, please create database and then proceed\n");
-			// 		else
-            //         {
-            //             printf("\nEnter the roll of the student to be modified - ");
-			// 		    scanf("%d",&i);
-            //             modify(records, no, i);
-            //         }
+			case 5:
+		            if(no == 0)
+						printf("\nError! Database is empty, please create database and then proceed\n");
+					else
+                    {
+                        selectionSort(records, no);
+                        printf("\n\nSorted records");
+                        display(records, no);
+                    }
 
-			// 		break;
-			// case 6:
-
-            //         if(no == 0)
-			// 			printf("\nError! Database is empty, please create database and then proceed\n");
-			// 		else
-            //         {
-            //             printf("\nEnter the roll of the student to be deleted - ");
-			// 		    scanf("%d",&i);
-            //             no = delete(records, no, i);
-            //         }
-
-			// 		break;
+					break;
+			case 6:
+                    if(no == 0)
+						printf("\nError! Database is empty, please create database and then proceed\n");
+					else
+                    {
+                        printf("\nEnter the roll of the student to be searched - ");
+					    scanf("%d",&i);
+                        binarySearch(records, no, i);
+                    }
+					break;
 			case 7:
-				return 0;
+                    if(no == 0)
+						printf("\nError! Database is empty, please create database and then proceed\n");
+					else
+                    {
+                        printf("\nEnter the roll of the student to be searched - ");
+					    scanf("%d",&i);
+                        bubbleSort(records, no);
+                        binSearch(records, no, i, 0, no/2);
+                    }
+					break;
+			case 8:
+                    return 0;
 			default:
 				printf("\nPlease select a number form menu - ");
 				break;
