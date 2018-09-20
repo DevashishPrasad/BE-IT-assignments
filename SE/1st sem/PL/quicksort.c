@@ -55,14 +55,13 @@ void display(user record[100], int n)
 }
 int add(struct database record[100], int n)
 {
-    int i,j,flg=0;
-    printf("\n\nRecord Number - %d ",i+1);
+    printf("\n\nRecord Number - %d ",n);
     printf("\nEnter the name of the user - ");
-    scanf("%s", &record[i].name);
+    scanf("%s", &record[n].name);
     printf("\nEnter the bill of the user - ");
-    scanf("%f", &record[i].bill);
+    scanf("%f", &record[n].bill);
     printf("\nEnter the phone - ");
-    scanf("%ld", &record[i].phone);
+    scanf("%ld", &record[n].phone);
     n++;
     return n;
 }
@@ -80,18 +79,15 @@ void QuickSort(user record[100],int first,int last)
 
         while(i<j)
         {
-            printf("\nLoop");
-
-            while(strcmp(record[i].name, record[pivot].name) <= 0 && i<last)
+            while(strcmp(record[i].name, record[pivot].name) >= 0 && i<last)
                 i++;
 
-            while(strcmp(record[j].name, record[pivot].name) > 0)
+            while(strcmp(record[j].name, record[pivot].name) < 0)
                 j--;
 
             cmp++;
             if(i<j)
             {
-                printf("\nLoop");
                 temp=record[i];
                 record[i]=record[j];
                 record[j]=temp;
@@ -101,7 +97,7 @@ void QuickSort(user record[100],int first,int last)
         temp=record[pivot];
         record[pivot]=record[j];
         record[j]=temp;
-        
+
         QuickSort(record,first,j-1);
         QuickSort(record,j+1,last);
     }
@@ -109,7 +105,7 @@ void QuickSort(user record[100],int first,int last)
 
 int main(void) {
 
-	int ch,no=0,i;
+	int ch,no=0;
     struct database records[100];
 
 	do{
@@ -117,7 +113,7 @@ int main(void) {
 		printf("\n 1. Create database");
 		printf("\n 2. Display database");
 		printf("\n 3. Add record");
-		printf("\n 4. Ascending order (Quick Sort)");
+		printf("\n 4. Descending order (Quick Sort)");
 		printf("\n 5. exit");
 		printf("\n Enter your choice - ");
 		scanf("%d",&ch);
