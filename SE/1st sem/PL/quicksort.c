@@ -36,22 +36,21 @@ void createdb(user record[100], int n)
         printf("\nEnter the name of the user - ");
         scanf("%s", &record[i].name);
         printf("\nEnter the bill of the user - ");
-        scanf("%f", &record[i].percent);
+        scanf("%f", &record[i].bill);
         printf("\nEnter the phone - ");
-        scanf("%ld", &record)
+        scanf("%ld", &record[i].phone);
     }
 }
 void display(user record[100], int n)
 {
     int i;
 
-    printf("\nNAME\tBILL\tPHONE");
+    printf("\nNAME\tBILL\tPHONE\n");
     for(i=0; i<n; i++)
     {
         printf("\n");
         puts(record[i].name);
-        printf("\t%f\t%ld",record[i].roll, record[i].percent);
-        // printf("\t\t");
+        printf("\t%f\t%ld",record[i].bill, record[i].phone);
     }
 }
 int add(struct database record[100], int n)
@@ -61,40 +60,51 @@ int add(struct database record[100], int n)
     printf("\nEnter the name of the user - ");
     scanf("%s", &record[i].name);
     printf("\nEnter the bill of the user - ");
-    scanf("%f", &record[i].percent);
+    scanf("%f", &record[i].bill);
     printf("\nEnter the phone - ");
-    scanf("%ld", &record)
+    scanf("%ld", &record[i].phone);
     n++;
     return n;
 }
 void QuickSort(user record[100],int first,int last)
 {
-   int i, j, pivot, temp;
+    int i, j, pivot, cmp=0;
 
-   if(first<last){
-      pivot=first;
-      i=first;
-      j=last;
+    user temp;
 
-      while(i<j){
-         while(record[i].name <= record[i] && i<last)
-            i++;
-         while(record[j].name > record[pivot].name)
-            j--;
-         if(i<j){
-            temp=number[i];
-            number[i]=number[j];
-            number[j]=temp;
-         }
-      }
+    if(first<last)
+    {
+        pivot=first;
+        i=first;
+        j=last;
 
-      temp=number[pivot];
-      number[pivot]=number[j];
-      number[j]=temp;
-      quicksort(number,first,j-1);
-      quicksort(number,j+1,last);
+        while(i<j)
+        {
+            printf("\nLoop");
 
-   }
+            while(strcmp(record[i].name, record[pivot].name) <= 0 && i<last)
+                i++;
+
+            while(strcmp(record[j].name, record[pivot].name) > 0)
+                j--;
+
+            cmp++;
+            if(i<j)
+            {
+                printf("\nLoop");
+                temp=record[i];
+                record[i]=record[j];
+                record[j]=temp;
+            }
+        }
+
+        temp=record[pivot];
+        record[pivot]=record[j];
+        record[j]=temp;
+        
+        QuickSort(record,first,j-1);
+        QuickSort(record,j+1,last);
+    }
 }
 
 int main(void) {
