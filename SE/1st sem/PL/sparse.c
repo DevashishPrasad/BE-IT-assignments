@@ -21,12 +21,13 @@ typedef struct spa
 	int val;
 }sparse;
 
-void display(sparse mat[MAX], int r1, int c1)
+void display(sparse mat[MAX])
 {
 	int i;
-	for(i=0; i<r1; i++)
+	printf("\n row\tcol\tval");
+	for(i=0; i<mat[0].val; i++)
 	{
-		printf("\n %d %d %d", mat[i].col, mat[i].row, mat[i].val);
+		printf("\n %d\t%d\t%d", mat[i].row, mat[i].col, mat[i].val);
 	}
 	return;
 }
@@ -51,6 +52,7 @@ void getmat(sparse mat[MAX], int a[10][10], int r1, int c1)
 				mat[k].row = i;
 				mat[k].col = j;
 				mat[k].val = a[i][j];
+				k++;
 			}
 		}
 	}
@@ -99,8 +101,11 @@ void transpose(sparse mat[MAX], sparse res[MAX])
 				if(mat[j].col == i)
 				{
 					res[curb].row = mat[j].col;
-					res[curb].col = mat[j].row;
+					res[curb].col = mat[j].row;/*
+
 					res[curb].val = mat[j].val;
+					printf("\nWorking");
+					curb++;
 				}
 			}
 		}
@@ -113,7 +118,7 @@ void transpose(sparse mat[MAX], sparse res[MAX])
 //	int i, j, ind=0, k, min=0, max=0, pos3=0, pos2=0, flg = 0;
 //
 //	for(i=0; i<r1; i++)
-//	{
+//	{row
 //		min = a[i][0];
 //		for(j=0; j<c1; j++)
 //		{
@@ -175,9 +180,9 @@ int main(void) {
 				else
 				{
 					printf("\n Matrix A - ");
-					display(mat1, r1, c1);
+					display(mat1);
 					printf("\n Matrix B - ");
-					display(mat2, r2, c2);
+					display(mat2);
 				}
 				break;
 
@@ -214,10 +219,10 @@ int main(void) {
 				{
 					printf("\n\nTranspose of matrix A - \n");
 					transpose(mat1, res);
-					display(mat1, r1, c1);
+					display(res);
 					printf("\n\nTranspose of matrix B - \n");
 					transpose(mat2, res);
-					display(mat2, r1, c1);
+					display(res);
 				}
 				break;
 //
