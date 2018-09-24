@@ -61,27 +61,71 @@ void getmat(sparse mat[MAX], int a[10][10], int r1, int c1)
 	mat[0].val = k;
 }
 
-//void addition(int a[10][10], int b[10][10], int c[10][10], int r1, int c1, int r2, int c2)
-//{
-//	int i,j;
-//
-//	if(r1 != r2 && c1 != c2)
-//	{
-//		printf("\nError! cannot add matrices");
-//		return;
-//	}
-//
-//	for(i=0; i<r2; i++)
-//	{
-//		for(j=0; j<c2; j++)
-//		{
-//			c[i][j] = a[i][j] + b[i][j];
-//		}
-//	}
-//
-//	return;
-//}
-//
+void addition(sparse mat1[MAX], sparse mat2[MAX], sparse res[MAX])
+{
+	int i = 1, j = 1, k = 1;
+
+	while(i < mat1[0].val && j <= mat2[0].val)
+	{
+		if(mat1[i].row == mat2[j].row && mat1[i].col == mat2[j].col)
+		{
+			res[k].row = mat1[i].row;
+			res[k].col = mat1[i].col;
+			res[k].val = mat1[i].val + mat2[j].val;
+			i++; j++; k++;
+		}
+		if(mat1[i].row == mat2[j].row && mat1[i].col < mat2[j].col)
+		{
+			res[k].row = mat1[i].row;
+			res[k].col = mat1[i].col;
+			res[k].val = mat1[i].val;
+			i++; k++;
+		}
+		if(mat1[i].row == mat2[j].row && mat1[i].col > mat2[j].col)
+		{
+			res[k].row = mat2[j].row;
+			res[k].col = mat2[j].col;
+			res[k].val = mat2[j].val;
+			j++; k++;
+		}
+		if(mat1[i].row < mat2[j].row)
+		{
+			res[k].row = mat1[i].row;
+			res[k].col = mat1[i].col;
+			res[k].val = mat1[i].val;
+			i++; k++;
+		}
+		if(mat1[i].row > mat2[j].row)
+		{
+			res[k].row = mat2[j].row;
+			res[k].col = mat2[j].col;
+			res[k].val = mat2[j].val;
+			j++; k++;
+		}
+	}
+
+	while(i < mat1[0].val)
+	{
+		res[k].row = mat1[i].row;
+		res[k].col = mat1[i].col;
+		res[k].val = mat1[i].val;
+		i++; k++;
+	}
+
+	while(j <= mat2[0].val)
+	{
+		res[k].row = mat2[i].row;
+		res[k].col = mat2[i].col;
+		res[k].val = mat2[i].val;
+		j++; k++;
+	}
+
+	res[0].row = mat1[0].row;
+	res[0].col = mat1[0].col;
+	res[0].val = k;
+	return;
+}
+
 void transpose(sparse mat[MAX], sparse res[MAX])
 {
 	int n,i,j,curb;
@@ -89,6 +133,7 @@ void transpose(sparse mat[MAX], sparse res[MAX])
 	n = mat[0].val;
 	res[0].row = mat[0].col;
 	res[0].col = mat[0].row;
+	res[0].val = mat[0].val;
 
 	if(n>0)
 	{
@@ -101,10 +146,8 @@ void transpose(sparse mat[MAX], sparse res[MAX])
 				if(mat[j].col == i)
 				{
 					res[curb].row = mat[j].col;
-					res[curb].col = mat[j].row;/*
-
+					res[curb].col = mat[j].row;
 					res[curb].val = mat[j].val;
-					printf("\nWorking");
 					curb++;
 				}
 			}
@@ -113,46 +156,36 @@ void transpose(sparse mat[MAX], sparse res[MAX])
 	return;
 }
 
-//void saddle(int a[10][10], int r1, int c1)
-//{
-//	int i, j, ind=0, k, min=0, max=0, pos3=0, pos2=0, flg = 0;
-//
-//	for(i=0; i<r1; i++)
-//	{row
-//		min = a[i][0];
-//		for(j=0; j<c1; j++)
-//		{
-//			if(min >= a[i][j])
-//			{
-//				min = a[i][j];
-//				pos3 = i;
-//				ind = j;
-//			}
-//		}
-//
-//		max = a[0][ind];
-//		for(k=0; k < r1; k++)
-//		{
-//			if(max <= a[k][ind])
-//			{
-//				max = a[k][ind];
-//				pos2 = k;
-//			}
-//		}
-//
-//		if(min == max && pos2 == pos3)
-//		{
-//			flg++;
-//			if(flg > 1)
-//				continue;
-//			printf("\n %d \n",min);
-//		}
-//	}
-//	if(flg == 0)
-//	{
-//		printf("\n Not found");
-//	}
-//}
+void fasttranspose(sparse mat[MAX], sparse res[MAX])
+{
+	int row_terms[MAX], start[MAX];
+	int i, j, num_cols = mat[0].col, num_terms = mat[0].val;
+
+	res[0].row = num_cols;
+	res[0].col = mat[0].row;
+	res[0].val = num_terms;
+
+	if(num_terms > 0)
+	{
+		for(i = 0; i < num_cols; i++)
+			row_terms[i] = 0;
+		for(i = 1; i < num_terms; i++)
+			row_terms[mat[i].col]++;
+		
+		start[0] = 1;
+
+		for(i = 1; i<num_cols; i++)
+			start[i] = start[i-1] + row_terms[i-1];
+		
+		for(i = 1; i < num_terms; i++)
+		{
+			j = start[mat[i].col]++;
+			res[j].row = mat[i].col;
+			res[j].col = mat[i].row;
+			res[j].val = mat[i].val;
+		}
+	}
+}
 int main(void) {
 
 	int ch;
@@ -201,17 +234,17 @@ int main(void) {
 				getmat(mat2, a, r2, c2);
 				break;
 
-//			case 3:
-//				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
-//					printf("\n\nError! Matrices are empty");
-//				else
-//				{
-//					printf("\n\nAddition of your matrices - \n");
-//					addition(a, b, c, r1, c1, r2, c2);
-//					display(c, r1, c1);
-//				}
-//				break;
-//
+			case 3:
+				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
+					printf("\n\nError! Matrices are empty");
+				else
+				{
+					printf("\n\nAddition of your sparse matrices - \n");
+					addition(mat1, mat2, res);
+					display(res);
+				}
+				break;
+
 			case 4:
 				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
 					printf("\n\nError! Matrices are empty");
@@ -225,21 +258,21 @@ int main(void) {
 					display(res);
 				}
 				break;
-//
-//			case 5:
-//				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
-//					printf("\n\nError! Matrices are empty");
-//				else
-//				{
-//					printf("\n\nMultiplication of your matrices (A * B)- \n");
-//					multiplication(a, b, c, r1, c1, r2, c2);
-//					display(c, r2, c1);
-//					printf("\n\nMultiplication of your matrices (B * A)- \n");
-//					multiplication(b, a, c, r1, c1, r2, c2);
-//					display(c, r2, c1);
-//				}
-//				break;
-//
+
+			case 5:
+				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
+					printf("\n\nError! Matrices are empty");
+				else
+				{
+					printf("\n\nFast Transpose of your matrix A - \n");
+					fasttranspose(mat1, res);
+					display(res);
+					printf("\n\nFast Transpose of your matrices B - \n");
+					fasttranspose(mat2, res);
+					display(res);
+				}
+				break;
+
 //			case 6:
 //				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
 //					printf("\n\nError! Matrices are empty");
