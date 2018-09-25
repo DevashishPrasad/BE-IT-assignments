@@ -25,7 +25,7 @@ void display(sparse mat[MAX])
 {
 	int i;
 	printf("\n row\tcol\tval");
-	for(i=0; i<mat[0].val; i++)
+	for(i=0; i<=mat[0].val; i++)
 	{
 		printf("\n %d\t%d\t%d", mat[i].row, mat[i].col, mat[i].val);
 	}
@@ -58,15 +58,16 @@ void getmat(sparse mat[MAX], int a[10][10], int r1, int c1)
 	}
 	mat[0].row = r1;
 	mat[0].col = c1;
-	mat[0].val = k;
+	mat[0].val = k-1;
 }
 
 void addition(sparse mat1[MAX], sparse mat2[MAX], sparse res[MAX])
 {
 	int i = 1, j = 1, k = 1;
 
-	while(i < mat1[0].val && j <= mat2[0].val)
+	while(i <= mat1[0].val && j <= mat2[0].val)
 	{
+		//printf("\nINFO: %d %d %d",i, j, k);
 		if(mat1[i].row == mat2[j].row && mat1[i].col == mat2[j].col)
 		{
 			res[k].row = mat1[i].row;
@@ -104,7 +105,7 @@ void addition(sparse mat1[MAX], sparse mat2[MAX], sparse res[MAX])
 		}
 	}
 
-	while(i < mat1[0].val)
+	while(i <= mat1[0].val)
 	{
 		res[k].row = mat1[i].row;
 		res[k].col = mat1[i].col;
@@ -171,12 +172,12 @@ void fasttranspose(sparse mat[MAX], sparse res[MAX])
 			row_terms[i] = 0;
 		for(i = 1; i < num_terms; i++)
 			row_terms[mat[i].col]++;
-		
+
 		start[0] = 1;
 
 		for(i = 1; i<num_cols; i++)
 			start[i] = start[i-1] + row_terms[i-1];
-		
+
 		for(i = 1; i < num_terms; i++)
 		{
 			j = start[mat[i].col]++;
@@ -272,33 +273,6 @@ int main(void) {
 					display(res);
 				}
 				break;
-
-//			case 6:
-//				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
-//					printf("\n\nError! Matrices are empty");
-//				else
-//				{
-//					printf("\n Transpose of A - \n");
-//					transpose(a, c, r1, c1, r2, c2);
-//					display(c, r2, c1);
-//					printf("\n Transpose of B - \n");
-//					transpose(b, c, r1, c1, r2, c2);
-//					display(c, r2, c1);
-//				}
-//				break;
-//
-//			case 7:
-//				if(r1 == 0 || r2 == 0 || c1 == 0 || c2 == 0)
-//					printf("\n\nError! Matrices are empty");
-//				else
-//				{
-//					printf("\n Saddle of A - \n");
-//					saddle(a, r1, c1);
-//					printf("\n Saddle of B - \n");
-//					saddle(b, r2, c2);
-//				}
-//				break;
-
 			case 6:
 				exit(0);
 
