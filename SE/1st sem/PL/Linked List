@@ -1,0 +1,93 @@
+/*
+ ============================================================================
+ Name        : linked.c
+ Author      : Devashish
+ Version     : 1.0
+ Copyright   : GNU Public Licence
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+	int data;
+	struct Node *next;
+};
+
+struct Node* getNode()
+{
+	struct Node *temp;
+	temp = (struct Node *) malloc(sizeof(temp));
+	printf("\n Enter the data for the Node - ");
+	scanf("%d", &temp->data);
+	temp->next = NULL;
+	return temp;
+}
+
+void display(struct Node *h)
+{
+	while(h != NULL)
+	{
+		printf(" %d -> ", h->data);
+		h = h->next;
+	}
+}
+
+int main(void) {
+
+	int i, n, ch;
+	struct Node *p, *head=NULL;
+
+	printf("\n Creating the Head -");
+
+	head = getNode();
+
+	printf("\n How many elements do you want to enter - ");
+	scanf("%d", &n);
+
+	p = head;
+
+	for(i = 0; i < n; i++)
+	{
+		p->next = getNode();
+		p = p->next;
+	}
+	do{
+		printf("\n\n\n MENU - ");
+		printf("\n 1. Insert at front");
+		printf("\n 2. Insert in middle");
+		printf("\n 3. Insert at last");
+		printf("\n 4. Delete from front");
+		printf("\n 5. Delete from middle");
+		printf("\n 6. Delete from last");
+		printf("\n 7. Reverse the list");
+		printf("\n 8. Display the list");
+		printf("\n 9. Exit");
+		printf("\nEnter your choice - ");
+		scanf("%d",&ch);
+
+		switch(ch)
+		{
+			case 1:
+
+					break;
+			case 2:
+
+					break;
+			case 8:
+					printf("\n\n Your List - \n");
+					display(head);
+					printf(" NULL ");
+					break;
+			case 9:
+					return 0;
+			default:
+					printf("\n Please enter a valid option");
+		}
+	}while(1);
+
+	return 0;
+}
