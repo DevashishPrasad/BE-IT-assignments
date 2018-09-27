@@ -123,7 +123,7 @@ void addition(sparse mat1[MAX], sparse mat2[MAX], sparse res[MAX])
 
 	res[0].row = mat1[0].row;
 	res[0].col = mat1[0].col;
-	res[0].val = k;
+	res[0].val = k-2;
 	return;
 }
 
