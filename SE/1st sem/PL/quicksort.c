@@ -5,14 +5,13 @@
  Version     : 1.0
  Copyright   : GNU Public License
  Description : Database using array of structures
- Problem     : Create a database using array of structures and perform
-               following operations -
-               1. Create database
-               2. Display database
-               3. Add record
-               4. Search record
-               5. Modify record
-               6. Delete record
+ Problem     : Accept mobile user information eg(mobile, name, bill)
+               1. Display the data in descending order of name 
+                  using recursive quick sort
+               2. Display pivot positioning and its corresponding
+                  list in each pass
+               3. Display the number of passes and comparisons for
+                  different test cases (worst, average, best cases)
  ============================================================================
  */
 
@@ -45,12 +44,11 @@ void display(user record[100], int n)
 {
     int i;
 
-    printf("\nNAME\tBILL\tPHONE\n");
+    printf("\nNAME\t\tBILL\t\t\tPHONE\n");
     for(i=0; i<n; i++)
     {
         printf("\n");
-        puts(record[i].name);
-        printf("\t%f\t%ld",record[i].bill, record[i].phone);
+        printf("%s\t\t%f\t\t\t%ld", record[i].name, record[i].bill, record[i].phone);
     }
 }
 int add(struct database record[100], int n)
@@ -65,9 +63,12 @@ int add(struct database record[100], int n)
     n++;
     return n;
 }
+
+int p = 0, no=0;
+
 void QuickSort(user record[100],int first,int last)
 {
-    int i, j, pivot, cmp=0;
+    int i, j, k, pivot, cmp=0, swap=0;
 
     user temp;
 
@@ -88,6 +89,7 @@ void QuickSort(user record[100],int first,int last)
             cmp++;
             if(i<j)
             {
+                swap++;
                 temp=record[i];
                 record[i]=record[j];
                 record[j]=temp;
@@ -101,11 +103,20 @@ void QuickSort(user record[100],int first,int last)
         QuickSort(record,first,j-1);
         QuickSort(record,j+1,last);
     }
+
+    p++;
+    printf("\n PASS %d - ", p);
+
+    for (k = 0; k < no; k++)       
+        printf("  %s  ", record[k].name);
+
+    printf("\n Compariosns - %d ", cmp);
+    printf("\n Swaps - %d ", cmp);
 }
 
 int main(void) {
 
-	int ch,no=0;
+	int ch;
     struct database records[100];
 
 	do{
