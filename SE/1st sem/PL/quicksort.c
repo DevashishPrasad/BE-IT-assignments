@@ -111,7 +111,8 @@ void QuickSort(user record[100],int first,int last)
         printf("  %s  ", record[k].name);
 
     printf("\n Compariosns - %d ", cmp);
-    printf("\n Swaps - %d ", cmp);
+    printf("\n Swaps - %d ", swap);
+    printf("\n Pivot - %s ", record[pivot].name);
 }
 
 int main(void) {
