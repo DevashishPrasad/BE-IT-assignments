@@ -187,6 +187,7 @@ void fasttranspose(sparse mat[MAX], sparse res[MAX])
 		}
 	}
 }
+
 int main(void) {
 
 	int ch;
