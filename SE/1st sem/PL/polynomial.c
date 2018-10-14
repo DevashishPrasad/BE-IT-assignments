@@ -19,9 +19,9 @@ typedef struct Node
 
 }Node;
 
-struct Node* getNode(int exp, float coeff)
+Node* getNode(int exp, float coeff)
 {
-	struct Node *temp;
+	Node *temp;
 	temp = (struct Node *) malloc(sizeof(temp));
 	temp->exp = exp;
 	temp->coeff = coeff;
@@ -29,13 +29,15 @@ struct Node* getNode(int exp, float coeff)
 	return temp;
 }
 
-void display(struct Node *h)
+void display(Node *h)
 {
-	while(h != NULL)
+	struct Node *p = h;
+	while(p->next != h)
 	{
-		printf(" %d + ", h->data);
-		h = h->next;
+		printf(" %fx^%d + ", p->coeff, p->exp);
+		p = p->next;
 	}
+	printf(" %fx^%d", p->coeff, p->exp);
 }
 
 Node * insert(Node * head, Node *p)
@@ -43,112 +45,122 @@ Node * insert(Node * head, Node *p)
 	if(head == NULL)
 	{
 		head = p;
-		head->next = NULL;
+		head->next = p;
 		return head;
 	}
+
+	Node *t = head;
+	
 	if(head->exp < p->exp)
 	{
 		p->next = head;
-		p = head;
+		
+		while(t->next != head)
+			t = t->next;
+		
+		t->next = p;
+		head = p;
+
+		return head;
 	}
+	while(t->next != head && p->exp <= t->exp)
+		t = t->next;
+	
+	if(p->exp == t->exp)
+		t->coeff += p->coeff;
+	else
+	{
+		p->next = t->next;
+		t->next = p;
+	}
+
+	return head;
 }
 
 Node * create_poly(Node * head)
 {
-	int n, ex;
+	int n, ex, i;
 	float co;
 	printf("\n How many elements do you want to enter - ");
 	scanf("%d", &n);
 
-	printf("\n\n Enter the coefficient and exponent - ");
-	scanf("%f %d", &co, &ex);
+	Node * p;
+	
+	for(i = 0; i<n; i++)
+	{
+		printf("\n\n Enter the coefficient and exponent of %d term - ",i+1);
+		scanf("%f %d", &co, &ex);
+		p = getNode(ex, co);
+		head = insert(head, p);
+	}
 
-	Node * p = getNode(ex, co);
-	head = insert(head, p);
+	return head;
 }
 
-int main(void) {
 
-	int i, n, ch, pos;
-	struct Node *p, *head=NULL;
-
-	printf("\n Creating the Head -");
-
-	head = getNode();
-
-	p = head;
-
-	for(i = 0; i < n; i++)
+Node * addition(Node * head, Node *head2, Node* head3)
+{
+	Node * p = head;
+	do
 	{
-		p->next = getNode();
-		p = p->next;
-	}
+		head3 = insert(head3, p);
+		// printf("skdjdskjsdkjk0\n");
+		p = p->next;	
+	}while(p != head);
+
+	// p = head2;
+	
+	// do
+	// {
+	// 	head3 = insert(head3, p);
+	// 	printf("skdjdskjsdkjk1 ");
+	// 	p = p->next;
+	// }while(p != head2);
+	
+	return head3;
+}
+
+
+int main(void) {
+	
+	int ch;
+
+	Node* head = NULL;
+	Node* head2 = NULL;
+	Node* head3 = NULL;
 
 	do
 	{
 		printf("\n\n\n MENU - ");
-		printf("\n 1. Insert at front");
-		printf("\n 2. Insert in middle");
-		printf("\n 3. Insert at last");
-		printf("\n 4. Delete from front");
-		printf("\n 5. Delete from middle");
-		printf("\n 6. Delete from last");
-		printf("\n 7. Revert the list");
-		printf("\n 8. Reverse the list");
-		printf("\n 9. Display the list");
-		printf("\n 10. Exit");
+		printf("\n 1. Create LL");
+		printf("\n 2. Addition");
+		printf("\n 3. Multiplication");
+		printf("\n 4. Display");
+		printf("\n 5. Exit");
 		printf("\n Enter your choice - ");
 		scanf("%d",&ch);
 
 		switch(ch)
 		{
 			case 1:
-					printf("\n\n Inserting at front - \n");
-					head = insert_front(head);
+					head = create_poly(head);
 					break;
 			case 2:
-					printf("\n\n Inserting in middle - Enter the position - ");
-					scanf("%d", &pos);
-					head = insert_middle(head, pos);
+					printf("\n\n Please enter second polynomial - ");
+					head2 = create_poly(head2);
+					// display(head2);
+					head3 = addition(head, head2, head3);
+					display(head3);
 					break;
-			case 3:
-					printf("\n\n Insertion at last - \n");
-					head = insert_last(head);
-					break;
+			// case 3:
+			// 		printf("\n\n Insertion at last - \n");
+			// 		head = insert_last(head);
+			// 		break;
 			case 4:
-					printf("\n\n Deletion at first - \n");
-					head = delete_front(head);
-					printf("\n Deleted successfully");
+					printf("\n\n Your List - \n\n");
+					display(head);
 					break;
 			case 5:
-					printf("\n\n Deletion at middle - Enter the position \n");
-					scanf("%d", &pos);
-					head = delete_middle(head, pos);
-					printf("\n Deleted successfully");
-					break;
-			case 6:
-					printf("\n\n Deletion at end - \n");
-					head = delete_last(head);
-					printf("\n Deleted successfully");
-					break;
-			case 7:
-					printf("\n\n Reverting your list - ");
-					head = revert(head);
-					display(head);
-					break;
-			case 8:
-					printf("\n\n Reversing your list - ");
-					reverse(head);
-					printf("\n\n Original list - ");
-					display(head);
-					printf(" NULL ");
-					break;
-			case 9:
-					printf("\n\n Your List - \n");
-					display(head);
-					printf(" NULL ");
-					break;
-			case 10:
 					return 0;
 			default:
 					printf("\n Please enter a valid option");

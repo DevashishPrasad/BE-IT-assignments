@@ -1,0 +1,25 @@
+  Enter the book index tring to be coverted to GLL (1, 2, (2.1, 2.2), 3, 4)     
+The book index is - 
+ 1
+ 2
+ 
+  2.1
+  2.2
+ 3
+ 4
+ Do you want to try again(y/n)y
+
+  Enter the book index tring to be coverted to GLL (1, (1.1, 1.2, 1.3), 2, 3, (3.1, 3.3))
+The book index is - 
+ 1
+ 
+  1.1
+  1.2
+  1.3
+ 2
+ 3
+ 
+  3.1
+  3.3
+ Do you want to try again(y/n)n
+

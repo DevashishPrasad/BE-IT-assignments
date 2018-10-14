@@ -1,0 +1,56 @@
+
+1.Build Master Table
+2.Display Records
+Enter your choice :-1
+Enter the number of entries2
+
+Record No. 1
+Enter Name:-qwewer
+
+Enter DOB(dd/mm/yy):-345456
+
+Enter Blood Group:-we 
+
+Enter Height:-123
+
+Enter Weight:-1
+
+Enter Policy Number:-32123
+
+Enter Address:-12323
+
+Enter Phone No.:-1231
+
+Enter License Number:-123213
+
+Record No. 2
+Enter Name:-fgvbdb
+
+Enter DOB(dd/mm/yy):-343212
+
+Enter Blood Group:-ewre
+
+Enter Height:-
+324
+
+Enter Weight:-45
+
+Enter Policy Number:-432
+
+Enter Address:-ewrerw
+
+Enter Phone No.:-2342
+
+Enter License Number:-4523
+
+1.Build Master Table
+2.Display Records
+Enter your choice :-2
+Name	DOB	Blood	Height	Weight	PolicyNo.	Address	PhoneNo.	LicenseNo
+qwewer	345456	we	123	1	32123		12323	1231		123213
+fgvbdb	343212	ewre	324	45	432		ewrerw	2342		4523
+
+1.Build Master Table
+2.Display Records
+Enter your choice :-3
+

@@ -1,0 +1,105 @@
+
+		------------ MAIN MENU ---------------
+		1.Add
+		2.Multiply
+		3.Evaluate
+		4.Exit
+		--------------------------------------
+		Enter your choice : 1
+
+
+Enter no of terms of polynomial : 2 
+
+
+Enter coef & expo of 1 term: 23 4
+
+
+Enter coef & expo of 2 term: 32 56
+
+
+	The polynomial is : 23x^(4) +  32x^(56)
+
+Enter no of terms of polynomial : 2   
+
+
+Enter coef & expo of 1 term: 5 4
+
+
+Enter coef & expo of 2 term: 23 7
+
+
+	The polynomial is : 5x^(4) +  23x^(7)
+
+Addition of polynomial : 
+
+	The polynomial is : 28x^(4) + 23x^(7) +  32x^(56)
+
+		------------ MAIN MENU ---------------
+		1.Add
+		2.Multiply
+		3.Evaluate
+		4.Exit
+		--------------------------------------
+		Enter your choice : 2
+
+
+Enter no of terms of polynomial : 2
+
+
+Enter coef & expo of 1 term: 34 1
+
+
+Enter coef & expo of 2 term: 243 2
+
+
+	The polynomial is : 34x^(1) +  243x^(2)
+
+Enter no of terms of polynomial : 2 
+
+
+Enter coef & expo of 1 term: 2 4
+
+
+Enter coef & expo of 2 term: 12 1
+
+
+	The polynomial is : 12x^(1) +  2x^(4)
+
+
+Multiplication of polynomial : 
+
+	The polynomial is : 408x^(2) + 2916x^(3) + 68x^(5) +  486x^(6)
+
+		------------ MAIN MENU ---------------
+		1.Add
+		2.Multiply
+		3.Evaluate
+		4.Exit
+		--------------------------------------
+		Enter your choice : 3
+
+
+Enter no of terms of polynomial : 2
+
+
+Enter coef & expo of 1 term: 4 4
+
+
+Enter coef & expo of 2 term: 23 5
+
+
+	The polynomial is : 4x^(4) +  23x^(5)
+
+Enter the value of x : 3
+
+
+Value of polynomial = 5913
+
+		------------ MAIN MENU ---------------
+		1.Add
+		2.Multiply
+		3.Evaluate
+		4.Exit
+		--------------------------------------
+		Enter your choice : 4
+

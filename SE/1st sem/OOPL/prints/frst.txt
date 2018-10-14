@@ -1,0 +1,114 @@
+
+-------------- MENU --------------
+1. Add Details
+2. Display data for Month
+3. Display Average
+4. Exit
+----------------------------------
+Enter your choice - 1
+
+Enter the number of days to be populated - 3
+
+
+
+Enter the Day - 4
+
+Enter the High Temperature - 45
+
+Enter the Low Temperature - 34
+
+Enter the Snow Fall - 45
+
+Enter the Rain Fall - 23
+
+
+
+Enter the Day - 2
+
+Enter the High Temperature - 3
+
+Enter the Low Temperature - 5
+
+High temperature cannot be less than low temperature
+Please enter the values again
+Enter the High Temperature - 3
+
+Enter the Low Temperature - 1
+
+Enter the Snow Fall - 5
+
+Enter the Rain Fall - 23
+
+
+
+Enter the Day - 6
+
+Enter the High Temperature - 453
+
+Enter the Low Temperature - 324
+
+Enter the Snow Fall - 21
+
+Enter the Rain Fall - 54
+
+-------------- MENU --------------
+1. Add Details
+2. Display data for Month
+3. Display Average
+4. Exit
+----------------------------------
+Enter your choice - 2
+
+Data for the month - 
+DAY	HT	LT	SF	RF
+9999	9999	-9999	9999	9999
+2	3	1	5	23
+9999	9999	-9999	9999	9999
+4	45	34	45	23
+9999	9999	-9999	9999	9999
+6	453	324	21	54
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+9999	9999	-9999	9999	9999
+-------------- MENU --------------
+1. Add Details
+2. Display data for Month
+3. Display Average
+4. Exit
+----------------------------------
+Enter your choice - 3
+
+Average of data - 
+High Temp - 167
+Low Temp - 119
+Snow Fall - 23
+Rain Fall - 33
+-------------- MENU --------------
+1. Add Details
+2. Display data for Month
+3. Display Average
+4. Exit
+----------------------------------
+Enter your choice - 4
+

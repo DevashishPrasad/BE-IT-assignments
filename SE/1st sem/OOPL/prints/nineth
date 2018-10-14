@@ -1,0 +1,36 @@
+Record number 1
+Enter name - 
+asdsad
+Enter rollno - 
+122
+Enter marks - 
+324
+
+
+Record number 2
+Enter name - 
+werrwe
+Enter rollno - 
+43
+Enter marks - 
+12
+
+
+Record number 3
+Enter name - 
+tryyut
+Enter rollno - 
+45
+Enter marks - 
+324
+
+
+Records written in file successfully
+
+
+Reading records from file
+NAME	ROLLNO	MARKS
+1asdsad	122	324
+2werrwe	43	12
+3tryyut	45	324
+

@@ -1,0 +1,136 @@
+
+
+---------------Student Database---------------
+
+1 --> Add New Record
+2 --> Display All Records
+3 --> Display by RollNo
+4 --> Modify The Student Data
+5 --> Deleting a Record
+6 --> Exit
+
+-------------------------------------------------
+
+Choose your choice : 1
+
+Enter Roll_No : 123
+
+Enter Name : qwewqe
+
+Enter Learning Year  : 123
+
+Enter Division  : 23
+
+Enter address : wer
+
+Record Inserted.
+
+---------------Student Database---------------
+
+1 --> Add New Record
+2 --> Display All Records
+3 --> Display by RollNo
+4 --> Modify The Student Data
+5 --> Deleting a Record
+6 --> Exit
+
+-------------------------------------------------
+
+Choose your choice : 1
+
+Enter Roll_No : 222
+
+Enter Name : qwe
+
+Enter Learning Year  : 34
+
+Enter Division  : er
+
+Enter address : 12
+
+Record Inserted.
+
+---------------Student Database---------------
+
+1 --> Add New Record
+2 --> Display All Records
+3 --> Display by RollNo
+4 --> Modify The Student Data
+5 --> Deleting a Record
+6 --> Exit
+
+-------------------------------------------------
+
+Choose your choice : 2
+
+--------------------------------------------------
+ ROLL      NAME      YEAR       DIV      CITY
+--------------------------------------------------
+  343       sda       43           43 retretret
+--------------------------------------------------
+  123    qwewqe      123           23       wer
+--------------------------------------------------
+  222       qwe       34           er        12
+--------------------------------------------------
+
+---------------Student Database---------------
+
+1 --> Add New Record
+2 --> Display All Records
+3 --> Display by RollNo
+4 --> Modify The Student Data
+5 --> Deleting a Record
+6 --> Exit
+
+-------------------------------------------------
+
+Choose your choice : 3
+
+Enter Roll Number : 123
+
+---------------------------------------------------
+ ROLL      NAME      YEAR       DIV      CITY
+---------------------------------------------------
+  123    qwewqe      123           23       wer
+--------------------------------------------------
+
+---------------Student Database---------------
+
+1 --> Add New Record
+2 --> Display All Records
+3 --> Display by RollNo
+4 --> Modify The Student Data
+5 --> Deleting a Record
+6 --> Exit
+
+-------------------------------------------------
+
+Choose your choice : 4
+
+Enter RollNo Which Data You Want To Modify : 222
+
+Enter Name To Update: werewr
+
+Enter Learning Year To Update : 34
+
+Enter Division To Update : 23
+
+Enter address To Update: fdf
+
+------------ Data Successfully Updated --------------
+
+---------------Student Database---------------
+
+1 --> Add New Record
+2 --> Display All Records
+3 --> Display by RollNo
+4 --> Modify The Student Data
+5 --> Deleting a Record
+6 --> Exit
+
+-------------------------------------------------
+
+Choose your choice : 5
+Enter rollNo Which Record You Want To Modify123
+
+File Closed.

@@ -1,0 +1,56 @@
+		------------Main Menu--------------
+
+		1.Read Details
+		2.Display Bio-Data
+		3.Exit
+
+		--------------------------------------
+		Enter Your Choice : 1
+
+--------------------------------------
+Enter The Name : asdsd
+
+Enter The DOB(In dd-mm-yyyy) : 1212
+
+Enter The bgroup : ew
+
+Enter The Experience (In Years) : 23
+
+Enter The Experties ( If Multiple Enter Comma Seperated ) : wqe,qwe,e
+
+Enter Percentage Got In Degree : 67
+
+
+		------------Main Menu--------------
+
+		1.Read Details
+		2.Display Bio-Data
+		3.Exit
+
+		--------------------------------------
+		Enter Your Choice : 2
+
+----------------------------------------                                                   
+		RESUME
+----------------------------------------
+Name : 	asdsd
+
+Date Of Birth : 	1212
+
+Blood Group : 	ew
+
+Year Of Experience : 	23 Yrs
+
+Skills : 	wqe,qwe,e
+
+Degree Percentile : 	67
+----------------------------------------
+
+		------------Main Menu--------------
+
+		1.Read Details
+		2.Display Bio-Data
+		3.Exit
+
+		--------------------------------------
+		Enter Your Choice : 3

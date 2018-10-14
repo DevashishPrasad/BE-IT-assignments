@@ -5,22 +5,39 @@ using namespace std;
 template <typename T>
 class Mat
 {
-    T m[10][10];
-    int r, c;
+    T m[10][10], n[10][10], x[10][10];
+    int r1, c1, r2, c2;
         
     public:
 
     void display()
     {
 	    int i,j;
-     	    cout<<"\n\n";
-     	    if(r>0 && c>0)
+        cout<<"\n\n";
+    
+	    if(r1>0 && c1>0)
 	    {
-	      for(i=0; i<r; i++)
-     	      {
-	          for(j=0; j<c; j++)
+	      for(i=0; i<r1; i++)
+          {
+	        for(j=0; j<c1; j++)
 		    {
 			    cout<<"  " << m[i][j] << "  ";
+		    }
+		    cout<<"\n\n";
+	      }
+	    }
+	    else
+	    {
+	      cout<<"\n Matrix is Empty\n\n";
+	    }
+
+		if(r2>0 && c2>0)
+	    {
+	      for(i=0; i<r2; i++)
+          {
+	        for(j=0; j<c2; j++)
+		    {
+			    cout<<"  " << n[i][j] << "  ";
 		    }
 		    cout<<"\n\n";
 	      }
@@ -34,124 +51,142 @@ class Mat
 
     void getmat()
     {
-    
 	    int i,j;
-	    r=c=0;
+	    r1=c1=r2=c2=0;
 	    
-	    cout<<"\n Enter the number rows of the Matrix - ";
-	    while(r == 0)
+	    cout<<"\n Enter the number rows of the Matrix 1 - ";
+	    while(r1 == 0)
  	    {
- 	      cin>>r;
- 	      if(r > 0) break;
+ 	      cin>>r1;
+ 	      if(r1 > 0) break;
  	      cout<<"\n Matrix rows cannot be 0 or -ve , try again";
  	    }
  	    
    	    cout<<"\n Enter the number columns of the Matrix - ";
-   	    while(c == 0)
+   	    while(c1 == 0)
  	    {
- 	      cin>>c;
- 	      if(c > 0) break;
+ 	      cin>>c1;
+ 	      if(c1 > 0) break;
  	      cout<<"\n Matrix columns cannot be 0 or -ve , try again";
  	    }
 	    
-    	    for(i=0; i<r; i++)
+    	for(i=0; i<r1; i++)
 	    {
-		    for(j=0; j<c; j++)
+		    for(j=0; j<c1; j++)
 		    {
 			    cout<<"\n Element ["<< i <<"]["<< j <<"] - ";
 			    cin>>m[i][j];
 		    }
  	    }
-	    return;
-    }
-    
-    friend void addition(Mat<int> a, Mat<int> b, Mat<int> x);
-    template <typename U> friend void subtraction(Mat<U> a, Mat<U> b, Mat<U> x);
-    template <typename U> friend void multiplication(Mat<U> a, Mat<U> b, Mat<U> x);    
-    
-};
 
-void addition(Mat<int> a, Mat<int> b, Mat<int> x)
-{
-	                  cout<"wjdhd";
-	int i,j;
-
-	if(a.r != b.r && a.c != b.c)
-	{
-		 cout<<"\n Error! cannot add matrices";
-		 return;
-	}
-
-	for(i=0; i<b.r; i++)
-	{
-	       for(j=0; j<b.c; j++)
-	       {
-	                  cout<"wjdhd";
-			    x.m[i][j] = a.m[i][j] + b.m[i][j];
-		 }
-	}
-      
-      x.r = b.r;
-      x.c = b.c;
-      return;
-}
-
-template <typename T>
-void subtraction(Mat<T> a, Mat<T> b, Mat<T> x)
-{
-	int i,j;
-
-	if(a.r != b.r && a.c != b.c)
-	{
-	   cout<<"\n Error! cannot subtract matrices";
-	   return;
-	}
-
-	for(i=0; i<b.r; i++)
-      {
-	    for(j=0; j<b.c; j++)
+		cout<<"\n Enter the number rows of the Matrix 2 - ";
+	    while(r2 == 0)
+ 	    {
+ 	      cin>>r2;
+ 	      if(r2 > 0) break;
+ 	      cout<<"\n Matrix rows cannot be 0 or -ve , try again";
+ 	    }
+ 	    
+   	    cout<<"\n Enter the number columns of the Matrix - ";
+   	    while(c2 == 0)
+ 	    {
+ 	      cin>>c2;
+ 	      if(c2 > 0) break;
+ 	      cout<<"\n Matrix columns cannot be 0 or -ve , try again";
+ 	    }
+	    
+    	for(i=0; i<r2; i++)
 	    {
-		    x.m[i][j] = a.m[i][j] - b.m[i][j];
-	    }
-      }
-}
-
-template <typename T>
-void multiplication(Mat<T> a, Mat<T> b, Mat<T> x)
-{
-     int i,j,k;
-
-     if(a.c != b.r)
-     {
-          cout<<"\n Error! cannot multiply matrices";
+		    for(j=0; j<c2; j++)
+		    {
+			    cout<<"\n Element ["<< i <<"]["<< j <<"] - ";
+			    cin>>n[i][j];
+		    }
+ 	    }
 	    return;
-     }
-
-    for(i=0; i<a.r; i++)
-    {
-		for(j=0; j<a.c; j++)
-		{
-			x.m[i][j] = 0;
-		}
     }
     
-    for(i=0; i<a.r; i++)
-    {
-            for(j=0; j<a.c; j++)
-	      {
-		      for(k=0; k<a.c; k++)
-	      	{
-		      	x.m[i][j] = x.m[i][j] + a.m[i][k]*b.m[k][j];
-		      }
-	      }
-     }
-}
+	void addition()
+	{
+		int i,j;
+
+		if(r1 != r2 && c1 != c2)
+		{
+			cout<<"\n Error! cannot add matrices";
+			return;
+		}
+
+		for(i=0; i<r1; i++)
+		{
+			for(j=0; j<c1; j++)
+			{
+					x[i][j] = m[i][j] + n[i][j];
+					cout<< " "<< x[i][j] << " ";
+			}
+			cout<<endl;
+		}
+		return;
+	}
+
+	void subtraction()
+	{
+		int i,j;
+
+		if(r1 != r2 && c1 != c2)
+		{
+			cout<<"\n Error! cannot subtract matrices";
+			return;
+		}
+
+		for(i=0; i<r1; i++)
+		{
+			for(j=0; j<c1; j++)
+			{
+				x[i][j] = m[i][j] - n[i][j];
+				cout<< " " <<x[i][j] << " ";
+			}
+			cout<<endl;
+		}
+	}
+
+	void multiplication()
+	{
+		int i,j,k;
+
+		if(c1 != r2)
+		{
+			cout<<"\n Error! cannot multiply matrices";
+			return;
+		}
+
+		for(i=0; i<r1; i++)
+		{
+			for(j=0; j<c1; j++)
+			{
+				x[i][j] = 0;
+			}
+		}
+		
+		for(i=0; i<r1; i++)
+		{
+			for(j=0; j<c1; j++)
+			{
+				for(k=0; k<c1; k++)
+				{
+					x[i][j] = x[i][j] + m[i][k] * n[k][j];
+				}
+				cout<<" "<<x[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+	}
+};
 
 int main(void) 
 {
       int ch;
-      Mat<int> a, b, x;
-      Mat<float> af, bf, cf;
+      Mat<int> a;
+      Mat<float> b;
 
 	do{
 		cout<<"\n MENU - ";
@@ -169,17 +204,17 @@ int main(void)
 		{
 			case 1:
 				
-				cout<<"\n Matrix A - ";
+				cout<<"\n Int Matrix - ";
 				a.display();
-				cout<<"\n Matrix B - ";
+				cout<<"\n Float Matrix - ";
 				b.display();
 				break;
 
 			case 2:
 				
-				cout<<"\n Enter for in matrix A - ";
+				cout<<"\n Enter for Int matrix - ";
 				a.getmat();
-				cout<<"\n Enter for matrix B - ";
+				cout<<"\n Enter for Float matrix - ";
 				b.getmat();
 				cout<<"\n Matrices are populated successfully";
 				break;
@@ -187,28 +222,28 @@ int main(void)
 			case 3:
 			
 				cout<<"\n\n Addition of your matrices - \n";
-				addition(a, b, x);
-				x.display();
+				cout<<"\n INT - \n";
+				a.addition();
+				cout<<"\n FLOAT - \n";
+				b.addition();
 				break;
 
 			case 4:
 			
-				cout<<"\n\n Subtraction of your matrices (A - B)- \n";
-				subtraction(a, b, x);
-				x.display();
-				cout<<"\n\n Subtraction of your matrices (B - A)- \n";
-				subtraction(b, a, x);
-				x.display();
+				cout<<"\n\n Subtraction of your matrices - \n";
+				cout<<"\n INT - \n";
+				a.subtraction();
+				cout<<"\n FLOAT - \n";
+				b.subtraction();
 				break;
 
 			case 5:
 			
 				cout<<"\n\n Multiplication of your matrices (A * B)- \n";
-				multiplication(a, b, x);
-				x.display();
-				cout<<"\n\n Multiplication of your matrices (B * A)- \n";
-				multiplication(b, a, x);
-				x.display();
+				cout<<"\n INT - \n";
+				a.multiplication();
+				cout<<"\n FLOAT - \n";
+				b.multiplication();
 				break;
 
 			case 6:

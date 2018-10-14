@@ -1,0 +1,162 @@
+Enter the number of books to be entered in the database - 2
+
+
+
+Enter the details for the book- 
+Title : qqqq
+
+Author : reeee
+
+Publisher :rtrt
+
+Stock : 23
+
+Price : 1234
+
+
+
+Enter the details for the book- 
+Title : zxcv
+
+Author : aaaa
+
+Publisher :rttr
+
+Stock : 12
+
+Price : 2345
+
+Database created successfully 
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 2
+
+ Displaying all books in database
+Name	Author	Publisher	Stock	Price
+qqqq	reeee	rtrt		23	1234
+zxcv	aaaa	rttr		12	2345
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 3
+
+ Enter the name of book you want to search - qqqq
+
+Name	Author	Publisher	Stock	Price
+qqqq	reeee	rtrt		23	1234
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 4
+
+ Enter the name of the book you want to modify - qqqq
+
+The book found -
+qqqq	reeee	rtrt		23	1234
+
+
+Enter the details for the book- 
+Title : qwert
+
+Author : reeee
+
+Publisher :rtrt
+
+Stock : 23
+
+Price : 1234
+
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 5
+
+ Enter the name of the book you want to purchase - qwert
+
+The book found -
+qwert	reeee	rtrt		23	1234
+Enter the number of books you want to purchase - 20
+
+Books purchased successfully
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 7
+
+Your transactions = 1
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 6
+
+ Your total amount of purchase is - 24680/-
+ Checkedout out successfully
+
+
+
+ *******  MENU  *******
+ 1. ADD a book
+ 2. DISPLAY all books
+ 3. SEARCH a book
+ 4. MODIFY a book
+ 5. PURCHASE books
+ 6. BILL(checkout)
+ 7. TRANSACTIONS
+ 8. EXIT
+ Enter your choice - 8
+
