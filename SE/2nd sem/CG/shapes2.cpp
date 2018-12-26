@@ -48,35 +48,44 @@ void drawShape()
 	Max.x = glutGet(GLUT_WINDOW_WIDTH);
 	Max.y = glutGet(GLUT_WINDOW_HEIGHT);
 	
-	// Getting center of axes
-	Point AxisCenter;
-	AxisCenter.x = Max.x/2;
-	AxisCenter.y = Max.y/2;
-	
 	// Setting the origin point
 	Point Origin;
 	Origin.x = 0;
 	Origin.y = 0;
 	
+	// Setting fake origin point
+	Point FakeOrigin;
+	FakeOrigin.x = Max.x/2;
+	FakeOrigin.y = Max.y/2;
+	
+	// UPPER SHAPE
+	// setting dimensions of UPPER Shape
+	int Ulen = 250;
+	int Uwid = 200;
+	
+	// set adjust for upper shape
+	int upadjust = 50;
+	// Setting Fake Center
+	Point FakeCenterU;
+	FakeCenterU.x = FakeOrigin.x + 250/2 + upadjust;
+	FakeCenterU.y = FakeOrigin.y + 200/2 + upadjust;
+		
 	// drawing the lines
-	// Screen Shape
-	drawLine(Origin.x, Origin.y, Max.x, Origin.y);
-	drawLine(Origin.x, Origin.y, Origin.x, Max.y);
-	drawLine( Origin.x, Max.y, Max.x, Max.y);
-	drawLine( Max.x, Origin.y, Max.x, Max.y);
-	// Quadrant Lines
-	drawLine( Max.x, AxisCenter.y, Origin.x, AxisCenter.y);
-	drawLine( AxisCenter.x, Origin.y, AxisCenter.x, Max.y);
-	// Outer Shape
-	drawLine(AxisCenter.x, Origin.y, Origin.x, AxisCenter.y);
-	drawLine(Origin.x, AxisCenter.y, AxisCenter.x, Max.y);
-	drawLine(AxisCenter.x, Max.y, Max.x, AxisCenter.y);
-	drawLine(Max.x, AxisCenter.y, AxisCenter.x, Origin.y);  
-	// Inner Shape
-	drawLine(Max.x/4, Max.y/4, Max.x/4 , Max.y - Max.y/4);
-	drawLine(Max.x/4, Max.y/4, Max.x - Max.x/4 , Max.y/4);
-	drawLine(Max.x - Max.x/4, Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
-	drawLine(Max.x/4 , Max.y - Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
+	// UPPER SHAPE Screen Shape
+	drawLine(FakeOrigin.x + upadjust, FakeOrigin.y + upadjust, FakeOrigin.x + upadjust , FakeOrigin.y + Uwid +upadjust);
+	drawLine(FakeOrigin.x + upadjust, FakeOrigin.y + upadjust, FakeOrigin.x + Ulen + upadjust, FakeOrigin.y + upadjust);
+	drawLine(FakeOrigin.x + upadjust, FakeOrigin.y + Uwid + upadjust, FakeOrigin.x + Ulen + upadjust, FakeOrigin.y + Uwid + upadjust);
+	drawLine(FakeOrigin.x + Ulen + upadjust, FakeOrigin.y + upadjust, FakeOrigin.x + Ulen + upadjust, FakeOrigin.y + Uwid + upadjust);
+	// UPPER SHAPE Outer Shape
+	drawLine(FakeCenterU.x, FakeOrigin.y + upadjust, FakeOrigin.x + upadjust, FakeCenterU.y);
+	drawLine(FakeOrigin.x + upadjust, FakeCenterU.y, FakeCenterU.x , FakeOrigin.y + Uwid + upadjust);
+	drawLine(FakeCenterU.x, FakeOrigin.y + Uwid + upadjust, FakeOrigin.x + Ulen + upadjust, FakeCenterU.y);
+	drawLine(FakeOrigin.x + Ulen + upadjust, FakeCenterU.y, FakeCenterU.x, FakeOrigin.y + upadjust);  
+	// UPPER SHAPE Inner Shape
+	drawLine((FakeOrigin.x + Ulen + upadjust)/4, (FakeOrigin.y + Uwid + upadjust)/4, (FakeOrigin.x + Ulen + upadjust)/4 , FakeOrigin.y + Uwid + upadjust - (FakeOrigin.y + Uwid + upadjust)/4);
+	//drawLine(Max.x/4, Max.y/4, Max.x - Max.x/4 , Max.y/4);
+	//drawLine(Max.x - Max.x/4, Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
+	//drawLine(Max.x/4 , Max.y - Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
 	
 }
 void start()
