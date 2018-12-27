@@ -1,147 +1,100 @@
-//============================================================================
-// Name        : Assignment1.cpp
-// Author      : Devashish K Prasad
-// Version     : 1.0
-// Copyright   : General Public License
-// Description :
-//============================================================================
+/*
+ * 	StackLL.cpp
+ *
+ *  Created on: 20-Dec-2018
+ *      Author: Devashish Prasad 23364
+ */
 
-#include <iostream>
-#include <stdio.h>
 #include "StackLL.h"
-#include "StackLL.cpp"
+#include <iostream>
 
-using namespace std;
+namespace std {
 
-int lasso(char op)
-{
-	if(op == '^')
-		return 0;
-	else
-		return 1;
+template <class T>
+StackLL<T>::StackLL() {
+	// TODO Auto-generated constructor stub
+	top = NULL;
+	max = 100000;
 }
-int priority(char op)
-{
-	switch(op)
+
+template <class T>
+StackLL<T>::~StackLL() {
+	// TODO Auto-generated destructor stub
+	while(!isempty())
 	{
-		case '^':
-			return 5;
-		case '*':
-			return 4;
-		case '/':
-			return 3;
-		case '+':
-			return 2;
-		case '-':
-			return 1;
+		pop();
 	}
 }
 
-int determine(char ch)
+template <class T>
+void StackLL<T>::push(T d)
 {
-	if((ch >= 65 && ch <= 91) || (ch >= 97 && ch <= 123))
-		return 1;
-	else if(ch == 40)
-		return 2;
-	else if(ch == 41)
-		return 3;
+	if(isfull())
+		cout<<"\n The stack is full";
 	else
-		return 0;
-}
-
-void infix2postpre(char exp[25], int pushorpop)
-{
-	StackLL <char>s;
-
-	char ch;
-
-	for(int i=0; exp[i]; i++)
 	{
-		ch = (char) exp[i];
-
-		int control = determine(ch);
-
-		switch(control)
-		{
-			case 0:
-				if(!s.isempty())
-				{
-					if(pushorpop == 1)
-					{
-						while(priority(s.peep()) >= priority(ch) && lasso(ch))
-						{				 	
-							cout<<s.pop();
-						}
-						while(priority(s.peep()) > priority(ch) &&  !lasso(ch))
-						{				 	
-							cout<<s.pop();
-						}
-					}
-					else
-					{
-						while(priority(s.peep()) >= priority(ch) && !lasso(ch))
-						{				 	
-							cout<<s.pop();
-						}
-						while(priority(s.peep()) > priority(ch) && lasso(ch))
-						{				 	
-							cout<<s.pop();
-						}
-					}
-					s.push(ch);
-				}
-				else
-				{
-					s.push(ch);
-				}
-				break;
-			case 1:
-				cout<<ch;
-				break;
-			case 2:
-				s.push(ch);
-				break;
-			case 3:
-				while(s.peep() != '(')
-					cout<<s.pop();
-				break;
-		}
+		struct Node* temp = new struct Node;
+		temp->data = d;
+		temp->next = top;
+		top = temp;
 	}
-
-	while(!s.isempty())
-		cout<<s.pop();
 }
 
-int main() {
-
-	int ch;
-	char exp[25];
-
-	do
+template <class T>
+T StackLL<T>::pop()
+{
+	if(isempty())
 	{
-		cout<<"\n --------- MENU ---------";
-		cout<<"\n 1. Infix to Postfix  ";
-		cout<<"\n 2. Infix to Prefix  ";
-		cout<<"\n 3. Postfix Evaluation ";
-		cout<<"\n 4. Prefix Evaluation ";
-		cout<<"\n 5. Exit ";
-		cin>>ch;
-		switch(ch)
-		{
-			case 1:
-				cout<<"\n\n Enter the expression in infix - ";
-				cin>>exp;
-				infix2postpre(exp,1);
-				break;
-			case 2:
-				cout<<"\n\n Enter the expression in infix - ";
-				cin>>exp;
-				infix2postpre(exp,0);
-				break;
-			case 5:
-				return 0;
-		}
-	}while(1);
+		cout<<"\n Stack is empty";
+		return 0;
+	}
+	else
+	{
+		struct Node * temp = top;
+		top = temp->next;
+		T d = temp->data;
+		delete temp;
+		return d;
+	}
+}
 
+template <class T>
+int StackLL<T>::isempty()
+{
+	if(top == NULL)
+		return 1;
 	return 0;
 }
+
+template <class T>
+int StackLL<T>::isfull()
+{
+	if(amount() == max)
+		return 1;
+	return 0;
+}
+
+template <class T>
+int StackLL<T>::amount()
+{
+	int cnt = 0;
+	struct Node *temp = top;
+
+	while(temp != NULL)
+	{
+		cnt++;
+		temp = temp->next;
+	}
+
+	return cnt;
+}
+
+template <class T>
+T StackLL<T>::peep()
+{
+	if(!isempty())
+	return top->data;
+	else
+	return '\0';
+}
+} /* namespace std */
