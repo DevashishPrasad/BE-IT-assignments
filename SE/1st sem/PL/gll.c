@@ -1,3 +1,14 @@
+/*
+ ============================================================================
+ Name        : gll.c
+ Author      : Devashish (23364)
+ Version     : 1.0
+ Copyright   : GNU Public Licence
+ Description : Create and implement generalized linked list to create
+	       and display the book index
+ ============================================================================
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #define max 4

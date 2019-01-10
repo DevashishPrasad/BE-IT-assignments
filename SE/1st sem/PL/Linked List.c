@@ -1,10 +1,14 @@
 /*
  ============================================================================
  Name        : linked.c
- Author      : Devashish
+ Author      : Devashish (23364)
  Version     : 1.0
  Copyright   : GNU Public Licence
- Description : Hello World in C, Ansi-style
+ Description : Create a singly linked list with following operations - 
+	       1) Insert (at front, middle, end)
+	       2) Delete (at font, middle, end)
+	       3) Display in reverse
+	       4) Revert the Linked list
  ============================================================================
  */
 

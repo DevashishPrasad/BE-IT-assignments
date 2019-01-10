@@ -24,7 +24,7 @@ class Student
     friend void add(Student record[100], int n, fstream *fp);
     friend void search(int id, fstream *fp);
     friend void modify(int id, fstream *fp);
-    friend void  del(int id, fstream *fp);
+    friend void del(int id, fstream *fp);
 };
 
 void createdb(Student record[100], int n)

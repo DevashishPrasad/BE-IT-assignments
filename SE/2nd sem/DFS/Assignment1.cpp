@@ -8,11 +8,17 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <string.h>
 #include "StackLL.h"
 #include "StackLL.cpp"
 
 using namespace std;
 
+void reverse(char str[25]) {
+    const size_t len = strlen(str);
+    for(size_t i=0; i<len/2; i++)
+        swap(str[i], str[len-i-1]);
+}
 int lasso(char op)
 {
 	if(op == '^')
@@ -53,7 +59,12 @@ void infix2postpre(char exp[25], int pushorpop)
 {
 	StackLL <char>s;
 
+	char temp[25];
 	char ch;
+	int k = 0;
+
+	if(pushorpop == 0)
+		reverse(exp);
 
 	for(int i=0; exp[i]; i++)
 	{
@@ -70,22 +81,26 @@ void infix2postpre(char exp[25], int pushorpop)
 					{
 						while(priority(s.peep()) >= priority(ch) && lasso(ch))
 						{				 	
-							cout<<s.pop();
+							temp[k] = s.pop();
+							k++;
 						}
 						while(priority(s.peep()) > priority(ch) &&  !lasso(ch))
 						{				 	
-							cout<<s.pop();
+							temp[k] = s.pop();
+							k++;
 						}
 					}
 					else
 					{
 						while(priority(s.peep()) >= priority(ch) && !lasso(ch))
 						{				 	
-							cout<<s.pop();
+							temp[k] = s.pop();
+							k++;
 						}
 						while(priority(s.peep()) > priority(ch) && lasso(ch))
 						{				 	
-							cout<<s.pop();
+							temp[k] = s.pop();
+							k++;
 						}
 					}
 					s.push(ch);
@@ -96,20 +111,32 @@ void infix2postpre(char exp[25], int pushorpop)
 				}
 				break;
 			case 1:
-				cout<<ch;
+				temp[k] = ch;
+				k++;
 				break;
 			case 2:
 				s.push(ch);
 				break;
 			case 3:
 				while(s.peep() != '(')
-					cout<<s.pop();
+				{
+					temp[k] = s.pop();
+					k++;
+				}
 				break;
 		}
 	}
 
 	while(!s.isempty())
-		cout<<s.pop();
+	{
+		temp[k] = s.pop();
+		k++;
+	}
+
+	if(pushorpop == 0)
+		reverse(temp);
+	
+	cout<<temp;
 }
 
 int main() {

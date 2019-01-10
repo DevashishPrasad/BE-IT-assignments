@@ -1,15 +1,18 @@
 /*
  ============================================================================
  Name        : PolyCLL.c
- Author      : Devashish Prasad(23364s)
+ Author      : Devashish Prasad (23364)
  Version     : Polynomial Arithmetic Using CLL
  Copyright   : GNU Public License
- Description : Hello World in C, Ansi-style
+ Description : Implement polynomial using CLL and perform - 
+	       a) addition
+   	       b) multiplication
+	       c) evaluation
  ============================================================================
  */
+
 #include<stdio.h>
 #include<math.h>
-
 
 struct node
 {

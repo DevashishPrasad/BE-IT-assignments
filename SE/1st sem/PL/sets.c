@@ -46,6 +46,7 @@ void sunion(int a[100], int b[100], int c[200], int l1, int l2)
 
 	display(c, i);
 }
+
 void sinter(int a[100], int b[100], int c[200], int l1, int l2)
 {
 	int i,j,k;
@@ -65,6 +66,7 @@ void sinter(int a[100], int b[100], int c[200], int l1, int l2)
 
 	display(c, k);
 }
+
 void sdiff(int a[100], int b[100], int c[200] , int l1, int l2)
 {
 	int i,j,k,flg=0;
@@ -87,6 +89,7 @@ void sdiff(int a[100], int b[100], int c[200] , int l1, int l2)
 
 	display(c, k);
 }
+
 void fulldiff(int a[100], int b[100], int c[200], int l1, int l2)
 {
 	int i,j,k,flg=0;
