@@ -21,6 +21,14 @@ void reverse(char str[25])
 
 	for(int i=0; i<len/2; i++)
 		swap(str[i],str[(len-1)-i]);
+
+	for(int i=0; i<len;i++)
+	{
+		if(str[i] == '(')
+			str[i] = ')';
+		else if(str[i] == ')')
+			str[i] = '(';
+	}
 }
 
 int lasso(char op)
@@ -35,15 +43,15 @@ int priority(char op)
 	switch(op)
 	{
 		case '^':
-			return 6;
-		case '%':
-			return 5;
-		case '*':
 			return 4;
-		case '/':
+		case '%':
 			return 3;
-		case '+':
+		case '*':
 			return 2;
+		case '/':
+			return 2;
+		case '+':
+			return 1;
 		case '-':
 			return 1;
 		case '(':
@@ -195,10 +203,65 @@ void evaluate(char exp[25], int postpre)
 
 	cout<<"\n The evaluated result is - "<<s.pop();
 }
+
+int validate(char exp[25])
+{
+	int len = strlen(exp);
+	int bracket = 0;
+	int ch;
+
+	if((exp[0] >= 65 && exp[0] <= 91) || (exp[0] >= 97 && exp[0] <= 123) || (exp[0] >= 48 && exp[0] <= 57))
+		ch = 1;
+	else
+		return 0;
+
+	for(int i=0; i<len; i++)
+	{
+		if(exp[i]=='(')
+			bracket++;
+		if(exp[i]==')')
+			bracket--;
+		if((exp[i] >= 65 && exp[i] <= 91) || (exp[i] >= 97 && exp[i] <= 123)
+		|| (exp[i] >= 40 && exp[i] <= 43) || (exp[i]!=45) || (exp[i]!=47)
+		|| (exp[i] != 94) || (exp[i] >= 48 && exp[i] <= 57))
+		{
+
+		}
+		else
+		{
+			return 0;
+		}
+		if(i>0 && ch==1 && ((exp[i] >= 65 && exp[i] <= 91) || (exp[i] >= 97 && exp[i] <= 123) || (exp[i] >= 48 && exp[i] <= 57) || (exp[i] >= 48 && exp[i] <= 57)))
+			return 0;
+		else if(i>0 && ch==0 && ((exp[i] >= 40 && exp[i] <= 43) || (exp[i]!=45) || (exp[i]!=47)
+				|| (exp[i] != 94)))
+			return 0;
+		if((exp[i] >= 65 && exp[i] <= 91) || (exp[i] >= 97 && exp[i] <= 123) || (exp[i] >= 48 && exp[i] <= 57))
+			ch = 1;
+		else
+			ch = 0;
+	}
+
+	if(bracket == 0)
+		return 1;
+	else
+		return 0;
+
+	return 1;
+}
 void getexpression(char exp[25])
 {
-	cout<<"\n\n Enter the expression in infix - ";
-	cin>>exp;
+	int temp = 1;
+
+	while(temp)
+	{
+		cout<<"\n\n Enter the expression in infix - ";
+		cin>>exp;
+		if(!validate(exp))
+			cout<<"\n Invalid expession.... Please try again ! ";
+		else
+			break;
+	}
 }
 int main() {
 
@@ -235,6 +298,7 @@ int main() {
 			case 4:
 				getexpression(exp);
 				infix2postpre(exp,res,0);
+				reverse(res);
 				evaluate(res, 0);
 				break;
 			case 5:
