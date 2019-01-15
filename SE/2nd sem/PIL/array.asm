@@ -1,4 +1,23 @@
 .model small
+twodigit macro
+        mov cx,0204h
+
+        up:
+        rol bl,cl
+        mov dl,bl
+        and dl,0Fh
+        cmp dl,09h
+        jbe down
+        add dl,07h
+
+        down:
+        add dl,30h
+        mov ah,02h
+        int 21h
+        dec ch
+        jnz up
+endm
+
 takenum macro
         ;======= string =======
         mov dx,offset str2
@@ -30,6 +49,7 @@ takenum macro
         mov ah, 01h
         int 21h        
 endm
+
 .data
         arr db 5 dup(?)
         no db ?
@@ -106,14 +126,14 @@ endm
                 mov dl,[si]
                 sub dl,30h
                 add al,dl
+                daa
                 inc si
                 dec ch
                 jnz l3
 
-        add al,30h
-        mov dl,al
-        mov ah,02h
-        int 21h
+        mov bl,0000h
+        mov bl,al
+        twodigit
 
         ;========= Terminating the program ==========
         mov ah,4ch
