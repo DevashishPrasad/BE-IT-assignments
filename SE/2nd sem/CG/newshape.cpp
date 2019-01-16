@@ -33,14 +33,45 @@ void init()
 }
 
 // Custom Function for drawing a line
+//void drawLine(int x1, int y1, int x2, int y2)
+//{	
+//	glLineWidth(2.5); 
+//	glColor3f(0.0, 0.0, 1.0);
+//	glBegin(GL_LINES);
+//		glVertex3f(x1, y1, 0);
+//		glVertex3f(x2, y2, 0);
+//	glEnd(); 
+//}
+
 void drawLine(int x1, int y1, int x2, int y2)
-{	
-	glLineWidth(2.5); 
-	glColor3f(0.0, 0.0, 1.0);
-	glBegin(GL_LINES);
-		glVertex3f(x1, y1, 0.0);
-		glVertex3f(x2, y2, 0);
-	glEnd(); 
+{
+	//DDA Function for line generation 
+	// calculate dx & dy
+    int dx = abs(x1 - x2); 
+    int dy = abs(y1 - y2); 
+  
+    // calculate steps required for generating pixels 
+    int steps = dx > dy ? dx : dy; 
+  
+    // calculate increment in x & y for each steps 
+    float Xinc = dx / (float) steps; 
+    float Yinc = dy / (float) steps; 
+  
+    // Put pixel for each step 
+    float X = x1; 
+    float Y = y1; 
+
+	glBegin(GL_POINTS);
+
+    for (int i = 0; i <= steps; i++) 
+    { 
+        glVertex2i(X,Y);
+		X += Xinc;       // increment in x at each step 
+        Y += Yinc;       // increment in y at each step 
+        //delay(100);        
+    }
+    
+    glEnd();
 }
 
 void drawShape()
@@ -55,8 +86,8 @@ void drawShape()
 	
 	// Getting center of axes
 	Point AxisCenter;
-	AxisCenter.x = Max.x/2;
-	AxisCenter.y = Max.y/2;
+	AxisCenter.x = (Max.x - rx1)/2 + rx1;
+	AxisCenter.y = (Max.y - ry1)/2 + ry1;
 	
 	// Setting the origin point
 	Point Origin;
@@ -70,10 +101,10 @@ void drawShape()
 	drawLine(Origin.x, Max.y, Max.x, Max.y);
 	drawLine(Max.x, Origin.y, Max.x, Max.y);
 	// Quadrant Lines
-	drawLine(SMax.x, SMax.y/2, 0, SMax.y/2);
+	drawLine(0, SMax.y/2, SMax.x, SMax.y/2);
 	drawLine(SMax.x/2, 0, SMax.x/2, SMax.y);
 	// Outer Shape
-	drawLine(AxisCenter.x, Origin.y, Origin.x, AxisCenter.y);
+	drawLine(Origin.x, AxisCenter.y, AxisCenter.x, Origin.y);
 	drawLine(Origin.x, AxisCenter.y, AxisCenter.x, Max.y);
 	drawLine(AxisCenter.x, Max.y, Max.x, AxisCenter.y);
 	drawLine(Max.x, AxisCenter.y, AxisCenter.x, Origin.y);  
@@ -83,11 +114,11 @@ void drawShape()
 	//drawLine(Max.x - Max.x/4, Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
 	//drawLine(Max.x/4 , Max.y - Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
 	
-	//Easy way Inner shape using mid points
-	//drawLine(AxisCenter.x/2, AxisCenter.y/2, AxisCenter.x/2, (Max.y + AxisCenter.y)/2);
-	//drawLine(AxisCenter.x/2, (Max.y + AxisCenter.y)/2, (AxisCenter.x + Max.x)/2,  (Max.y + AxisCenter.y)/2);
-	//drawLine((AxisCenter.x + Max.x)/2,  (Max.y + AxisCenter.y)/2, (AxisCenter.x + Max.x)/2, AxisCenter.y/2);
-	//drawLine((AxisCenter.x + Max.x)/2, AxisCenter.y/2, AxisCenter.x/2, AxisCenter.y/2);
+	/*//Easy way Inner shape using mid points
+	drawLine((AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + Origin.y, (AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y);
+	drawLine((AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y, (AxisCenter.x - Origin.x)/2 + AxisCenter.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y);
+	drawLine((AxisCenter.x - Origin.x)/2 + AxisCenter.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y, (AxisCenter.x - Origin.x)/2 + AxisCenter.x,  (AxisCenter.y - Origin.y)/2 + Origin.y);
+	drawLine((AxisCenter.x - Origin.x)/2 + AxisCenter.x,  (AxisCenter.y - Origin.y)/2 + Origin.y, (AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + Origin.y);*/
 	
 }
 void start()
