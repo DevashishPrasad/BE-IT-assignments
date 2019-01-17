@@ -15,6 +15,7 @@
 
 using namespace std;
 
+// Reversing the expression
 void reverse(char str[25])
 {
 	int len = strlen(str);
@@ -31,6 +32,7 @@ void reverse(char str[25])
 	}
 }
 
+// Checking left associativity
 int lasso(char op)
 {
 	if(op == '^')
@@ -38,6 +40,8 @@ int lasso(char op)
 	else
 		return 1;
 }
+
+// Priority of operators
 int priority(char op)
 {
 	switch(op)
@@ -59,6 +63,7 @@ int priority(char op)
 	}
 }
 
+// Determine the character is operand operator or parenthesis
 int determine(char ch)
 {
 	if((ch >= 65 && ch <= 91) || (ch >= 97 && ch <= 123) || (ch >= 48 && ch <= 57))
@@ -71,6 +76,9 @@ int determine(char ch)
 		return 0;
 }
 
+// Function of postfix and prefix conversion
+// if pushorpop bit is set then postfix conversion
+// else prefix conversion
 void infix2postpre(char exp[25], char res[25], int pushorpop)
 {
 	StackLL <char>s;
@@ -155,6 +163,7 @@ void infix2postpre(char exp[25], char res[25], int pushorpop)
 	res[k] = '\0';
 }
 
+// perform operation
 float performop(float op1, float op2, char op)
 {
 	switch(op)
@@ -173,6 +182,8 @@ float performop(float op1, float op2, char op)
 			return pow(op1,op2);
 	}
 }
+
+// function for evaluating an expression
 void evaluate(char exp[25], int postpre)
 {
 	char ch;
@@ -204,13 +215,16 @@ void evaluate(char exp[25], int postpre)
 	cout<<"\n The evaluated result is - "<<s.pop();
 }
 
+// validation for conversion
 int validate(char exp[25])
 {
 	int len = strlen(exp);
 	int bracket = 0;
 	int ch;
 
-	if((exp[0] >= 65 && exp[0] <= 91) || (exp[0] >= 97 && exp[0] <= 123) || (exp[0] >= 48 && exp[0] <= 57))
+	if((exp[0] == 40))
+		ch = 2;
+	else if(isalpha(exp[0]) || (exp[0] == 40) || (exp[0] == 41))
 		ch = 1;
 	else
 		return 0;
@@ -221,9 +235,8 @@ int validate(char exp[25])
 			bracket++;
 		if(exp[i]==')')
 			bracket--;
-		if((exp[i] >= 65 && exp[i] <= 91) || (exp[i] >= 97 && exp[i] <= 123)
-		|| (exp[i] >= 40 && exp[i] <= 43) || (exp[i]!=45) || (exp[i]!=47)
-		|| (exp[i] != 94) || (exp[i] >= 48 && exp[i] <= 57))
+		if(isalpha(exp[i]) || (exp[i] >= 40 && exp[i] <= 43) || (exp[i]!=45)
+		|| (exp[i]!=47) || (exp[i] != 94))
 		{
 
 		}
@@ -231,12 +244,21 @@ int validate(char exp[25])
 		{
 			return 0;
 		}
-		if(i>0 && ch==1 && ((exp[i] >= 65 && exp[i] <= 91) || (exp[i] >= 97 && exp[i] <= 123) || (exp[i] >= 48 && exp[i] <= 57) || (exp[i] >= 48 && exp[i] <= 57)))
+		if(i>0 && ch==3 && isalpha(exp[i]))
 			return 0;
-		else if(i>0 && ch==0 && ((exp[i] >= 40 && exp[i] <= 43) || (exp[i]!=45) || (exp[i]!=47)
-				|| (exp[i] != 94)))
+		if(i>0 && ch==2 && ((exp[i] >= 41 && exp[i] <= 43) || (exp[i]==45) || (exp[i]==47)
+						|| (exp[i] == 94) || (exp[i] == 37)))
 			return 0;
-		if((exp[i] >= 65 && exp[i] <= 91) || (exp[i] >= 97 && exp[i] <= 123) || (exp[i] >= 48 && exp[i] <= 57))
+		else if(i>0 && ch==1 && isalpha(exp[i]))
+			return 0;
+		else if(i>0 && ch==0 && ((exp[i] >= 41 && exp[i] <= 43) || (exp[i]==45) || (exp[i]==47)
+						|| (exp[i] == 94) || (exp[i] == 37)))
+			return 0;
+		if((exp[i] == 41))
+			ch = 3;
+		else if((exp[i] == 40))
+			ch = 2;
+		else if(isalpha(exp[i]))
 			ch = 1;
 		else
 			ch = 0;
@@ -249,7 +271,71 @@ int validate(char exp[25])
 
 	return 1;
 }
-void getexpression(char exp[25])
+
+
+// validation for evaluation
+int evalidate(char exp[25])
+{
+	int len = strlen(exp);
+	int bracket = 0;
+	int ch;
+
+	if((exp[0] == 40))
+		ch = 2;
+	else if(isdigit(exp[0]) || (exp[0] == 40) || (exp[0] == 41))
+		ch = 1;
+	else
+		return 0;
+
+	for(int i=0; i<len; i++)
+	{
+		if(exp[i]=='(')
+			bracket++;
+		if(exp[i]==')')
+			bracket--;
+		if(isdigit(exp[i]) || (exp[i] >= 40 && exp[i] <= 43) || (exp[i]!=45)
+		|| (exp[i]!=47) || (exp[i] != 94))
+		{
+
+		}
+		else
+		{
+			return 0;
+		}
+		if(i>0 && ch==3 && isdigit(exp[i]))
+			return 0;
+		if(i>0 && ch==2 && ((exp[i] >= 41 && exp[i] <= 43) || (exp[i]==45) || (exp[i]==47)
+						|| (exp[i] == 94) || (exp[i] == 37)))
+			return 0;
+		else if(i>0 && ch==1 && isdigit(exp[i]))
+			return 0;
+		else if(i>0 && ch==0 && ((exp[i] >= 41 && exp[i] <= 43) || (exp[i]==45) || (exp[i]==47)
+						|| (exp[i] == 94) || (exp[i] == 37)))
+			return 0;
+
+
+		if((exp[i] == 41))
+			ch = 3;
+		else if((exp[i] == 40))
+			ch = 2;
+		else if(isdigit(exp[i]))
+			ch = 1;
+		else
+			ch = 0;
+	}
+
+	if(bracket == 0)
+		return 1;
+	else
+		return 0;
+
+	return 1;
+}
+
+// get expression from user
+// if evalorconvert is set then perform validation for evaluation
+// else perform validation for conversion
+void getexpression(char exp[25], int evalorconvert)
 {
 	int temp = 1;
 
@@ -257,12 +343,24 @@ void getexpression(char exp[25])
 	{
 		cout<<"\n\n Enter the expression in infix - ";
 		cin>>exp;
-		if(!validate(exp))
-			cout<<"\n Invalid expession.... Please try again ! ";
+
+		if(evalorconvert)
+		{
+			if(!evalidate(exp))
+				cout<<"\n Invalid expession.... Please try again ! ";
+			else
+				break;
+		}
 		else
-			break;
+		{
+			if(!validate(exp))
+				cout<<"\n Invalid expession.... Please try again ! ";
+			else
+				break;
+		}
 	}
 }
+
 int main() {
 
 	int ch;
@@ -281,22 +379,22 @@ int main() {
 		switch(ch)
 		{
 			case 1:
-				getexpression(exp);
+				getexpression(exp,0);
 				infix2postpre(exp,res,1);
 				cout<<"\n The postfix expression is - "<<res;
 				break;
 			case 2:
-				getexpression(exp);
+				getexpression(exp,0);
 				infix2postpre(exp,res,0);
 				cout<<"\n The prefix expression is - "<<res;
 				break;
 			case 3:
-				getexpression(exp);
+				getexpression(exp,1);
 				infix2postpre(exp,res,1);
 				evaluate(res, 1);
 				break;
 			case 4:
-				getexpression(exp);
+				getexpression(exp,1);
 				infix2postpre(exp,res,0);
 				reverse(res);
 				evaluate(res, 0);
