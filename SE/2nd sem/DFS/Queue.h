@@ -13,11 +13,12 @@ class Queue {
 	struct Node
 	{
 		T obj;
-		struct node * next;
+		int priority;
+		struct Node * next;
 	};
-
-	struct node * front;
-	struct node * rear;
+	struct Node * front;
+	struct Node * rear;
+	int length;
 
 public:
 	Queue();
@@ -25,8 +26,9 @@ public:
 	struct node * getnode();
 	int isempty();
 	int isfull();
-	void enqueue(T obj);
-	int dequeue();
+	void enqueue(T obj, int p);
+	T dequeue();
+	T* display();
 };
 
 #endif /* QUEUE_H_ */
