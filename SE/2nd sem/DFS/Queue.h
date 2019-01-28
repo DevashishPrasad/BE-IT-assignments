@@ -18,7 +18,7 @@ class Queue {
 	};
 	struct Node * front;
 	struct Node * rear;
-	int length;
+	int l;
 
 public:
 	Queue();
@@ -29,6 +29,7 @@ public:
 	void enqueue(T obj, int p);
 	T dequeue();
 	T* display();
+	int length();
 };
 
 #endif /* QUEUE_H_ */
