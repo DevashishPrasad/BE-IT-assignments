@@ -1,4 +1,3 @@
-
 /*
  * Queue.cpp
  *
@@ -16,7 +15,7 @@ Queue<T>::Queue() {
 	// TODO Auto-generated constructor stub
 	front = NULL;
 	rear = NULL;
-	length = 0;
+	l = 0;
 }
 
 template <class T>
@@ -48,7 +47,7 @@ void Queue<T>::enqueue(T ob, int p)
 	struct Node *temp = new struct Node;
 	temp->obj = ob;
 	temp->priority = p;
-	length++;
+	l++;
 
 	if(isempty())
 	{
@@ -69,24 +68,37 @@ T Queue<T>::dequeue()
 	{
 		struct Node *max = front;
 		struct Node *temp = front->next;
+		struct Node *prev = front;
+		struct Node *prevMax = NULL;
 
 		while(temp!=NULL)
 		{
 			if(temp->priority > max->priority)
+			{
+				prevMax = prev;
 				max = temp;
+			}
+			prev = temp;
 			temp = temp->next;
 		}
-		return max;
+		if(max == front)
+		{
+			front = front->next;
+		}
+		else if(prevMax != NULL)
+		{
+			prevMax->next = max->next;
+		}
+		l--;
+		return max->obj;
 	}
-
-	return NULL;
 }
 
 
 template <class T>
 T* Queue<T>::display()
 {
-	T * arr = new T[length];
+	T * arr = new T[l];
 	struct Node* temp = front;
 	if(!isempty())
 	{
@@ -100,4 +112,8 @@ T* Queue<T>::display()
 	return NULL;
 }
 
-
+template <class T>
+int Queue<T>::length()
+{
+	return l;
+}
