@@ -1,4 +1,5 @@
 .model small
+.stack 1000h
 
 displaystr macro mystr
         lea dx,mystr
@@ -29,6 +30,7 @@ endm
         str3 db 10,13,'Please Enter 4 digit HEX number $'
         str4 db 10,13,'Your BCD Number is - $'
         str5 db 10,13,'Converted HEX Number is - $'
+        str6 db 10,13,'Invalid HEX Number Try Again - $'
         byestr db 10,13,'Bye! $'
         input db ?
         cnt db ?
@@ -38,8 +40,8 @@ endm
         array dw 10000,1000,100,10,1
         bcdno db 5 dup(?)
 
-.stack 100h
 .code
+start:
         mov ax,@data
         mov ds,ax
 
@@ -66,7 +68,7 @@ endm
         ;----- Procedure for BCD to HEX conversion --------
         bcd2hex proc
         mov flg,0
-        start:
+        start1:
         displaystr str1
         mov cnt,5
         lea si,array
@@ -83,7 +85,7 @@ endm
                 cmp ax,0006
                 jng continue
                 displaystr str2
-                jmp start
+                jmp start1
 
                 continue:
                 mov flg,1
@@ -91,7 +93,6 @@ endm
                 inc si
                 inc si  
                 inc di
-                ;mov ax,0000
                 add res,ax 
                 dec cnt
                 cmp cnt,0000h
@@ -131,29 +132,75 @@ endm
 
         ;------- Procedure for HEX to BCD conversion --------
         hex2bcd proc
+
+        mov flg,0
+
         toppest:
+        inc flg
+        cmp flg,1
+        jbe topper
+        displaystr str6
+
+        topper:
         mov bx,0000h
         mov ax,0000h
+        mov cx,0404h
 
         displaystr str3
-        top:
+
+        top:        
+                getinput
+
+                ;---------------Validation--------------
+                cmp al,30h
+                jb toppest
+                cmp al,41h
+                jb lab
+                cmp al,61h
+                jb lab2
+                cmp al,66h
+                jg toppest
+                sub al,57h
+                jmp baher
         
+                lab2:
+                cmp al,46h
+                jg toppest
+                sub al,37h
+                jmp baher
 
-        getinput
-        cmp al,30h
-        jl toppest
-        cmp al,39h
-        jg toppest
-        cmp al,41h
-        jl toppest
-        cmp al,46h
-        jg toppest
-        cmp al,61h
-        jl toppest
-        cmp al,66h
-        jg toppest
+                lab:
+                cmp al,39h
+                jg toppest
+                sub al,30h
+                jmp baher
 
-        mov bl,al
+                baher:
+
+                rol bx,cl
+                mov ah,0h
+                add bx,ax
+                dec ch
+                jnz top
+
+        ;------------ Push into the stack -----------
+        mov ax,bx
+        mov cx,0000h
+        mov cl,10
+        mylab:
+                inc cnt
+                div cl
+                push dx
+                cmp ax,0000h
+                jnz mylab
+
+        ;------------ Pop and Display ---------------
+        mylab2:
+                pop ax
+                setoutput
+                mov ax,0000h
+                dec cnt
+                jnz mylab2
         ret
         endp
-end
+end start
