@@ -33,17 +33,17 @@ void init()
 }
 
 // Custom Function for drawing a line
-//void drawLine(int x1, int y1, int x2, int y2)
-//{	
-//	glLineWidth(2.5); 
-//	glColor3f(0.0, 0.0, 1.0);
-//	glBegin(GL_LINES);
-//		glVertex3f(x1, y1, 0);
-//		glVertex3f(x2, y2, 0);
-//	glEnd(); 
-//}
-
 void drawLine(int x1, int y1, int x2, int y2)
+{	
+	glLineWidth(2.5); 
+	glColor3f(0.0, 0.0, 1.0);
+	glBegin(GL_LINES);
+		glVertex3f(x1, y1, 0);
+		glVertex3f(x2, y2, 0);
+	glEnd(); 
+}
+
+/*void drawLine(int x1, int y1, int x2, int y2)
 {
 	//DDA Function for line generation 
 	// calculate dx & dy
@@ -72,7 +72,7 @@ void drawLine(int x1, int y1, int x2, int y2)
     }
     
     glEnd();
-}
+}*/
 
 void drawShape()
 {
@@ -114,11 +114,11 @@ void drawShape()
 	//drawLine(Max.x - Max.x/4, Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
 	//drawLine(Max.x/4 , Max.y - Max.y/4, Max.x - Max.x/4 , Max.y - Max.y/4);
 	
-	/*//Easy way Inner shape using mid points
+	//Easy way Inner shape using mid points
 	drawLine((AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + Origin.y, (AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y);
 	drawLine((AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y, (AxisCenter.x - Origin.x)/2 + AxisCenter.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y);
 	drawLine((AxisCenter.x - Origin.x)/2 + AxisCenter.x, (AxisCenter.y - Origin.y)/2 + AxisCenter.y, (AxisCenter.x - Origin.x)/2 + AxisCenter.x,  (AxisCenter.y - Origin.y)/2 + Origin.y);
-	drawLine((AxisCenter.x - Origin.x)/2 + AxisCenter.x,  (AxisCenter.y - Origin.y)/2 + Origin.y, (AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + Origin.y);*/
+	drawLine((AxisCenter.x - Origin.x)/2 + AxisCenter.x,  (AxisCenter.y - Origin.y)/2 + Origin.y, (AxisCenter.x - Origin.x)/2 + Origin.x, (AxisCenter.y - Origin.y)/2 + Origin.y);
 	
 }
 void start()
