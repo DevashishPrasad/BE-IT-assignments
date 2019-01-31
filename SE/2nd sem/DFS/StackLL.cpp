@@ -1,8 +1,8 @@
 /*
- * 	StackLL.cpp
+ * StackLL.cpp
  *
  *  Created on: 20-Dec-2018
- *      Author: Devashish Prasad 23364
+ *      Author: ml-18
  */
 
 #include "StackLL.h"
@@ -14,7 +14,7 @@ template <class T>
 StackLL<T>::StackLL() {
 	// TODO Auto-generated constructor stub
 	top = NULL;
-	max = 100000;
+	max = 10;
 }
 
 template <class T>
@@ -93,8 +93,8 @@ template <class T>
 T StackLL<T>::peep()
 {
 	if(!isempty())
-	return top->data;
-	else
-	return '\0';
+		return top->data;
+		else
+		return '\0';
 }
 } /* namespace std */
