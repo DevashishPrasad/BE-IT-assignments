@@ -2,7 +2,7 @@
 // Name        : Assignement2.cpp
 // Author      : Devashish Krishna Prasad
 // Version     : 1.0
-// Copyright   : GNU Public Licence
+// Copyright   : GNU Public License
 // Description : Hospital management priority queue
 //============================================================================
 
@@ -31,8 +31,9 @@ class Hospital
 	public:
 
 	void getPatient();
-	void display();
+	void display(int sr);
 	int getPriority();
+	int getId();
 };
 
 void Hospital::getPatient()
@@ -44,18 +45,34 @@ void Hospital::getPatient()
 	cin>>patient.disease;
 	cout<<"\n ID - ";
 	cin>>patient.id;
-	cout<<"\n Phone - ";
-	cin>>patient.phone;
+	while(1)
+	{
+		cout<<"\n Phone - ";
+		cin>>patient.phone;
+		if(strlen(patient.phone) != 10)
+		{
+			cout<<"\n\n Invalid Phone Number, Try Again!";
+			continue;
+		}
+		else
+			break;
+	}
 }
 
-void Hospital::display()
+void Hospital::display(int sr=1)
 {
-	cout<<setw(20)<<patient.name<<" ";
-	cout<<setw(20)<<patient.disease<<" ";
-	cout<<setw(5)<<patient.id<<" ";
-	cout<<setw(10)<<patient.phone<<endl;
+	cout<<setw(15)<<sr<<"\t";
+	cout<<setw(15)<<patient.name<<"\t";
+	cout<<setw(15)<<patient.disease<<"\t";
+	cout<<setw(15)<<patient.id<<"\t";
+	cout<<setw(15)<<patient.phone<<endl;
+	cout<<"----------------------------------------------------------------------------------------------------\n";
 }
 
+int Hospital::getId()
+{
+	return patient.id;
+}
 int Hospital::getPriority()
 {
 	diseases d;
@@ -76,51 +93,80 @@ int Hospital::getPriority()
 	return d;
 }
 
+void maketable()
+{
+	cout<<"\n\n\n=================================================================================================\n";
+	cout<<setw(15)<<"SR\t";
+	cout<<setw(15)<<"NAME \t";
+	cout<<setw(15)<<"DISEASE \t";
+	cout<<setw(15)<<"ID \t";
+	cout<<setw(15)<<"PHONE \t"<<endl;
+	cout<<"====================================================================================================\n";
+}
 int main() {
 
 	Hospital h,*t;
 	Queue <Hospital> PriorityQueue;
-	int choice;
+	int choice,temp = 1;
 
 	do
 	{
-		cout<<"\n\n\n=====================================";
-		cout<<"\n                MENU";
-		cout<<"\n=====================================";
-		cout<<"\n 1. Add a patient in the queue";
-		cout<<"\n 2. Display all patients the queue";
-		cout<<"\n 3. Serve next patient in queue";
-		cout<<"\n 4. Delete the current queue";
-		cout<<"\n 5. Exit";
-		cout<<"\n\n\n=====================================";
+		cout<<"\n\n\n.===================================.";
+		cout<<"\n|               MENU                |";
+		cout<<"\n|===================================|";
+		cout<<"\n| 1. Add a patient in the queue     |";
+		cout<<"\n| 2. Display all patients the queue |";
+		cout<<"\n| 3. Serve next patient in queue    |";
+		cout<<"\n| 4. Delete the current queue       |";
+		cout<<"\n| 5. Exit                           |";
+		cout<<"\n*===================================*";
 		cout<<"\n Enter your choice - ";
 		cin>>choice;
 
 		switch(choice)
 		{
 			case 1:
-				h.getPatient();
-				PriorityQueue.enqueue(h, h.getPriority());
-				cout<<"\n\n Patient added to the queue successfully ";
+				temp = 1;
+				while(temp)
+				{
+					h.getPatient();
+					t = PriorityQueue.display();
+					temp = 0;
+
+					for(int i=0; i<PriorityQueue.length() ;i++)
+					{
+						if(t[i].getId() == h.getId())
+						{
+							temp = 1;
+							cout<<"\n Entered ID of patient is not unique";
+						}
+					}
+					if(temp == 1)
+						continue;
+					else
+						temp = 0;
+
+					PriorityQueue.enqueue(h, h.getPriority());
+					cout<<"\n\n Patient added to the queue successfully ";
+				}
 				break;
 			case 2:
-				cout<<"\n\n Patients waiting in the Queue are - \n";
-				cout<<setw(20)<<"NAME ";
-				cout<<setw(20)<<"DISEASE ";
-				cout<<setw(5)<<"ID ";
-				cout<<setw(10)<<"PHONE "<<endl;
-				t = PriorityQueue.display();
-				for(int i=0; i<PriorityQueue.length() ;i++)
-					t[i].display();
+				if(!PriorityQueue.isempty())
+				{
+					cout<<"\n\n Patients waiting in the Queue are - \n";
+					maketable();
+					t = PriorityQueue.display();
+					for(int i=0; i<PriorityQueue.length() ;i++)
+						t[i].display(i+1);
+				}
+				else
+					cout<<"\n\n No patients in the queue";
 				break;
 			case 3:
 				if(!PriorityQueue.isempty())
 				{
 					cout<<"\n\n Following Patient was served successfully - \n";
-					cout<<setw(20)<<"NAME ";
-					cout<<setw(20)<<"DISEASE ";
-					cout<<setw(5)<<"ID ";
-					cout<<setw(10)<<"PHONE "<<endl;
+					maketable();
 					PriorityQueue.dequeue().display();
 				}
 				else
@@ -131,7 +177,6 @@ int main() {
 					PriorityQueue.dequeue();
 				cout<<"\n\n Queue was deleted successfully ";
 				break;
-
 			case 5:
 				return 0;
 		}
