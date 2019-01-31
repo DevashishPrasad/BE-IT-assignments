@@ -88,8 +88,14 @@ T Queue<T>::dequeue()
 		else if(prevMax != NULL)
 		{
 			prevMax->next = max->next;
+			rear = prevMax;
 		}
 		l--;
+		if(l == 0)
+		{
+			front = NULL;
+			rear = NULL;
+		}
 		return max->obj;
 	}
 }
