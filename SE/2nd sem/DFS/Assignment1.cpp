@@ -333,7 +333,7 @@ int evalidate(char exp[25])
 }
 
 // get expression from user
-// if evalorconvert is set then perform validation for evaluation
+// if eval or convert is set then perform validation for evaluation
 // else perform validation for conversion
 void getexpression(char exp[25], int evalorconvert)
 {
