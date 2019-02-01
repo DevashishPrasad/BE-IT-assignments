@@ -31,9 +31,10 @@ endm
         str4 db 10,13,'Your BCD Number is - $'
         str5 db 10,13,'Converted HEX Number is - $'
         str6 db 10,13,'Invalid HEX Number Try Again - $'
+        str7 db 10,13,'Converted BCD Number is - $'
         byestr db 10,13,'Bye! $'
         input db ?
-        cnt db ?
+        cnt db 0
         flg db 0
         res dw 0
         nextline db 10,13,10,13,'$'
@@ -74,6 +75,8 @@ start:
         lea si,array
         lea di,bcdno
         mov res,0000
+
+	;-------------- Taking input from user -------------
         up1:
                 getinput
                 sub al,30h
@@ -98,6 +101,7 @@ start:
                 cmp cnt,0000h
                 jnz up1
 
+	;------------ Display the Number taken from user------
         lea dx,nextline
         printnextline
         lea di,bcdno
@@ -111,6 +115,7 @@ start:
                 dec cl
                 jnz origin
 
+	;------------- Conversion from BCD to HEX ------------
         displaystr str5
         mov cx,0404h
         mov bx,res
@@ -151,7 +156,7 @@ start:
         top:        
                 getinput
 
-                ;---------------Validation--------------
+                ;---------------Validation and user input--------------
                 cmp al,30h
                 jb toppest
                 cmp al,41h
@@ -181,24 +186,28 @@ start:
                 mov ah,0h
                 add bx,ax
                 dec ch
-                jnz top
+                jnz top		
 
         ;------------ Push into the stack -----------
         mov ax,bx
-        mov cx,0000h
-        mov cl,10
+        mov cx,0010
         mylab:
+		mov dx,0000h
                 inc cnt
-                div cl
+                div cx
                 push dx
                 cmp ax,0000h
-                jnz mylab
+                jne mylab
 
+	displaystr nextline
+	displaystr str7
         ;------------ Pop and Display ---------------
+	mov ax,0000h
+        mov dx,0000h
         mylab2:
-                pop ax
+                pop dx
+		add dl,30h
                 setoutput
-                mov ax,0000h
                 dec cnt
                 jnz mylab2
         ret
