@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main() 
+int main()
 {
 BinaryTree<int> tree;
 int choice,temp,ch=0;
@@ -28,7 +28,8 @@ int choice,temp,ch=0;
 		cout<<"\n|  2. Display all Nodes in the Tree  |";
 		cout<<"\n|  3. Depth of the Tree              |";
 		cout<<"\n|  4. Display leaf Nodes             |";
-		cout<<"\n|  5. Exit                           |";
+		cout<<"\n|  5. Copy                           |";
+		cout<<"\n|  6. Exit                           |";
         cout<<"\n|____________________________________|";
 		cout<<"\n Enter your choice - ";
 		cin>>choice;
@@ -60,12 +61,16 @@ int choice,temp,ch=0;
                 }
                 tree.display(ch);
 				break;
-			case 3:		
-                tree.displayRoot();		
+			case 3:
+                cout<<"\n\n The current height of the tree is - "<<tree.height(tree.root);
 				break;
 			case 4:
+				cout<<"\n\n Root nodes of the trees are - ";
+				tree.displayleaves(tree.root);
 				break;
 			case 5:
+				break;
+			case 6:
 				return 0;
             default:
                 cout<<"\n Please Enter a valid choice, Try Again !";
