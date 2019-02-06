@@ -84,8 +84,6 @@ void drawCircle(int r, int cx, int cy)
 	p.x = 0;
 	p.y = r;
 	
-	glColor3f(0.0, 1.0, 0.0);
-	
 	glBegin(GL_POINTS);
 	
 	// Center
@@ -137,16 +135,22 @@ void start()
 	Origin.x = Max.x/2;
 	Origin.y = Max.y/2;
 
+	glColor3f(0.0, 1.0, 0.0);
 	// Draw Outer Circle
 	drawCircle(radius,Origin.x,Origin.y);
 	// Draw Inner Center Circle			
+	glColor3f(1.0, 0.0, 0.0);
 	drawCircle(radius/2,Origin.x,Origin.y);
 	// Draw Inner Circles
+	glColor3f(0.0, 0.0, 1.0);
 	drawCircle(radius/2,Origin.x+radius/2,Origin.y);// Circle 1
 	drawCircle(radius/2,Origin.x,Origin.y+radius/2);// Circle 2			
 	drawCircle(radius/2,Origin.x-radius/2,Origin.y);// Circle 3
 	drawCircle(radius/2,Origin.x,Origin.y-radius/2);// Circle 4
-
+	drawCircle(radius/2,Origin.x+(7*((radius/2)/10)),Origin.y+(7*((radius/2)/10)));// Circle 5
+	drawCircle(radius/2,Origin.x-(7*((radius/2)/10)),Origin.y+(7*((radius/2)/10)));// Circle 6	
+	drawCircle(radius/2,Origin.x+(7*((radius/2)/10)),Origin.y-(7*((radius/2)/10)));// Circle 7
+	drawCircle(radius/2,Origin.x-(7*((radius/2)/10)),Origin.y-(7*((radius/2)/10)));// Circle 8
 
     glFlush(); 
 }
