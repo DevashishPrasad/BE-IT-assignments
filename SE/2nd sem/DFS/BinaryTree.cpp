@@ -12,52 +12,50 @@
 
 using namespace std;
 
-template <class T>
-BinaryTree<T>::BinaryTree() {
+BinaryTree::BinaryTree() {
 	// TODO Auto-generated constructor stub
-	root = new struct Node;
-	root->data = -1;
+	root = NULL;
+	hl=0;
+	hr=0;
 }
 
-template <class T>
-BinaryTree<T>::~BinaryTree() {
+BinaryTree::~BinaryTree() {
 	// TODO Auto-generated destructor stub
 	delete root;
 }
 
-template <class T>
-void BinaryTree<T>::displayRoot() {
-	cout<<root->data;
-}
-
-template <class T>
-int BinaryTree<T>::isempty()
+int BinaryTree::isempty()
 {
-	if(root->data == -1)
+	if(root == NULL)
 		return 1;
 	else
 		return 0;
 }
 
-template <class T>
-void BinaryTree<T>::insert(T d)
-{	
-	if(root->data == -1)
+Node* BinaryTree::getroot()
+{
+	return root;
+}
+
+void BinaryTree::insert(int d)
+{
+	if(isempty())
 	{
+		root = new Node;
 		root->data = d;
 		cout<<"\n Root node added successfully";
 		return;
-	}	
+	}
 	else
 	{
 		int ch;
-		struct Node *temp = root;
+		Node *temp = root;
 
 		while(1)
 		{
 			ch = 0;
 			cout<<"\n\nCurrent Node - "<<temp->data;
-		
+
 			while(ch == 0)
 			{
 				cout<<"\n Enter \n 1. to traverse left \n 2. to traverse right \n from current node - ";
@@ -75,7 +73,7 @@ void BinaryTree<T>::insert(T d)
 			{
 				if(temp->left == NULL)
 				{
-					temp->left = new struct Node;
+					temp->left = new Node;
 					temp = temp->left;
 					temp->data = d;
 					cout<<"\n New Node added successfully";
@@ -88,7 +86,7 @@ void BinaryTree<T>::insert(T d)
 			{
 				if(temp->right == NULL)
 				{
-					temp->right = new struct Node;
+					temp->right = new Node;
 					temp = temp->right;
 					temp->data = d;
 					cout<<"\n New Node added successfully";
@@ -101,35 +99,33 @@ void BinaryTree<T>::insert(T d)
 	}
 }
 
-template <class T>
-void BinaryTree<T>::display(int c)
+void BinaryTree::display(int c)
 {
-	struct Node *temp = root;
+	Node *temp = root;
 	switch (c)
 	{
 		case 1:
-			cout<<"\n Inorder Traversal of the Tree - ";
+			cout<<"\n In Order Traversal of the Tree - ";
 			inorder(temp);
 			break;
 		case 2:
-			cout<<"\n Preorder Traversal of the Tree - ";
+			cout<<"\n Pre Order Traversal of the Tree - ";
 			preorder(temp);
 			break;
 		case 3:
-			cout<<"\n Postorder Traversal of the Tree - ";
+			cout<<"\n Post Order Traversal of the Tree - ";
 			postorder(temp);
 			break;
 		case 4:
-			cout<<"\n Levelorder Traversal of the Tree - ";
+			cout<<"\n Level Order Traversal of the Tree - ";
 			levelorder(temp);
-			break;	
+			break;
 		default:
 			break;
 	}
 }
 
-template <class T>
-void BinaryTree<T>::inorder(Node *temp)
+void BinaryTree::inorder(Node *temp)
 {
 	if(temp!=NULL)
 	{
@@ -139,8 +135,7 @@ void BinaryTree<T>::inorder(Node *temp)
 	}
 }
 
-template <class T>
-void BinaryTree<T>::preorder(Node *temp)
+void BinaryTree::preorder(Node *temp)
 {
 	if(temp!=NULL)
 	{
@@ -150,8 +145,7 @@ void BinaryTree<T>::preorder(Node *temp)
 	}
 }
 
-template <class T>
-void BinaryTree<T>::postorder(Node *temp)
+void BinaryTree::postorder(Node *temp)
 {
 	if(temp!=NULL)
 	{
@@ -161,11 +155,10 @@ void BinaryTree<T>::postorder(Node *temp)
 	}
 }
 
-template <class T>
-void BinaryTree<T>::levelorder(Node *temp)
+void BinaryTree::levelorder(Node *temp)
 {
-	Queue<struct Node*> q;
-	
+	Queue<Node*> q;
+
 	while(temp!=NULL)
 	{
 		cout<<" "<<temp->data<<" ";
@@ -177,6 +170,47 @@ void BinaryTree<T>::levelorder(Node *temp)
 			temp = q.dequeue();
 		}
 		else
-			temp = NULL;		
+			temp = NULL;
 	}
+}
+
+int BinaryTree::height(Node *temp)
+{
+	if(temp==NULL)
+		return 0;
+	else
+	{
+		hl = 1 + height(temp->left);
+		hr = 1 + height(temp->right);
+	}
+	if(hl>hr)
+		return hl;
+	else
+		return hr;
+}
+
+void BinaryTree::displayleaves(Node *temp)
+{
+	if(temp != NULL)
+	{
+		if(temp->left==NULL and temp->right==NULL)
+		{
+			cout<<" "<<temp->data<<" ";
+		}
+		displayleaves(temp->left);
+		displayleaves(temp->right);
+	}
+}
+
+Node* BinaryTree::copy(Node *temp)
+{
+	Node *t=NULL;
+ 	if(temp != NULL)
+ 	{
+ 		t = new Node;
+ 		t->data = temp->data;
+ 		t->left = copy(temp->left);
+ 		t->right = copy(temp->right);
+ 	}
+ 	return t;
 }
