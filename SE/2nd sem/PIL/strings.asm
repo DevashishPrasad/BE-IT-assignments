@@ -1,6 +1,13 @@
 .model small
 .stack 100h
 
+;----------- macro for displayimg string -------------
+dispstr macro mystr
+        lea dx,mystr
+        mov ah,09h
+        int 21h
+endm
+
 ;----------- macro for taking input single character -------------
 getinput macro
         mov ah,01h
