@@ -1,23 +1,19 @@
 .model small
 .stack 100h
 
-dispstr macro mystr
-        printnextline
-        lea dx,mystr
-        mov ah,09h
-        int 21h        
-endm
+;----------- macro for taking input single character -------------
 getinput macro
         mov ah,01h
         int 21h
         mov input,al
 endm
+;---------------- macro to print an empty line -------------------
 printnextline macro
 	lea dx,nextline
         mov ah,09h
         int 21h
 endm
-
+;---------- macro to display a singlecharacter on the screen -----
 setoutput macro
         mov ah,02h
         int 21h
@@ -27,7 +23,8 @@ endm
 	str1 db 10,13,10,13,'Enter the String - $'
 	str2 db 10,13,'The length of the string is - $'
 	str3 db 10,13,'Your string is - $'
-        showequal db 10,13,'Yes it is a palindrome$'
+        showequal db 10,13,'YES the string is a palindrome$'
+        shownotequal db 10,13,'NO the string is not a palindrome$'
         menustr db 10,13,10,13,'---------------MENU----------------',10,13,'1. LENGTH OF STRING',10,13,'2. DISPLAY STRING',10,13,'3. REVERSE THE STRING',10,13,'4. CHECK FOR PALINDROME',10,13,'ELSE EXIT ',10,13,'ENTER YOUR CHOICE - $'
         thestr db 25 dup('$')
         revstr db 25 dup('$')
@@ -39,14 +36,16 @@ endm
 start:
         mov ax,@data
         mov ds,ax
-	
+
+        ; -------------- Takinf sytring input from user --------------
 	lea dx,str1
         dispstr str1
         mov dx,0000h
 	lea dx,thestr
 	mov ah,0Ah
 	int 21h
-	
+
+        ; -------------- Display menu logic ------------------
         m1:
         dispstr menustr
         getinput
@@ -84,10 +83,36 @@ start:
         strlen proc
 		printnextline
                 dispstr str2
+                mov cx,0204h
                 lea si,thestr+1
-		mov dl,[si]
+                mov al,00h
+                mov al,[si]
+                daa
+                mov dl,00h
+                mov bl,00h
+                mov dl,al
+                mov bl,dl
+                lab1:
+                cmp dl,09h
+                jg lab2
                 add dl,30h
 		setoutput
+                jmp baher
+
+                lab2:
+                rol bl,cl
+                mov dl,bl
+                and dl,0Fh
+                cmp dl,09h
+                jbe down
+                add dl,07h
+
+                down:
+                add dl,30h
+                setoutput
+                dec ch
+                jnz lab2
+                baher:
 	ret
         endp
 
@@ -119,6 +144,7 @@ start:
                         dec si
                         dec cl
                         jnz loop1
+
 	ret
         endp
 
@@ -138,8 +164,11 @@ start:
 
                 mov cnt,0h
                 loop2:
-                        mov dx,[si]
-                        cmp dx,[di]
+                        mov dx,0000h
+                        mov ax,0000h
+                        mov dl,[si]
+                        mov al,[di]
+                        cmp dl,al
                         jne outside
                         inc cnt
                         inc di
@@ -150,7 +179,10 @@ start:
                         cmp cnt,bl
                         jne outtest
                         dispstr showequal
+                        jmp outtttt
                 outtest:
+                        dispstr shownotequal                        
+                outtttt:
 	ret
         endp
 
