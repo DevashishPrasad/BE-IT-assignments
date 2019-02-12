@@ -44,7 +44,7 @@ start:
         mov ax,@data
         mov ds,ax
 
-        ; -------------- Takinf sytring input from user --------------
+        ; -------------- Takinf string input from user --------------
 	lea dx,str1
         dispstr str1
         mov dx,0000h
