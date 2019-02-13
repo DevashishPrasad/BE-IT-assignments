@@ -101,7 +101,7 @@ Node* BinaryTree::getroot()
 
 void BinaryTree::create(char* exp)
 {
-	for(int i=0;exp;i++)
+	for(int i=0;exp[i];i++)
 	{
 		if(determine(exp[i]) == 1)
 		{
@@ -112,6 +112,7 @@ void BinaryTree::create(char* exp)
 		if(determine(exp[i]) == 0)
 		{
 			Node *newNode = new Node;
+			newNode->data = exp[i];
 			newNode->right = stack.pop();
 			newNode->left = stack.pop();
 			stack.push(newNode);
@@ -199,17 +200,65 @@ void BinaryTree::rpostorder(Node *temp)
 //====================== Non Recursive tree traversals ===================
 void BinaryTree::nrinorder()
 {
+	Node * temp = root;
+	while(1)
+	{
+		while(temp != NULL)
+		{
+			stack.push(temp);
+			temp = temp->left;
+		}
+		if(stack.isempty())
+			return;
 
+		temp = stack.pop();
+		cout<<" "<<temp->data;
+		temp = temp->right;
+	}
 }
 
 void BinaryTree::nrpreorder()
 {
+	Node * temp = root;
+	while(1)
+	{
+		while(temp != NULL)
+		{
+			cout<<" "<<temp->data;
+			stack.push(temp);
+			temp = temp->left;
+		}
+		if(stack.isempty())
+			return;
 
+		temp = stack.pop();
+		temp = temp->right;
+	}
 }
 
 void BinaryTree::nrpostorder()
 {
+	StackLL<Node *>stack2;
+	Node * temp = root;
+	Node * temp1;
+	
+	stack.push(temp);
+	
+	while(!stack.isempty())
+	{
+		temp1 = stack.pop();
+		stack2.push(temp1);
 
+		if(temp1->left != NULL)
+			stack.push(temp1->left);
+		if(temp1->right != NULL)
+			stack.push(temp1->right);
+	}
+
+	while(!stack2.isempty())
+	{
+		cout<<" "<<stack2.pop()->data;
+	}
 }
 
 //=========================== Class Tree Ends ================================
@@ -219,7 +268,7 @@ void BinaryTree::nrpostorder()
 int main() {
 	BinaryTree tree;
 	int choice,temp=0,ch=0;
-	char* expr = NULL;
+	char expr[20];
 
 		do
 		{
@@ -248,7 +297,7 @@ int main() {
 
 						temp = 1;
 
-						for(int i;expr;i++)
+						for(int i;expr[i];i++)
 						{
 							if(determine(expr[i]) == 3 || determine(expr[i]) == 2)
 								temp = 0;
@@ -262,6 +311,7 @@ int main() {
 						}
 						else
 						{
+							temp = 1;
 							break;
 						}
 	                }
@@ -274,6 +324,7 @@ int main() {
 					break;
 				case 3:
 					tree.create(expr);
+					cout<<"\n The tree was created successfully"
 					break;
 				case 4:
 					if(expr == NULL)
