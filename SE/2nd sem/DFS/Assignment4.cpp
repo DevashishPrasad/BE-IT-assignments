@@ -1,9 +1,9 @@
 //============================================================================
 // Name        : Assignment4.cpp
 // Author      : Devashish
-// Version     :
+// Version     : 1.0
 // Copyright   : GNU Public Lincense
-// Description : Hello World in C++, Ansi-style
+// Description : Binary Expression Tree
 //============================================================================
 
 
@@ -106,6 +106,8 @@ void BinaryTree::create(char* exp)
 		if(determine(exp[i]) == 1)
 		{
 			Node *newNode = new Node;
+			newNode->left = NULL;
+			newNode->right = NULL;
 			newNode->data = exp[i];
 			stack.push(newNode);
 		}
@@ -145,7 +147,6 @@ void BinaryTree::displayRecur(int c)
 
 void BinaryTree::displayNoRecur(int c)
 {
-	Node *temp = root;
 	switch (c)
 	{
 		case 1:
@@ -241,9 +242,9 @@ void BinaryTree::nrpostorder()
 	StackLL<Node *>stack2;
 	Node * temp = root;
 	Node * temp1;
-	
+
 	stack.push(temp);
-	
+
 	while(!stack.isempty())
 	{
 		temp1 = stack.pop();
@@ -324,7 +325,7 @@ int main() {
 					break;
 				case 3:
 					tree.create(expr);
-					cout<<"\n The tree was created successfully"
+					cout<<"\n The tree was created successfully";
 					break;
 				case 4:
 					if(expr == NULL)
@@ -342,7 +343,7 @@ int main() {
 	                while(ch == 0)
 					{
 	                    cout<<"\n Please select the traversal algorithm for the tree - ";
-	                    cout<<"\n 1. Inorder \n 2. Preorder \n 3. Postorder - ";
+	                    cout<<"\n 1. Inorder \n 2. Preorder \n 3. Postorder \n Select any one - ";
 	                    cin>>ch;
 	                    if(ch<1 || ch>3)
 	                    {
@@ -368,7 +369,7 @@ int main() {
 	                while(ch == 0)
 					{
 	                    cout<<"\n Please select the traversal algorithm for the tree - ";
-	                    cout<<"\n 1. Inorder \n 2. Preorder \n 3. Postorder - ";
+	                    cout<<"\n 1. Inorder \n 2. Preorder \n 3. Postorder \n Select any one - ";
 	                    cin>>ch;
 	                    if(ch<1 || ch>3)
 	                    {
