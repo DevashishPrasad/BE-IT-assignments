@@ -27,7 +27,7 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 
 	// setting window dimension in X- and Y- direction 
-	gluOrtho2D(0.0, 1200.0, 0.0, 800.0);
+	gluOrtho2D(0.0, 1024.0, 0.0, 640.0);
 }
 
 // Custom Function for drawing a line
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
 	// Set the window size
-    glutInitWindowSize(1200, 800);
+    glutInitWindowSize(1024, 640);
 	glutInitWindowPosition(0, 0);
 
 	int winid = glutCreateWindow("OpenGL - Creating a line");
