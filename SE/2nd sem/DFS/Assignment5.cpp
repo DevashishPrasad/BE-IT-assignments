@@ -28,6 +28,7 @@ typedef struct Node
 
 class BinarySearchTree
 {
+	int hl,hr;
 	Node *root;
 public:
 	BinarySearchTree()
@@ -42,48 +43,144 @@ public:
 	{
 		Node* temp = root;
 
+		if(root == NULL)
+		{
+			root = new Node;
+			root->left = NULL;
+			root->right = NULL;
+			root->data = d;
+			cout<<"\n Root node added successfully";
+			return;
+		}
+		int i=0;
 		while(1)
 		{
-			if(temp == NULL)
+			i++;
+			if(d > temp->data)
 			{
-				temp = new Node;
-				temp->left = NULL;
-				temp->right = NULL;
-				temp->data = d;
-				cout<<"\n\n INFO: Data was inserted in the tree successfully";
-				return;
+				if(temp->right == NULL)
+				{
+					temp->right = new Node;
+					temp = temp->right;
+					temp->left = NULL;
+					temp->right = NULL;
+					temp->data = d;
+					cout<<"\n\n INFO: Data was inserted in the tree successfully at level "<<i;
+					return;
+				}
+				temp = temp->right;
+			}
+			else if(d < temp->data)
+			{
+				if(temp->left == NULL)
+				{
+					temp->left = new Node;
+					temp = temp->left;
+					temp->left = NULL;
+					temp->right = NULL;
+					temp->data = d;
+					cout<<"\n\n INFO: Data was inserted in the tree successfully at level "<<i;
+					return;
+				}
+				temp = temp->left;
 			}
 			else
 			{
-				if(d > temp->data)
-					temp = temp->right;
-				else if(d > temp->data)
-					temp = temp->left;
-				else
-				{
-					cout<<"\n\n INFO: Cannot insert given data, duplicate data values not allowed";
-					return;
-				}
+				cout<<"\n\n INFO: Cannot insert given data, duplicate data values not allowed";
+				return;
 			}
 		}
 	}
 
 	void remove(int d)
 	{
+		root = deleteNode(root,d);
+	}
 
+	Node* deleteNode(Node *root, int key)
+	{
+		if (root == NULL) return root;
+	    if (key < root->data)
+	        root->left = deleteNode(root->left, key);
+	    else if (key > root->data)
+	        root->right = deleteNode(root->right, key);
+	    else
+	    {
+	        if (root->left == NULL)
+	        {
+	            Node *temp = root->right;
+	            delete root;
+				cout<<"\n\n  INFO: Node deleted successfully ! ";
+	            return temp;
+	        }
+	        else if (root->right == NULL)
+	        {
+	            Node *temp = root->left;
+	            delete root;
+				cout<<"\n\n  INFO: Node deleted successfully ! ";
+	            return temp;
+	        }
+
+	        Node* temp = minValueNode(root->right);
+	        root->data = temp->data;
+	        root->right = deleteNode(root->right, temp->data);
+
+	    }
+
+		cout<<"\n\n  INFO: Node not found in the tree ! ";
+
+	    return root;
+	}
+
+	Node* minValueNode(Node* node)
+	{
+	    Node* current = node;
+
+	    while (current->left != NULL)
+	        current = current->left;
+
+	    return current;
 	}
 
 	void search(int d)
 	{
+		Node *temp = root;
 
+		while(temp)
+		{
+			if(temp->data == d)
+			{
+				cout<<"\n\n INFO: Data was successfully found in the tree";
+				return;
+			}
+			else if(d > temp->data)
+				temp = temp->right;
+			else if(d < temp->data)
+				temp = temp->left;
+		}
+
+		cout<<"\n\n INFO: Cannot find given data in the tree";
+		return;
 	}
 
-	Node* mirror(Node* temp)
-	{
+	Node* mirrorImage(Node *root){
+		Node *temp;
+		if(root != NULL)
+		{
+			temp = root->left;
+			root->left = root->right;
+			root->right = temp;
+			mirrorImage(root->left);
+			mirrorImage(root->right);
+		}
 		return root;
 	}
+	void mirror(Node* temp)
+	{
+		root = mirrorImage(root);
+	}
 
-	void display(int d)
+	void display(int d=1)
 	{
 		switch(d)
 		{
@@ -99,13 +196,28 @@ public:
 				cout<<"\n\n INFO: Post Order Traversal of the Tree - ";
 				rpostorder(root);
 				break;
-			case 3:
-				cout<<"\n\n INFO: Post Order Traversal of the Tree - ";
+			case 4:
+				cout<<"\n\n INFO: Level Order Traversal of the Tree - ";
 				levelorder(root);
 				break;
 			default:
 				break;
 		}
+	}
+
+	int height(Node *temp)
+	{
+		if(temp==NULL)
+			return 0;
+		else
+		{
+			hl = 1 + height(temp->left);
+			hr = 1 + height(temp->right);
+		}
+		if(hl>hr)
+			return hl;
+		else
+			return hr;
 	}
 
 //====================== Recursive tree traversals ===================
@@ -146,15 +258,16 @@ public:
 		while(temp!=NULL)
 		{
 			cout<<" "<<temp->data<<" ";
-			q.enqueue(temp->left,1);
-			q.enqueue(temp->right,1);
-
-			if(!q.isempty())
-			{
-				temp = q.dequeue();
+			if (temp->left != NULL) {
+				q.enqueue(temp->left,1);
 			}
-			else
+			if (temp->right != NULL) {
+				q.enqueue(temp->right,1);
+			}
+			if (q.isempty())
 				temp = NULL;
+			else
+				temp = q.dequeue();
 		}
 	}
 
@@ -205,13 +318,24 @@ int main()
 					cout<<"\n\n INFO: The tree was mirrored successfully";
 					break;
 			case 5:
-					bst.display();
+					ch = 0;
+					while(ch == 0)
+					{
+						cout<<"\n\n Select the traversal \n 1. Inorder \n 2. Preorder \n 3. Postorder \n 4. Level order \n Enter your choice - ";
+						cin>>ch;
+						if(ch < 1 || ch > 4)
+						{
+							cout<<"\n\n Please enter a valid choice Try again ";
+							ch = 0;
+						}
+					}
+					bst.display(ch);
 					break;
 			case 6:
 					bst.display(4);
 					break;
 			case 7:
-					cout<<"\n\n Height of the BST is - "<<bst.height();
+					cout<<"\n\n Height of the BST is - "<<bst.height(bst.getRoot());
 					break;
 			case 8:
 					return 0;
