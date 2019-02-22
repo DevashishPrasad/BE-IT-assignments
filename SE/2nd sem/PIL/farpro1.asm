@@ -35,14 +35,14 @@ endm
 	stringcompare db 10,13,'Enter the string to be compared - $'
 	stringsubstring db 10,13,'Enter the substring to be searched - $'
 	stringspecial db 10,13,'The number of special characters in your string are - $'
-	menustr db 10,13,10,13,'---------------MENU----------------',10,13,'1. DISPLAY STRING',10,13,'2. CONCATENATE STRINGS',10,13,'3. COMPARE STRINGS',10,13,'4. NUMBER OF SUBSTRING OCCURENCES',10,13,'5. COUNTING SPECIAL CHARACTERS',10,13,'ELSE EXIT ',10,13,'ENTER YOUR CHOICE - $'
+	menustr db 10,13,10,13,'---------------MENU----------------',10,13,'1. DISPLAY STRING',10,13,'2. CONCATENATE STRINGS',10,13,'3. COMPARE STRINGS',10,13,'4. FIND SUBSTRING',10,13,'5. COUNTING SPECIAL CHARACTERS',10,13,'ELSE EXIT ',10,13,'ENTER YOUR CHOICE - $'
 	str1 db 15 dup('$')
 	str2 dp 15 dup('$')
-	conc dp 32 dup('$')
+	str3 dp 32 dup('$')
 	input db ?
 	byestr db 10,13,'Bye! $'
 	nextline db 10,13,10,13,'$'
-	public str1,str2,conc
+	public str1,str2,str3
 .code
         mov ax,@data
         mov ds,ax
@@ -67,7 +67,8 @@ endm
         next1:
         cmp input,32h
         jne next2
-        dispstr stringconcatenate
+	printnextline	        
+	dispstr stringconcatenate
 	takestr str2
 	printnextline	
 	extrn concatstr:far
@@ -77,22 +78,31 @@ endm
 	next2:
 	cmp input,33h
 	jne next3
+	printnextline		
 	dispstr stringcompare
-	;call strrev
+	takestr str2
+	printnextline	
+	extrn compstr:far
+        call compstr
 	jmp m1
 
 	next3:
 	cmp input,34h
 	jne next4
+	printnextline	
 	dispstr stringsubstring
-	;call strpali
+	takestr str2
+	printnextline		
+	extrn substrng:far
+        call substrng
 	jmp m1
 
 	next4:
-	cmp input,34h
+	cmp input,35h
 	jne finalnext
 	dispstr stringspecial
-	;call strpali
+	extrn stroccur:far
+	call stroccur
 	jmp m1
 
 	;------------ terminate the program ---------------
