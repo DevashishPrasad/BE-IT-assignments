@@ -16,6 +16,7 @@ using namespace std;
 
 //==============================  Class declarations ==============================
 
+// Date as a user defined data type
 class Date
 {
 	int day;
@@ -26,12 +27,12 @@ class Date
 
 	void getdate()
 	{
-		cout<<"\n Please enter the date in following format -> (dd-mm-yyy)";
-		cout<<"\n Enter the day - ";
+		cout<<"\n Please enter the date ";
+		cout<<"\n Enter the day (dd) - ";
 		cin>>day;
-		cout<<"\n Enter the month - ";
+		cout<<"\n Enter the month (mm) - ";
 		cin>>month;
-		cout<<"\n Enter the year - ";
+		cout<<"\n Enter the year (yyyy) - ";
 		cin>>year;
 	}
 	void putdate()
@@ -41,27 +42,24 @@ class Date
 
 };
 
-class Vertex;
+struct Vertex;
 
-class Graphedge
+struct Graphedge
 {
 	int weight;
-	public:
-	Vertex* orignal;
+	Vertex* neighbourlink;
 	Graphedge* nextlink;
 };
 
-class Vertex
+struct Vertex
 {
 	char* name;
 	Date dob;
 	int comments;
 	bool visited;
-
-	public:
 	Vertex* downlink;
 	Graphedge* edgelink;
-	
+
 	Vertex()
 	{
 		name = new char[20];
@@ -70,6 +68,7 @@ class Vertex
 		downlink = NULL;
 		edgelink = NULL;
 	}
+
 	void makeuser()
 	{
 		cout<<"\n INFO: Adding new user, Please enter the following details - ";
@@ -79,6 +78,7 @@ class Vertex
 		dob.getdate();
 		downlink = NULL;
 	}
+
 	void putdata()
 	{
 		cout<<"\n Name - "<<name;
@@ -86,83 +86,77 @@ class Vertex
 		dob.putdate();
 		cout<<"\n Comments - "<<comments;
 	}
-	void setvisited()
-	{
-		visited = true;
-	}
-	bool checkvisited()
-	{
-		return visited;
-	}
-	void visitinit()
-	{
-		visited = false;
-	}
-//	void addfriend()
-//	{
-//
-//		cout<<"\n INFO: Adding new friend of the current user - ";
-//		cout<<"\n Enter the name of the friend - ";
-//		cin>>
-//	}
 };
 
-class startnode
+// Starting Node of the graph
+struct startnode
 {
 	int cnt;
-	public:
 	Vertex* start;
-	void createNode()
-	{
-		cnt = 0;
-		cout<<"\n\n INFO: Making new User in the network";
-		Vertex *temp = start;
-
-		if(temp == NULL)
-		{
-			temp = new Vertex;
-			temp->makeuser();	
-			return;
-		}
-
-		while(temp->downlink!=NULL)
-		{
-			cnt++;
-			temp=temp->downlink;
-		}
-
-		temp->downlink = new Vertex;
-		temp->makeuser();
-	}
-	void initvisit()
-	{
-		Vertex *temp = start; 
-		while(temp != NULL)
-		{
-			temp->visitinit();
-			temp= temp->downlink;
-		}
-	}
 };
 
-void traverse(Vertex* temp)
+// Initialize visited flag for all nodes
+void initvisit(startnode *startnode)
 {
-	temp->setvisited();
+	Vertex *temp = startnode->start;
+	while(temp != NULL)
+	{
+		temp->visited = false;
+		temp= temp->downlink;
+	}
+}
+
+// Depth first traversal
+void traversedfs(Vertex* temp)
+{
+	temp->visited = true;
 	temp->putdata();
 	Graphedge* g = temp->edgelink;
 	while(g!=NULL)
 	{
-		if(g->orignal->checkvisited() != true)
-			traverse(g->orignal);
+		if(g->neighbourlink->visited != true)
+			traversedfs(g->neighbourlink);
 		g = g->nextlink;
 	}
 }
 
-int main() {
+// Add a new user to the network
+startnode* addNode(startnode *startn)
+{
+	cout<<"\n\n INFO: Creating new User in the network";
+	startnode *temp = startn;
+	Vertex *tempv = temp->start;
+
+	if(tempv == NULL)
+	{
+		tempv = new Vertex;
+		tempv->makeuser();
+		tempv->downlink = NULL;
+		return temp;
+	}
+
+	while(tempv->downlink!=NULL)
+	{
+		startn->cnt++;
+		tempv=tempv->downlink;
+	}
+
+	tempv->downlink = new Vertex;
+	tempv = tempv->downlink;
+	tempv->downlink = NULL;
+	tempv->makeuser();
+
+	return startn;
+	cout<<"\n\n INFO: User was added successfully in the network";
+}
+
+
+int main()
+{
 	startnode *graph = new startnode;
 	Vertex *startv = NULL;
 	graph->start = startv;
-	
+
 	int choice;
 	do
 	{
@@ -185,11 +179,12 @@ int main() {
 		switch(choice)
 		{
 			case 1:
-				graph->createNode();
+				graph = addNode(graph);
+				graph->start->putdata();
 				break;
 			case 2:
 				cout<<"\n Enter your name - ";
-				cin>>
+				//cin>>
 				cout<<"\n Enter the name of the person who you";
 				break;
 			case 3:
@@ -199,11 +194,11 @@ int main() {
 			case 5:
 				break;
 			case 6:
-				graph->initvisit();
-				traverse(startv); 
+				initvisit(graph);
+				traversedfs(startv);
 				break;
 			case 7:
-				break;
+				return 0;
 			default:
 				break;
 		}
