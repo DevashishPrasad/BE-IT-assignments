@@ -7,7 +7,7 @@
 //============================================================================
 
 #include "BinaryTree.h"
-//#include "BinaryTree.cpp"
+#include "BinaryTree.cpp"
 #include <iostream>
 
 using namespace std;
