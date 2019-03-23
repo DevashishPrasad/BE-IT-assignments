@@ -11,6 +11,7 @@
 //=================================================================================
 
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -37,9 +38,8 @@ class Date
 	}
 	void putdate()
 	{
-		cout<<"\n Date (dd-mm-yyy) - "<<day<<"-"<<month<<"-"<<year;
+		cout<<"\n Date of birth (dd-mm-yyy) - "<<day<<"-"<<month<<"-"<<year;
 	}
-
 };
 
 struct Vertex;
@@ -82,7 +82,6 @@ struct Vertex
 	void putdata()
 	{
 		cout<<"\n Name - "<<name;
-		cout<<"\n Date of Birth - ";
 		dob.putdate();
 		cout<<"\n Comments - "<<comments;
 	}
@@ -126,12 +125,13 @@ startnode* addNode(startnode *startn)
 	cout<<"\n\n INFO: Creating new User in the network";
 	startnode *temp = startn;
 	Vertex *tempv = temp->start;
-
+	
 	if(tempv == NULL)
 	{
 		tempv = new Vertex;
 		tempv->makeuser();
 		tempv->downlink = NULL;
+		temp->start = tempv;
 		return temp;
 	}
 
@@ -145,19 +145,81 @@ startnode* addNode(startnode *startn)
 	tempv = tempv->downlink;
 	tempv->downlink = NULL;
 	tempv->makeuser();
-
-	return startn;
+	
 	cout<<"\n\n INFO: User was added successfully in the network";
+	return temp;
 }
 
+// Add friend 
+startnode* addFriend(startnode *startn, char* name1, char* name2)
+{
+	int flg = 0;
 
+	startnode *temp = startn;
+	Vertex *v1 = startn->start; 
+	Vertex *v2 = startn->start; 
+
+	while(v1!=NULL)
+	{	
+		if(strcmp(v1->name,name1) != 0)
+			v1=v1->downlink;
+		else if(strcmp(v1->name,name1) == 0)
+		{
+			flg = 1;
+			break;
+		}
+	}
+
+	if(flg == 0)
+	{
+		cout<<"\n INFO:	The name specified as \" "<<name1<<" \"does not exist in the network, please try again !!!";
+		return temp;
+	}
+
+	cout<<"\n"<<v1->name;
+
+	flg = 0;
+	v2 = startn->start; 
+
+	while(v2!=NULL)
+	{	
+		if(strcmp(v2->name,name2) != 0)
+			v2=v2->downlink;
+		else
+		{
+			flg = 1;
+			break;
+		}
+	}
+
+	if(flg == 0)
+	{
+		cout<<"\n INFO: The name specified as \" "<<name2<<" \" does not exist in the network, please try again !!!";
+		return temp;
+	}
+
+	Graphedge *ge1,*ge2;
+	
+	ge1 = new Graphedge;
+	ge1->neighbourlink = v2;
+	ge1->nextlink = NULL;
+	v1->edgelink = ge1;
+
+	ge2 = new Graphedge;
+	ge2->neighbourlink = v1;
+	ge2->nextlink = NULL;
+	v2->edgelink = ge2;
+
+	return temp;
+}
 int main()
 {
 	startnode *graph = new startnode;
-	Vertex *startv = NULL;
-	graph->start = startv;
+	graph->start = NULL;
 
+	char *name1 = new char[20], *name2 = new char[20];
 	int choice;
+	
 	do
 	{
 		cout<<"\n\n\n ____________________________________";
@@ -180,12 +242,13 @@ int main()
 		{
 			case 1:
 				graph = addNode(graph);
-				graph->start->putdata();
 				break;
 			case 2:
 				cout<<"\n Enter your name - ";
-				//cin>>
-				cout<<"\n Enter the name of the person who you";
+				cin>>name1;
+				cout<<"\n Enter the name of the person whom you want to make friend - ";
+				cin>>name2;
+				graph = addFriend(graph, name1, name2);
 				break;
 			case 3:
 				break;
@@ -195,7 +258,7 @@ int main()
 				break;
 			case 6:
 				initvisit(graph);
-				traversedfs(startv);
+				traversedfs(graph->start);
 				break;
 			case 7:
 				return 0;
