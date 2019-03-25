@@ -3,11 +3,8 @@
 // Author      : Devashish (23364)
 // Version     : 1.0
 // Copyright   : GNU Public License
-// Description : Graph DFS and BFS
-//				 1. DOB and No. of comments
-//				 2. Find who has maximum and minimum comments
-//				 3. Find who is having birthday this month
-//				 4. Find who has maximum friends
+// Description : Represent any real world graph using adjacency list /adjacency 
+//               matrix find minimum spanning tree using Kruskal’s algorithm.
 //=================================================================================
 
 #include <iostream>
@@ -16,35 +13,6 @@
 using namespace std;
 
 //==============================  Class declarations ==============================
-
-// Date as a user defined data type
-class Date
-{
-	int day;
-	int month;
-	int year;
-
-	public:
-
-	void getdate()
-	{
-		cout<<"\n Please enter the date ";
-		cout<<"\n Enter the day (dd) - ";
-		cin>>day;
-		cout<<"\n Enter the month (mm) - ";
-		cin>>month;
-		cout<<"\n Enter the year (yyyy) - ";
-		cin>>year;
-	}
-	int getmonth()
-	{
-		return month;
-	}
-	void putdate()
-	{
-		cout<<"\t"<<day<<"-"<<month<<"-"<<year;
-	}
-};
 
 struct Vertex;
 
@@ -58,8 +26,6 @@ struct Graphedge
 struct Vertex
 {
 	char* name;
-	Date dob;
-	int comments;
 	bool visited;
 	Vertex* downlink;
 	Graphedge* edgelink;
@@ -67,7 +33,6 @@ struct Vertex
 	Vertex()
 	{
 		name = new char[20];
-		comments = 0;
 		visited = false;
 		downlink = NULL;
 		edgelink = NULL;
@@ -78,19 +43,12 @@ struct Vertex
 		cout<<"\n INFO: Adding new user, Please enter the following details - ";
 		cout<<"\n Name - ";
 		cin>>name;
-		cout<<"\n Date of Birth - ";
-		dob.getdate();
-		downlink = NULL;
-		cout<<"\n Enter the number of comments - ";
-		cin>>comments;
 	}
 
 	void putdata()
 	{
 		cout<<"\n";
 		cout<<"\t"<<name;
-		dob.putdate();
-		cout<<"\t"<<comments;		
 	}
 };
 
@@ -126,10 +84,22 @@ void traversedfs(Vertex* temp)
 	}
 }
 
+// Check cycles
+void checkcycle(Vertex* temp)
+{
+	temp->putdata();
+	Graphedge* g = temp->edgelink;
+	while(g!=NULL)
+	{
+		traversedfs(g->neighbourlink);
+		g = g->nextlink;
+	}
+}
+
 // Add a new user to the network
 startnode* addNode(startnode *startn)
 {
-	cout<<"\n\n INFO: Creating new User in the network";
+	cout<<"\n\n INFO: Creating new Node in the graph";
 	startnode *temp = startn;
 	Vertex *tempv = temp->start;
 	
@@ -153,12 +123,12 @@ startnode* addNode(startnode *startn)
 	tempv->downlink = NULL;
 	tempv->makeuser();
 	
-	cout<<"\n\n INFO: User was added successfully in the network";
+	cout<<"\n\n INFO: Node was added successfully in the graph";
 	return temp;
 }
 
-// Add friend 
-startnode* addFriend(startnode *startn, char* name1, char* name2)
+// Add edge 
+startnode* addEdge(startnode *startn, char* name1, char* name2)
 {
 	int flg = 0;
 
@@ -179,7 +149,7 @@ startnode* addFriend(startnode *startn, char* name1, char* name2)
 
 	if(flg == 0)
 	{
-		cout<<"\n INFO:	The name specified as \" "<<name1<<" \"does not exist in the network, please try again !!!";
+		cout<<"\n INFO:	The node specified as \" "<<name1<<" \"does not exist in the graph, please try again !!!";
 		return temp;
 	}
 
@@ -199,9 +169,35 @@ startnode* addFriend(startnode *startn, char* name1, char* name2)
 
 	if(flg == 0)
 	{
-		cout<<"\n INFO: The name specified as \" "<<name2<<" \" does not exist in the network, please try again !!!";
+		cout<<"\n INFO: The node specified as \" "<<name2<<" \" does not exist in the graph, please try again !!!";
 		return temp;
 	}
+
+	int weight = 0;
+
+	cout<<"\n Enter the weight of the edge - ";
+	cin>>weight;
+
+	// Graphedge *ge1,*ge2;
+
+	// while(v1->edgelink != NULL)
+	// 	v1->edgelink = v1->edgelink->nextlink;
+	
+	// ge1 = new Graphedge;
+	// ge1->neighbourlink = v1;
+	// ge1->weight = weight;
+	// ge1->nextlink = NULL;
+	// v1->edgelink = ge1;
+
+	// while(v2->edgelink != NULL)
+	// 	v2->edgelink = v2->edgelink->nextlink;
+	
+	// ge2 = new Graphedge;
+	// ge2->neighbourlink = v1;
+	// ge2->weight = weight;
+	// ge2->nextlink = NULL;
+	// v2->edgelink = ge2;
+
 
 	Graphedge *ge1,*ge2;
 
@@ -212,6 +208,7 @@ startnode* addFriend(startnode *startn, char* name1, char* name2)
 	{
 		ge1 = new Graphedge;
 		ge1->neighbourlink = v2;
+		ge1->weight = weight;
 		ge1->nextlink = NULL;
 		v1->edgelink = ge1;
 	
@@ -223,6 +220,7 @@ startnode* addFriend(startnode *startn, char* name1, char* name2)
 
 	ge1->nextlink = new Graphedge;
 	ge1 = ge1->nextlink;
+	ge1->weight = weight;
 	ge1->neighbourlink = v2;
 	ge1->nextlink = NULL;
 
@@ -233,6 +231,7 @@ startnode* addFriend(startnode *startn, char* name1, char* name2)
 	{
 		ge2 = new Graphedge;
 		ge2->neighbourlink = v1;
+		ge2->weight = weight;	
 		ge2->nextlink = NULL;
 		v2->edgelink = ge2;
 	
@@ -244,90 +243,63 @@ startnode* addFriend(startnode *startn, char* name1, char* name2)
 
 	ge2->nextlink = new Graphedge;
 	ge2 = ge2->nextlink;
+	ge2->weight = weight;	
 	ge2->neighbourlink = v1;
 	ge2->nextlink = NULL;
+
+	cout<<"\n INFO: The edge was successfully added between \" "<<v1->name<<" \" and \" "<<v2->name<<" \"";
 
 	return temp;
 }
 
-// Maximum friends
-void maxfriends(startnode *graph)
+// Swapping edges
+void swap(Graphedge *xp, Graphedge *yp) 
+{ 
+    Graphedge temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+} 
+
+// Sort the edges
+void sortEdges(startnode *graph)
 {
-	Vertex *temp = graph->start;
-	Vertex *max = NULL;
-	Graphedge *ge = NULL;
+	Vertex *v = graph->start;
+	Graphedge *gearr[30];
+	int index = 0;
 
-	int maxc = 0;
-
-	while(temp != NULL)
+	while(v!=NULL)
 	{
-		int cnt=0;
-		ge = temp->edgelink;
+		Graphedge *ge = v->edgelink;
+		
 		while(ge != NULL)
 		{
-			cnt++;
-			ge = ge->nextlink;
+			gearr[index] = ge;
+			cout<<"\n "<<gearr[index]->weight<<" - "<<index;
+			index++;
+			ge = ge->nextlink; 
 		}
-		if(maxc < cnt)
-		{
-			max = temp;
-			maxc = cnt;
-		}
-		temp = temp->downlink;
+		v = v->downlink;
 	}
 
-	cout<<"\n The person having maximum friends is - ";
-	if(max!=NULL)
-		cout<<max->name;
-	else
-		cout<<"No one has friends";
+	// // bubble sort
+	// int i, j, n=30; 
+   	// for (i = 0; i < n-1; i++)       
+    //    // Last i elements are already in place    
+    //    for (j = 0; j < n-i-1; j++)  
+    //        if (gearr[j]->weight > gearr[j+1]->weight) 
+    //           swap(gearr[j], gearr[j+1]); 
+
+	cout<<"\n sorted - ";
+	for(int i = 0;gearr[i] != NULL; i++)
+	{
+		cout<<"\n"<<gearr[i]->weight;
+	}
 }
 
-// Max and minimum comments
-void maxmincomments(startnode *graph)
+// Kruskal MST
+void kruskal(startnode *graph)
 {
-	Vertex *temp = graph->start;
-	Vertex *max = graph->start;
-	Vertex *min = graph->start;
-	
-	int maxc = 0;
-	int minc = 9999;
-
-	while(temp != NULL)
-	{
-		int cnt = temp->comments;
-		if(maxc < cnt)
-		{
-			max = temp;
-			maxc = cnt;
-		}
-		else if(minc > cnt)
-		{
-			min = temp;
-			minc = cnt;
-		}
-		temp = temp->downlink;
-	}
-
-	cout<<"\n The person having maximum comments is - "<<max->name;
-	cout<<"\n The person having minimum comments is - "<<min->name;
-}
-
-// Birthday
-void birthday(startnode *graph)
-{
-	Vertex *temp = graph->start;
-
-	int cnt = 3;
-
-	cout<<"\n The people having birthday this month are - ";
-
-	while(temp != NULL)
-	{
-		if(cnt == temp->dob.getmonth())
-			cout<<"\n "<<temp->name;
-		temp = temp->downlink;
-	}
+	sortEdges(graph);
 }
 
 int main()
@@ -345,13 +317,11 @@ int main()
 		cout<<"\n|                MENU                ";
 		cout<<"\n|____________________________________";
 		cout<<"\n|                                    ";
-		cout<<"\n|  1. Create New User   ";
-		cout<<"\n|  2. Make friends";
-		cout<<"\n|  3. Maximum friends    ";
-		cout<<"\n|  4. Maximum and minimum comments";
-		cout<<"\n|  5. Users having birthday this month";
-		cout<<"\n|  6. Traverse the graph";
-		cout<<"\n|  7. Exit                          ";
+		cout<<"\n|  1. Create New Node   ";
+		cout<<"\n|  2. Add edges";
+		cout<<"\n|  3. Create MST (kruskal)";
+		cout<<"\n|  4. Traverse the graph";
+		cout<<"\n|  5. Exit                          ";
 		cout<<"\n|____________________________________";
 		cout<<"\n Enter your choice - ";
 		cin>>choice;
@@ -362,31 +332,26 @@ int main()
 				graph = addNode(graph);
 				break;
 			case 2:
-				cout<<"\n Enter your name - ";
+				cout<<"\n Enter name of vertex 1 - ";
 				cin>>name1;
-				cout<<"\n Enter the name of the person whom you want to make friend - ";
+				cout<<"\n Enter name of vertex 2 - ";
 				cin>>name2;
-				graph = addFriend(graph, name1, name2);
+				graph = addEdge(graph, name1, name2);
 				break;
 			case 3:
-				maxfriends(graph);
+				kruskal(graph);
 				break;
 			case 4:
-				maxmincomments(graph);
-				break;
-			case 5:
-				birthday(graph);
-				break;
-			case 6:
-				cout<<"\t Name \t DoB \t Comments";
+				cout<<"\t Name ";
 				initvisit(graph);
 				traversedfs(graph->start);
 				break;
-			case 7:
+			case 5:
 				return 0;
 			default:
 				break;
 		}
+
 	}while(1);
 
 	return 0;
