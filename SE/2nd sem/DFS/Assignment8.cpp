@@ -20,7 +20,7 @@ struct Vertex;
 
 struct Graphedge
 {
-	bool krus;
+	bool prim;
 	bool visited;
 	int weight;
 	Vertex* neighbourlink;
@@ -28,7 +28,6 @@ struct Graphedge
 
 	Graphedge()
 	{
-		krus = 0;
 		visited = false;
 		nextlink = NULL;
 		neighbourlink = NULL;
@@ -39,6 +38,7 @@ struct Vertex
 {
 	char* name;
 	int id;
+	bool prim;
 	bool visited;
 	Vertex* downlink;
 	Graphedge* edgelink;
@@ -102,25 +102,6 @@ startnode* initedges(startnode *startn)
 	}
 }
 
-// Initialize krus flag for all edges
-startnode* initkrus(startnode *startn)
-{
-	startnode *temp = startn;
-	Vertex *tempv = temp->start;
-	
-	while(tempv != NULL)
-	{
-		Graphedge *tempe = tempv->edgelink;
-		while(tempe != NULL)
-		{
-			tempe->krus = false;
-			tempe = tempe->nextlink;
-		}	
-		tempv = tempv->downlink;
-	}
-}
-
-
 // Depth first traversal
 void traversedfs(Vertex* temp)
 {
@@ -133,59 +114,6 @@ void traversedfs(Vertex* temp)
 			traversedfs(g->neighbourlink);
 		g = g->nextlink;
 	}
-}
-
-// Kruskal traversal
-void krustraverse(Vertex* tempv)
-{
-	while(tempv != NULL)
-	{
-		Graphedge *tempe = tempv->edgelink;
-		while(tempe != NULL)
-		{
-			if(tempe->krus == true)
-				cout<<"\n "<<tempv->name<<" - "<<tempe->neighbourlink->name;
-			tempe = tempe->nextlink;
-		}	
-		tempv = tempv->downlink;
-	}
-}
-
-// Detect Cycle
-bool checkcycle(Vertex* curr)
-{
-	curr->visited = true;
-	Vertex *next = NULL;
-
-	Graphedge* g = curr->edgelink;
-	Graphedge* tempe;
-
-	while(g!=NULL)
-	{
-		if(g->neighbourlink->visited == false && g->visited == false && g->krus == true)
-		{	
-			g->visited = true;
-			next = g->neighbourlink;
-			tempe = next->edgelink;
-
-			while(tempe != NULL)
-			{
-				if(tempe->neighbourlink->id == curr->id)
-				{
-					tempe->visited = true;
-					break;
-				}
-				tempe = tempe->nextlink; 	
-			}
-
-			return checkcycle(g->neighbourlink);
-		}
-		else if(g->visited == false && g->neighbourlink->visited == true && g->krus == true)
-			return true;
-
-		g = g->nextlink;
-	}
-	return false;
 }
 
 // Add a new user to the network
@@ -335,104 +263,82 @@ startnode* addEdge(startnode *startn, char* name1, char* name2)
 	return temp;
 }
 
-// Swapping edges
-void swap(Graphedge *xp, Graphedge *yp) 
-{ 
-    Graphedge temp = *xp; 
-    *xp = *yp; 
-    *yp = temp; 
-} 
 
-// Kruskal MST
-void kruskal(startnode *graph)
+int primtraverse(startnode *graph)
 {
-	Vertex *v = graph->start;
-	Vertex *temp = NULL;
-	Graphedge *tempe;
+	startnode *temp = graph;
+	Vertex *v = temp->start;
 
-	Graphedge *gearr[30];
-	int index = 0, n=0;
-
-	initvisit(graph);
-	initedges(graph);
+	int cost = 0;
 
 	while(v!=NULL)
 	{
 		Graphedge *ge = v->edgelink;
-		
-		while(ge != NULL && ge->visited == false)
+
+		while(ge!=NULL)
 		{
-			gearr[index] = ge;
-			index++;
-			temp = ge->neighbourlink;
-			tempe = temp->edgelink;
-			
-			while(tempe != NULL)
+			if(ge->visited == true)
 			{
-				if(tempe->neighbourlink->id == v->id)
-				{
-					tempe->visited = true;
-					break;
-				}
-				tempe = tempe->nextlink; 	
+				cout<<"\n"<<v->name<<" to "<<ge->neighbourlink->name;
+				cost += ge->weight;
 			}
-			ge = ge->nextlink; 
+			ge = ge->nextlink;
 		}
 		v = v->downlink;
 	}
+	return cost;
+}
 
-	// bubble sort
-	int i, j;
-	n = index; 
-   	for (i = 0; i < n; i++)       
-       // Last i elements are already in place    
-       for (j = 0; j < n-i-1; j++)  
-           if (gearr[j]->weight > gearr[j+1]->weight) 
-              swap(gearr[j], gearr[j+1]); 
+// Prims MST
+void prim(startnode *graph)
+{
+	Vertex *v = graph->start;
+	Graphedge *min = new Graphedge;
+	
+	initvisit(graph);
+	initedges(graph);
 
-	for(int i = 0; i<n; i++)
+	int n = 0;
+
+	while(v!=NULL)
 	{
-		cout<<" "<<gearr[i]->weight;
+		v=v->downlink;
+		n++;
 	}
 
-	int cost = 0;
-
-	initkrus(graph);
-
-	for(int i = 0; i<n; i++)
+	v = graph->start;
+	v->visited = true;
+	
+	for(int i=0; i<n-1; i++)
 	{
-		Vertex *tempv = graph->start;
+		min->weight = 9999;
+		v = graph->start;
 		
-		while(tempv != NULL)
+		while(v != NULL)
 		{
-			Graphedge *tempe = tempv->edgelink;
-			while(tempe != NULL)
+			cout<<"\n -- 1";
+
+			Graphedge *ge = v->edgelink;
+			
+			while(v->visited == true && ge != NULL && ge->visited == false &&  ge->neighbourlink->visited == false)
 			{
-				if(gearr[i]->weight == tempe->weight && gearr[i]->neighbourlink->id == tempe->neighbourlink->id)
-				{
-					tempe->krus = true;
-					cost+=tempe->weight;
-
-					cout<<"\n out - "<<i;
-					initvisit(graph);
-					initedges(graph);
-					if(checkcycle(graph->start))
-					{	
-						cout<<"\n in - "<<i;
-						tempe->krus = false;
-						cost-=tempe->weight;
-					}	
-
-					break;
+				cout<<"\n -- 2";
+				if(ge->weight < min->weight)
+				{	
+					min = ge; 
+					cout<<" \n "<<min->weight;
 				}
+				ge = ge->nextlink; 
+			}
 
-				tempe = tempe->nextlink;
-			}	
-			tempv = tempv->downlink;
+			min->neighbourlink->visited = true;
+			min->visited = true;
+
+			v = v->downlink;
 		}
 	}
 
-	krustraverse(graph->start);
+	int cost = primtraverse(graph);
 	cout<<"\n Minimal Spanning Tree cost - "<<cost;
 }
 
@@ -453,7 +359,7 @@ int main()
 		cout<<"\n|                                    ";
 		cout<<"\n|  1. Create New Node   ";
 		cout<<"\n|  2. Add edges";
-		cout<<"\n|  3. Create MST (kruskal)";
+		cout<<"\n|  3. Create MST (Prims)";
 		cout<<"\n|  4. Traverse the graph";
 		cout<<"\n|  5. Exit                          ";
 		cout<<"\n|____________________________________";
@@ -473,7 +379,7 @@ int main()
 				graph = addEdge(graph, name1, name2);
 				break;
 			case 3:
-				kruskal(graph);
+				prim(graph);
 				break;
 			case 4:
 				cout<<"\t Name ";

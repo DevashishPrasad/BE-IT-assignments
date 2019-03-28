@@ -7,6 +7,8 @@
 //============================================================================
 
 #include <iostream>
+#include <string.h>
+
 using namespace std;
 
 class User
@@ -19,6 +21,7 @@ public:
 	{
 		tel = 1;
 		name = new char[20];
+		strcpy(name,"Empty");
 		link = -1;
 	}
 	void getdata()
@@ -41,7 +44,7 @@ public:
 	}
 	void putdata()
 	{
-		cout<<"\n \t"<<tel<<"\t"<<name<<"\t"<<link;
+		cout<<"\t"<<tel<<"\t"<<name<<"\t"<<link;
 	}
 	inline int getIndex(int n)
 	{
@@ -64,10 +67,9 @@ public:
 int main() {
 
 	long unsigned int no;
-	int choice, n, index;
+	int choice, n, index, flg;
 
-	User *table1, *table2;
-	User temp;
+	User *table1, *table2, *temp;
 
 	do
 	{
@@ -105,13 +107,65 @@ int main() {
 
 					switch(choice)
 					{
-						case 1:
+							case 1:
+							cout<<"\n Enter the number of records in the hash table - ";
+							cin>>n;
+							table2 = new User[n];
+							cout<<"\n\n INFO : Table was created successfully";
 							break;
 						case 2:
+							temp = new User;
+							temp->getdata();
+							index = temp->getIndex(n);
+							while(table2[index].getTel() != 1)
+							{
+								table2[index].setLink(index+1);
+								index++;
+							}
+							table2[index] = *temp;
+							delete temp;
+							cout<<"\n\n INFO : Record was added successfully";
 							break;
 						case 3:
+							flg = 1;
+							cout<<"\n Enter the telephone number of user to be searched - ";
+							cin>>no;
+
+							index = no%n;
+							
+							if(table2[index].getTel() == no)
+							{
+								cout<<"1";
+								flg = 0;
+								table2[index].putdata();	
+							}
+							else
+							{	
+								while(table2[index].getLink() != -1)
+								{
+									index = table2[index].getLink();
+
+									if(table2[index].getTel() == no)
+									{
+										cout<<"4";
+										flg = 0;
+										table2[index].putdata();	
+										break;
+									}
+								}
+							}	
+
+							if(flg == 1)
+								cout<<"\n The number you are searching was not found in the table";
 							break;
 						case 4:
+							cout<<"Sr no \t Telephone \t Name \t Link\n";
+							for(int i = 0; i<n; i++)
+							{
+								cout<<"\n";
+								cout<<i<<"\t";
+								table2[i].putdata();
+							}
 							break;
 						case 5:
 							break;
@@ -147,40 +201,61 @@ int main() {
 							cout<<"\n Enter the number of records in the hash table - ";
 							cin>>n;
 							table2 = new User[n];
-							cout<<"INFO : Table was created successfully";
+							cout<<"\n\n INFO : Table was created successfully";
 							break;
 						case 2:
-							temp.getdata();
-							index = temp.getIndex(n);
+							temp = new User;
+							temp->getdata();
+							index = temp->getIndex(n);
 							while(table2[index].getTel() != 1)
 							{
 								table2[index].setLink(index+1);
 								index++;
 							}
-							table2[index] = temp;
-							cout<<"INFO : Record was added successfully";
+							table2[index] = *temp;
+							delete temp;
+							cout<<"\n\n INFO : Record was added successfully";
 							break;
 						case 3:
+							flg = 1;
 							cout<<"\n Enter the telephone number of user to be searched - ";
 							cin>>no;
 
-							if(table2[no%n].getTel() == no)
-								table2[no%n].putdata();
-							else if(table2[no%n].getLink() == -1)
+							index = no%n;
+							
+							if(table2[index].getTel() == no)
 							{
-
+								cout<<"1";
+								flg = 0;
+								table2[index].putdata();	
 							}
 							else
-							{
-								while(table2[no%n].getLink() != -1)
+							{	
+								while(table2[index].getLink() != -1)
 								{
-								    if(table2[no%n].getTel() == no)
-									    table2[no%n].putdata();
-									index = table2[no%n].getLink()
+									index = table2[index].getLink();
+
+									if(table2[index].getTel() == no)
+									{
+										cout<<"4";
+										flg = 0;
+										table2[index].putdata();	
+										break;
+									}
 								}
-							}
+							}	
+
+							if(flg == 1)
+								cout<<"\n The number you are searching was not found in the table";
 							break;
 						case 4:
+							cout<<"Sr no \t Telephone \t Name \t Link\n";
+							for(int i = 0; i<n; i++)
+							{
+								cout<<"\n";
+								cout<<i<<"\t";
+								table2[i].putdata();
+							}
 							break;
 						case 5:
 							break;
