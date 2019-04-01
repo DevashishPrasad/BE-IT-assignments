@@ -22,7 +22,6 @@ struct Vertex;
 
 struct Graphedge
 {
-	bool krus;
 	bool visited;
 	int weight;
 	Vertex* neighbourlink;
@@ -30,7 +29,6 @@ struct Graphedge
 
 	Graphedge()
 	{
-		krus = 0;
 		visited = false;
 		nextlink = NULL;
 		neighbourlink = NULL;
@@ -74,8 +72,8 @@ struct startnode
 	Vertex* start;
 };
 
-// Structure for Kruskal Edges 
-struct kruskaledges
+// Structure for Prims Edges 
+struct primsedges
 {
 	int vstart;
 	int weight;
@@ -303,70 +301,60 @@ startnode* addEdge(startnode *startn, char* name1, char* name2)
 	return temp;
 }
 
-// Swapping edges
-void swap(kruskaledges *xp, kruskaledges *yp) 
-{ 
-    kruskaledges temp = *xp; 
-    *xp = *yp; 
-    *yp = temp; 
-} 
-
 // Kruskal MST
-void kruskal(startnode *graph)
+void prims(startnode *graph)
 {
 	Vertex *v = graph->start;
 	Vertex *temp = NULL;
 	Graphedge *tempe;
 
-	kruskaledges ke[30];
 
-	int index = 0;
+	int index = 0, n = 0;
 
 	initvisit(graph);
 	initedges(graph);
 
 	while(v!=NULL)
 	{
-		Graphedge *ge = v->edgelink;
-		
-		while(ge != NULL && ge->visited == false)
-		{
-			ke[index].vstart = v->id;
-			ke[index].weight = ge->weight;
-			ke[index].vend = ge->neighbourlink->id;
-			index++;
-
-			ge = ge->nextlink; 
-		}
+		n++;
 		v = v->downlink;
 	}
 
-	// bubble sort
-	int i, j, n = index;
-   	for (i = 0; i < n; i++)       
-       // Last i elements are already in place    
-       for (j = 0; j < n-i-1; j++)  
-           if (ke[j].weight > ke[j+1].weight) 
-              swap(ke[j], ke[j+1]); 
-
-	for (i = 0; i < n; i++)       
-	{
-		cout<<"\n"<<ke[i].vstart<<" "<<ke[i].weight<<" "<<ke[i].vend;	
-	}
 	int cost = 0;
 
 	unioninit(n);
-	
-	cout<<"\n Edges in the minimum spanning tree are - ";
-	for(int i = 0; i<n-1; i++)
+
+	cout<<"\n Prims MST edges - \n";
+
+	while(index != n-1)
 	{
-		kruskaledges kte = ke[i];
-		if(!isConnected(kte.vstart, kte.vend))
+		int mincost = 10000000;
+		v = graph->start;
+		primsedges el;
+
+		while(v != NULL)
 		{
-			connect(kte.vstart, kte.vend);
-			cout<<"\n Edge "<<i<<" = "<<kte.vstart<<"----- "<<kte.weight<<" ------"<<kte.vend;
-			cost+=kte.weight;
+			if(isConnected(v->id,0))
+			{
+				Graphedge *temp2 = v->edgelink;
+				while(temp2 != NULL)
+				{
+					if(temp2->weight < mincost && !isConnected(0,temp2->neighbourlink->id))
+					{
+						el.weight = temp2->weight;
+						mincost = temp2->weight;
+						el.vstart = v->id;
+						el.vend = temp2->neighbourlink->id;
+					}
+					temp2=temp2->nextlink;
+				}
+			}
+			v = v->downlink;
 		}
+		connect(0,el.vend);
+		cout<<" Edge Added "<<el.vstart<<"<----------->"<<el.vend<<" Weight = "<<mincost<<"\n";
+		cost +=mincost;
+		index++;
 	}
 
 	cout<<"\n Minimal Spanning Tree cost - "<<cost;
@@ -409,7 +397,7 @@ int main()
 				graph = addEdge(graph, name1, name2);
 				break;
 			case 3:
-				kruskal(graph);
+				prims(graph);
 				break;
 			case 4:
 				cout<<"\t Name ";

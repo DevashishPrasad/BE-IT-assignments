@@ -22,7 +22,6 @@ struct Vertex;
 
 struct Graphedge
 {
-	bool krus;
 	bool visited;
 	int weight;
 	Vertex* neighbourlink;
@@ -30,7 +29,6 @@ struct Graphedge
 
 	Graphedge()
 	{
-		krus = 0;
 		visited = false;
 		nextlink = NULL;
 		neighbourlink = NULL;
