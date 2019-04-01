@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string.h>
+#include <queue>
 
 using namespace std;
 
@@ -123,6 +124,38 @@ void traversedfs(Vertex* temp)
 		if(g->neighbourlink->visited != true)
 			traversedfs(g->neighbourlink);
 		g = g->nextlink;
+	}
+}
+
+// Depth first traversal
+void traversebfs(Vertex* temp)
+{
+	Vertex *t = temp;
+	
+	queue<Vertex*> q;
+	q.push(t);
+
+	temp->visited = true;
+	
+	while(!q.empty())
+	{
+		t = q.front();
+		t->putdata();
+		q.pop();
+
+		Graphedge* g = t->edgelink;
+
+		while(g!=NULL)
+		{
+			if(!g->neighbourlink->visited)
+			{
+				q.push(g->neighbourlink);
+				g->neighbourlink->visited = true;
+			}
+			g = g->nextlink;
+		}
+
+		t = t->downlink;
 	}
 }
 
@@ -378,9 +411,14 @@ int main()
 				birthday(graph);
 				break;
 			case 6:
+				cout<<"\n ================ DFS ================= \n";
 				cout<<"\t Name \t DoB \t Comments";
 				initvisit(graph);
 				traversedfs(graph->start);
+				cout<<"\n ================= BFS ================= \n";
+				cout<<"\t Name \t DoB \t Comments";
+				initvisit(graph);
+				traversebfs(graph->start);
 				break;
 			case 7:
 				return 0;

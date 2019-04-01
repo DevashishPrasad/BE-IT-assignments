@@ -31,7 +31,7 @@ public:
 		while(tel == 1)
 		{
 			cin>>tel;
-			if(tel >= 1000000000 && tel <= 9999999999)
+			if(tel >= 999999999 && tel <= 9999999999)
 				break;
 			else
 			{
@@ -67,7 +67,7 @@ public:
 int main() {
 
 	long unsigned int no;
-	int choice, n, index, flg;
+	int choice, n, index, flg, check=0;
 
 	User *table1, *table2, *temp;
 
@@ -93,14 +93,14 @@ int main() {
 				{
 					cout<<"\n\n\n ____________________________________";
 					cout<<"\n|                                    ";
-					cout<<"\n|               SUB MENU                ";
+					cout<<"\n|               SUB MENU             ";
 					cout<<"\n|____________________________________";
 					cout<<"\n|                                    ";
 					cout<<"\n|  1. Create Table   ";
 					cout<<"\n|  2. Insert ";
 					cout<<"\n|  3. Search ";
 					cout<<"\n|  4. Display ";
-					cout<<"\n|  5. Exit ";
+					cout<<"\n|  5. Exit to main menu";
 					cout<<"\n|____________________________________";
 					cout<<"\n Enter your choice - ";
 					cin>>choice;
@@ -110,20 +110,44 @@ int main() {
 							case 1:
 							cout<<"\n Enter the number of records in the hash table - ";
 							cin>>n;
-							table2 = new User[n];
+							table1 = new User[n];
 							cout<<"\n\n INFO : Table was created successfully";
+							check = n;
 							break;
 						case 2:
+							if(check == 0)
+							{
+								cout<<"\n No space in the hash table";
+								break;
+							}	
 							temp = new User;
 							temp->getdata();
 							index = temp->getIndex(n);
-							while(table2[index].getTel() != 1)
+
+							// situation 1
+							if(table1[index].getTel() == 1)
 							{
-								table2[index].setLink(index+1);
+								table1[index] = *temp;
+							}
+							if(table1[index].getindex(n) != index)
+							{
+								while(table1[index].getTel() != 1 && i < n)
+								{
+									index = (index+1)%n;
+									i++;
+								}
+								if(i == n)
+								{
+									cout<<"\n No space in the hash table";
+									break;
+								}
+								i = table1[index]%n;
+								table1[index].setLink(index+1);
 								index++;
 							}
-							table2[index] = *temp;
+							table1[index] = *temp;
 							delete temp;
+							check --;
 							cout<<"\n\n INFO : Record was added successfully";
 							break;
 						case 3:
@@ -133,23 +157,21 @@ int main() {
 
 							index = no%n;
 							
-							if(table2[index].getTel() == no)
+							if(table1[index].getTel() == no)
 							{
-								cout<<"1";
 								flg = 0;
-								table2[index].putdata();	
+								table1[index].putdata();	
 							}
 							else
 							{	
-								while(table2[index].getLink() != -1)
+								while(table1[index].getLink() != -1)
 								{
-									index = table2[index].getLink();
+									index = table1[index].getLink();
 
-									if(table2[index].getTel() == no)
+									if(table1[index].getTel() == no)
 									{
-										cout<<"4";
 										flg = 0;
-										table2[index].putdata();	
+										table1[index].putdata();	
 										break;
 									}
 								}
@@ -164,7 +186,7 @@ int main() {
 							{
 								cout<<"\n";
 								cout<<i<<"\t";
-								table2[i].putdata();
+								table1[i].putdata();
 							}
 							break;
 						case 5:
@@ -183,27 +205,33 @@ int main() {
 				{
 					cout<<"\n\n\n ____________________________________";
 					cout<<"\n|                                    ";
-					cout<<"\n|               SUB MENU            ";
+					cout<<"\n|               SUB MENU             ";
 					cout<<"\n|____________________________________";
 					cout<<"\n|                                    ";
-					cout<<"\n|  1. Create Table";
+					cout<<"\n|  1. Create Table   ";
 					cout<<"\n|  2. Insert ";
 					cout<<"\n|  3. Search ";
 					cout<<"\n|  4. Display ";
-					cout<<"\n|  5. Exit ";
+					cout<<"\n|  5. Exit to main menu";
 					cout<<"\n|____________________________________";
 					cout<<"\n Enter your choice - ";
 					cin>>choice;
 
 					switch(choice)
 					{
-						case 1:
+							case 1:
 							cout<<"\n Enter the number of records in the hash table - ";
 							cin>>n;
 							table2 = new User[n];
 							cout<<"\n\n INFO : Table was created successfully";
+							check = n;
 							break;
 						case 2:
+							if(check == 0)
+							{
+								cout<<"\n No space in the hash table";
+								break;
+							}	
 							temp = new User;
 							temp->getdata();
 							index = temp->getIndex(n);
@@ -214,6 +242,7 @@ int main() {
 							}
 							table2[index] = *temp;
 							delete temp;
+							check --;
 							cout<<"\n\n INFO : Record was added successfully";
 							break;
 						case 3:
