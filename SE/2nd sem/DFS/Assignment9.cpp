@@ -67,7 +67,7 @@ public:
 int main() {
 
 	long unsigned int no;
-	int choice, n, index, flg, check=0;
+	int choice, n, index, flg, check=0, i=0,j=0;
 
 	User *table1, *table2, *temp;
 
@@ -114,12 +114,14 @@ int main() {
 							cout<<"\n\n INFO : Table was created successfully";
 							check = n;
 							break;
+
 						case 2:
+							i = 0;
 							if(check == 0)
 							{
 								cout<<"\n No space in the hash table";
 								break;
-							}	
+							}
 							temp = new User;
 							temp->getdata();
 							index = temp->getIndex(n);
@@ -129,8 +131,10 @@ int main() {
 							{
 								table1[index] = *temp;
 							}
-							if(table1[index].getindex(n) != index)
+							// situation 2
+							else if(table1[index].getIndex(n) == index)
 							{
+								i = 0;
 								while(table1[index].getTel() != 1 && i < n)
 								{
 									index = (index+1)%n;
@@ -144,26 +148,46 @@ int main() {
 								i = table1[index]%n;
 								table1[index].setLink(index+1);
 								index++;
+								table1[index] = *temp;
+								break;
 							}
-							table1[index] = *temp;
+							// situation 3
+							else if(table1[index].getIndex(n) != index)
+							{
+								j = table1[index].getIndex(n);
+
+								while(table1[index].getTel() != 1 && i < n)
+								{
+									index = (index+1)%n;
+									i++;
+								}
+								if(i == n)
+								{
+									cout<<"\n No space in the hash table";
+									break;
+								}
+
+								table1[i].setLink(table1[index].getIndex(n));
+							}
 							delete temp;
 							check --;
 							cout<<"\n\n INFO : Record was added successfully";
 							break;
+
 						case 3:
 							flg = 1;
 							cout<<"\n Enter the telephone number of user to be searched - ";
 							cin>>no;
 
 							index = no%n;
-							
+
 							if(table1[index].getTel() == no)
 							{
 								flg = 0;
-								table1[index].putdata();	
+								table1[index].putdata();
 							}
 							else
-							{	
+							{
 								while(table1[index].getLink() != -1)
 								{
 									index = table1[index].getLink();
@@ -171,15 +195,16 @@ int main() {
 									if(table1[index].getTel() == no)
 									{
 										flg = 0;
-										table1[index].putdata();	
+										table1[index].putdata();
 										break;
 									}
 								}
-							}	
+							}
 
 							if(flg == 1)
 								cout<<"\n The number you are searching was not found in the table";
 							break;
+
 						case 4:
 							cout<<"Sr no \t Telephone \t Name \t Link\n";
 							for(int i = 0; i<n; i++)
@@ -219,7 +244,7 @@ int main() {
 
 					switch(choice)
 					{
-							case 1:
+						case 1:
 							cout<<"\n Enter the number of records in the hash table - ";
 							cin>>n;
 							table2 = new User[n];
@@ -227,11 +252,12 @@ int main() {
 							check = n;
 							break;
 						case 2:
+							i = 0;
 							if(check == 0)
 							{
 								cout<<"\n No space in the hash table";
 								break;
-							}	
+							}
 							temp = new User;
 							temp->getdata();
 							index = temp->getIndex(n);
@@ -251,28 +277,26 @@ int main() {
 							cin>>no;
 
 							index = no%n;
-							
+
 							if(table2[index].getTel() == no)
 							{
-								cout<<"1";
 								flg = 0;
-								table2[index].putdata();	
+								table2[index].putdata();
 							}
 							else
-							{	
+							{
 								while(table2[index].getLink() != -1)
 								{
 									index = table2[index].getLink();
 
 									if(table2[index].getTel() == no)
 									{
-										cout<<"4";
 										flg = 0;
-										table2[index].putdata();	
+										table2[index].putdata();
 										break;
 									}
 								}
-							}	
+							}
 
 							if(flg == 1)
 								cout<<"\n The number you are searching was not found in the table";
