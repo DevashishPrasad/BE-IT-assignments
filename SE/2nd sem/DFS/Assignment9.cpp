@@ -67,7 +67,7 @@ public:
 int main() {
 
 	long unsigned int no;
-	int choice, n, index, flg, check=0, i=0,j=0;
+	int choice, n, index, flg, check=0, i=0,j=0, k=0;
 
 	User *table1, *table2, *temp;
 
@@ -117,6 +117,8 @@ int main() {
 
 						case 2:
 							i = 0;
+							j = 0;
+							k = 0;
 							if(check == 0)
 							{
 								cout<<"\n No space in the hash table";
@@ -134,27 +136,21 @@ int main() {
 							// situation 2
 							else if(table1[index].getIndex(n) == index)
 							{
-								i = 0;
-								while(table1[index].getTel() != 1 && i < n)
+								while(table1[index].getTel() != 1)
 								{
-									index = (index+1)%n;
-									i++;
+									table1[index].setLink(index+1);
+									index++;
 								}
-								if(i == n)
-								{
-									cout<<"\n No space in the hash table";
-									break;
-								}
-								i = table1[index]%n;
-								table1[index].setLink(index+1);
-								index++;
-								table1[index] = *temp;
-								break;
+								table1[index] = *temp;	
 							}
 							// situation 3
 							else if(table1[index].getIndex(n) != index)
-							{
-								j = table1[index].getIndex(n);
+							{			
+								j = index;
+
+								k = 0;
+								while(table1[k].getLink() != index && k < n)
+									k++;
 
 								while(table1[index].getTel() != 1 && i < n)
 								{
@@ -167,8 +163,11 @@ int main() {
 									break;
 								}
 
-								table1[i].setLink(table1[index].getIndex(n));
+								table1[index] = table1[j];
+								table1[k].setLink(index);
+								table1[j] = *temp;
 							}
+
 							delete temp;
 							check --;
 							cout<<"\n\n INFO : Record was added successfully";
