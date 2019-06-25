@@ -42,7 +42,20 @@ case "$choice" in
 ;;
 5) 
 	echo "\nModify a Record"
-	echo "\n Enter the phone number "
+	echo "\n Enter the phone number of the record to be modified- \c"
+	read mphone
+	trecord=$(grep -w -i "$mphone" $filename)
+	echo $trecord
+	echo "\n Enter the new Record"
+	echo "\n Enter the Name - \c"
+	read nname
+	echo "\n Enter the Address - \c"
+	read naddress
+	echo "\n Enter the Phone Number - \c"
+	read nphone
+
+	sed "s/$trecord/$nname\t$naddress\t$nphone/g" $filename > temp
+	mv temp $filename
 ;;
 6) exit
 ;;
