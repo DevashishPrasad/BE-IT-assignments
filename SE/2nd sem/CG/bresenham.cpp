@@ -17,14 +17,14 @@ int radius;
 void init()
 {
 	// making background color black as first  
-    // 3 arguments all are 0.0 
-    glClearColor(0.0, 0.0, 0.0, 1.0); 
-      
-    // making picture color white (in RGB mode),
-    glColor3f(1.0, 1.0, 1.0); 
-      
-    // breadth of picture boundary is 1 pixel 
-    glPointSize(3.0);  
+	// 3 arguments all are 0.0 
+	glClearColor(0.0, 0.0, 0.0, 1.0); 
+	      
+	// making picture color white (in RGB mode),
+	glColor3f(1.0, 1.0, 1.0); 
+	      
+	// breadth of picture boundary is 1 pixel 
+	glPointSize(3.0);  
 
 	// coordinate system
 	glMatrixMode(GL_PROJECTION);

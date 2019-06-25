@@ -99,7 +99,7 @@ public:
 
 	Node* deleteNode(Node *root, int key)
 	{
-		if (root == NULL) return root;
+	    if (root == NULL) return root;
 	    if (key < root->data)
 	        root->left = deleteNode(root->left, key);
 	    else if (key > root->data)

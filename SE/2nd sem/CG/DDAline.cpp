@@ -26,11 +26,11 @@ void drawLine()
 	init();
 
 	//DDA Function for line generation 
-	int X0=0, Y0=0, X1=200, Y1=200;
+	int X0=300, Y0=300, X1=30, Y1=30;
     
 	// calculate dx & dy glMatrixMode(GL_PROJECTION);
-    int dx = X1 - X0; 
-    int dy = Y1 - Y0; 
+    int dx = abs(X1 - X0); 
+    int dy = abs(Y1 - Y0); 
   
     // calculate steps required for generating pixels 
     int steps = dx > dy ? dx : dy; 
@@ -47,7 +47,6 @@ void drawLine()
 
     for (int i = 0; i <= steps; i++) 
     { 
-		printf("dd");
         glVertex2i(X,Y);
 		X += Xinc;        // increment in x at each step 
         Y += Yinc;        // increment in y at each step 
