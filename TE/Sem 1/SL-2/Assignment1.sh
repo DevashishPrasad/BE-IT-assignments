@@ -136,47 +136,73 @@ while(true) do
 		trecord=$(grep -w -i "$mphone" $filename)
 		echo $trecord
 
-		# Take input for modified record
-		echo "\n Enter the new Record"
-		echo "\n Enter the Name - \c"
-		# Validation for name
-		while true
+		cnt=0
+		for i in $trecord 
 		do 
-			read nname
-			len=$(echo -n $nname | wc -m)
-			if test $len -gt 0; then
-				break
-			else
-				echo "\n Name cannot be empty, Please enter the name again - \c"
-			fi
-		done
-		echo "\n Enter the Address - \c"
-		# Validation for address
-		while true
-		do 
-			read naddress
-			len=$(echo -n $naddress | wc -m)
-			if test $len -gt 0; then
-				break
-			else
-				echo "\n Address cannot be empty, Please enter the address again - \c"
-			fi
-		done
-		echo "\n Enter the Phone Number - \c"
-		# Validation for phone number
-		while true
-		do 
-			read nphone
-			len=$(echo -n $nphone | wc -m)
-			if test $len -eq 10; then
-				break
-			else
-				echo "\n Phone should have 10 digits, Please enter the Phone again - \c"
-			fi
+			cnt=`expr $cnt + 1`
+			if test $cnt -eq 1; 
+			then
+				tname=$i
+			elif test $cnt -eq 2; 
+			then
+				taddress=$i
+			elif test $cnt -eq 3; 
+			then
+				tphone=$i
+			fi 
 		done
 
-		# Replace the recod in place
-		sed "s/$trecord/$nname\t$naddress\t$nphone/g" $filename > temp
+		# Take input for modified record
+		echo "\n What would you like to modify"
+		echo "\n 1. Name \n 2. Address \n 3. Phone Number - \c"
+		read c
+		# Switch case
+		case "$c" in
+		1) 
+			echo "\n Enter the new Name - \c"
+			# Validation for name
+			while true
+			do 
+				read tname
+				len=$(echo -n $tname | wc -m)
+				if test $len -gt 0; then
+					break
+				else
+					echo "\n Name cannot be empty, Please enter the name again - \c"
+				fi
+			done
+		;;
+		2)
+			echo "\n Enter the new Address - \c"
+			# Validation for address
+			while true
+			do 
+				read taddress
+				len=$(echo -n $taddress | wc -m)
+				if test $len -gt 0; then
+					break
+				else
+					echo "\n Address cannot be empty, Please enter the address again - \c"
+				fi
+			done
+		;;
+		3)
+			echo "\n Enter the new Phone Number - \c"
+			# Validation for phone number
+			while true
+			do 
+				read tphone
+				len=$(echo -n $tphone | wc -m)
+				if test $len -eq 10; then
+					break
+				else
+					echo "\n Phone should have 10 digits, Please enter the Phone again - \c"
+				fi
+			done
+		;;
+		esac
+		# Replace the record in place
+		sed "s/$trecord/$tname\t$taddress\t$tphone/g" $filename > temp
 		mv temp $filename
 		echo "\n Record Modified successfully"
 	;;
