@@ -1,0 +1,58 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Giant Planets </title>
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px;">
+	
+		<!-- Header  -->
+		<header style="width:100%;background-color:#000000; color:#ffffff">
+			<nav>
+				<img src="images/logo.png" style="width:8%;float:left;" />
+				<div style="margin-left:43%;">
+					<h1>INFINITY</h1>
+				</div>
+			</nav>
+		</header>
+		
+		<!-- Sub Header  -->
+		<header style="width:100%;background-color:#eeeeee;">
+			<div>
+				<h1 >Giant Planets</h1>
+				<a href="main.html">
+						<button>
+							BACK
+						</button>
+				</a>
+			</div>
+		</header>
+
+		<!-- Section for images -->
+		<section style="width:90%;">
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="">
+					<img style="width:100%;height:350px;" src="images/jupiter.jpg"/>
+					<h3>Jupiter</h3>
+				</a>
+			</div>	
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="">
+					<img style="width:100%;height:350px;" src="images/saturn.jpg"/>
+					<h3>Saturn</h3>
+				</a>
+			</div>
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="">
+					<img style="width:100%;height:350px;" src="images/neptune.jpg"/>
+					<h3>Neptune</h3>
+				</a>
+			</div>
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="">
+					<img style="width:100%;height:350px;" src="images/uranus.jpg"/>
+					<h3>Uranus</h3>
+				</a>
+			</div>
+		</section>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Infinity </title>
+	</head>
+	<body style="background: url('images/back.gif'); background-size: 1500px 800px;">
+	
+		<!-- Header  -->
+		<header style="width:100%;background:#cccccc;">
+			<nav>
+				<img src="images/logo.png" style="width:8%;float:left;" />
+				<div >
+					<h1>INFINITY</h1>
+				</div>
+			</nav>
+		</header>
+		
+		<!-- Side bar  -->
+		<aside style="float:left; width:20%; background:#ffffff;">
+			<br>
+			<h2>MENU</h2>
+			<br>
+			<br>
+			<a href="planets.html">Planets</a>
+			<br>
+			<br>
+			<a href="galaxies.html">Galaxies</a>
+			<br>
+			<br>
+			<a href="videos.html">Videos</a>
+		</aside>
+		
+		<!-- Article  -->
+		&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<div style="float:left;width:10%;"></div>
+		<article style="color:#ffffff;float:left;width:50%;">
+			<section>
+				<header>
+					<h3>About us</h3>
+				</header>
+				<p>
+				Infinity has gained worldwide attention for a series of historic milestones. It is the only private company capable of returning a spacecraft from low Earth orbit, which it first accomplished in 2010. The company made history again in 2012 when its Dragon spacecraft became the first commercial spacecraft to deliver cargo to and from the International Space Station.
+
+				Infinity successfully achieved the historic first reflight of an orbital class rocket in 2017, and the company now regularly launches flight-proven rockets. In 2018, Infinity began launching Falcon Heavy, the world's most powerful operational rocket by a factor of two.
+				</p>
+			</section>
+		</article>
+		
+		<br>
+		<br>
+		<br>
+		
+		<!-- Footer -->
+		<footer style="color:#ffffff;width:100%;background:#444444;float:left;">
+			<p> Infinity Space Exploration Group </p>
+			<address>
+				Pune Institute of Computer Technology, Dhankawadi, Pune, Maharashtra, India, Earth `\__('.')__/`
+			</address>
+		</footer>
+	</body>
+</html>

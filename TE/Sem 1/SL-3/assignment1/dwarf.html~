@@ -1,0 +1,44 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Dwarf Planets </title>
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px;">
+	
+		<!-- Header  -->
+		<header style="width:100%; height:100px; background-color:#000000; color:#ffffff">
+			<img src="images/logo.png" style="width:8%; height:100; float:left;" />
+			<div >
+				<h1>INFINITY</h1>
+			</div>
+		</header>
+		
+		<!-- Sub Header  -->
+		<header style="width:100%; height:50px; background-color:#eeeeee; color:#ffffff">
+			<div >
+				<h1 > Dwarf Planets</h1>
+			</div>
+			<a href="planets.html">
+				<button>
+					BACK
+				</button>
+			</a>
+		</header>
+
+		<!-- Section  -->
+		<section style="width:90%;">
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="" >
+					<img style="width:100%;height:350px;" src="images/pluto.png"/>
+					<h3>Pluto</h3>
+				</a>
+			</div>	
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="">
+					<img style="width:100%;height:350px;" src="images/eris.jpg"/>
+					<h3>Eris</h3>
+				</a>
+			</div>
+		</section>
+	</body>
+</html>

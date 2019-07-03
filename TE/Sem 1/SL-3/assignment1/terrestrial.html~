@@ -1,0 +1,56 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Terrestrial Planets</title>
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px;">
+	
+		<!-- Header  -->
+		<header style="width:100%; height:100px; background-color:#000000; color:#ffffff">
+			<img src="images/logo.png" style="width:8%; height:100; float:left;" />
+			<div >
+				<h1>INFINITY</h1>
+			</div>
+		</header>
+		
+		<!-- Sub Header  -->
+		<header style="width:100%; background-color:#eeeeee; color:#ffffff">
+			<div style="color:#333333">
+				<h1> Terrestrial Planets</h1>
+			</div>
+			<a href="planets.html">
+				<button>
+					BACK
+				</button>
+			</a>
+		</header>
+
+		<!-- Section  -->
+		<section >
+			<div style="float:left;width:40%;background:#ffffff;">
+				<a href="" >
+					<img style="width:100%;height:350px;" src="images/earth.jpg"/>
+					<h3>Earth</h3>
+				</a>
+			</div>	
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="" >
+					<img style="width:100%;height:350px;" src="images/mars.jpg"/>
+					<h3>Mars</h3>
+				</a>
+			</div>
+			<div style="float:left;width:40%;background: #ffffff;">
+				<a href="" >
+					<img style="width:100%;height:350px;" src="images/mercury.png"/>
+					<h3>Mercury</h3>
+				</a>
+			</div>
+			<div style="float:left;width:40%;margin-left:10%;background: #ffffff;">
+				<a href="" >
+					<img style="width:100%;height:350px;" src="images/venus.jpg"/>
+					<h3>Venus</h3>
+				</a>
+			</div>
+		</section>
+	</body>
+</html>

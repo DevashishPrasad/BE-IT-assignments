@@ -1,0 +1,64 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Planets </title>
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px;">
+	
+		<!-- Header  -->
+		<header style="width:100%;background-color:#000000; color:#ffffff">
+			<nav>
+				<img src="images/logo.png" style="width:8%;float:left;" />
+				<div style="margin-left:43%;">
+					<h1>INFINITY</h1>
+				</div>
+			</nav>
+		</header>
+		
+		<!-- Sub Header  -->
+		<header style="width:100%;background-color:#eeeeee;">
+			<div>
+				<h1 >Planets</h1>
+				<a href="main.html">
+						<button>
+							BACK
+						</button>
+				</a>
+			</div>
+		</header>
+
+		<!-- Section  -->
+		<section>
+			<div style="width:100%;background: #ffffff;text-align: center;">
+				<a href="giant.html">
+					<img style="width:100%;height:450px;" src="images/giant.jpg"/>
+					<h3>Giant planets</h3>
+				</a>
+			</div>	
+			<div style="width:100%;background: #ffffff;text-align: center;">
+				<a href="terrestrial.html">
+					<img style="width:100%;height:450px;" src="images/terrestrial.jpg"/>
+					<h3>Terrestrial planets</h3>
+				</a>
+			</div>
+			<div style="width:100%;background: #ffffff;text-align: center;margin-top: 50px;">
+				<a href="dwarf.html">
+					<img style="width:100%;height:450px;" src="images/dwarf.jpg"/>
+					<h3>Dwarf Planets</h3>
+				</a>
+			</div>
+		</section>
+		
+		<br>
+		<br>
+		<br>
+		
+		<!-- Footer -->
+		<footer style="color:#333333; padding:5px; width:100%; height:100px; background:#ffffff;float:left;margin-top:50px; border-top: solid 5px #000000">
+			<p style="margin-left:40px;"> Infinity Space Exploration Group </p>
+			<address style="margin-left:40px;">
+				Pune Institute of Computer Technology, Dhankawadi, Pune, Maharashtra, India, Earth `\__('.')__/`
+			</address>
+		</footer>
+	</body>
+</html>

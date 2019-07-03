@@ -1,0 +1,81 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Videos </title>
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px;">
+	
+		<!-- Header  -->
+		<header style="width:100%; height:100px; background-color:#000000; color:#ffffff">
+			<img src="images/logo.png" style="height:100;float:left;" />
+			<div >
+				<h1>INFINITY</h1>
+			</div>
+		</header>
+		
+		<!-- Sub Header  -->
+		<header style="width:100%; height:50px; background-color:#eeeeee; color:#ffffff">
+			<div>
+				<a href="main.html">
+						<button>
+							BACK
+						</button>
+				</a>
+			</div>
+		</header>
+
+		<h1> Videos </h1>
+		
+		<!-- Section for videos -->
+		<section style="width:90%;">
+			<!-- Video tags -->
+			<video controls style="width:40%;background: #ffffff;"  >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video style="width:40%;background: #ffffff;"  controls >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video style="width:40%;background: #ffffff;"  controls >
+			 <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video  style="width:40%;background: #ffffff;"  controls >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+		</section>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1 style="color:#ffffff;"> Audio </h1>
+		<!-- Section for audios -->
+		<section style="width:90%;">
+			 <audio controls>
+			  <source src="horse.ogg" type="audio/ogg">
+			  <source src="horse.mp3" type="audio/mpeg">
+			  Your browser does not support the audio tag.
+			</audio> 
+			<br>
+			 <audio controls>
+			  <source src="horse.ogg" type="audio/ogg">
+			  <source src="horse.mp3" type="audio/mpeg">
+			  Your browser does not support the audio tag.
+			</audio> 
+			<br>
+			<audio controls>
+			  <source src="horse.ogg" type="audio/ogg">
+			  <source src="horse.mp3" type="audio/mpeg">
+			  Your browser does not support the audio tag.
+			</audio> 						
+		</section>
+	</body>
+</html>
