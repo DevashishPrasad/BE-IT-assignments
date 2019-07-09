@@ -2,9 +2,11 @@
 // EXECUTE : ./op1.out
 	
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <strings.h>
 
 // Function to print the array on console
 void print_arr(int arr[100],int n){
@@ -135,6 +137,7 @@ void main(){
 	// Declare the variables
 	int arr[100],n,i,choice;
 	pid_t newpid,child;
+	char buffer[25];
 
 	// The main process starts
 	printf("\n This is the main process - ");
@@ -175,7 +178,9 @@ void main(){
 				printf("\n Sorted Array using Quick sort -> ");
 				quick_sort(arr,0,n-1);
 				print_arr(arr,n);
-				printf("\n\n [INFO] Child executed successfully \n\n\n	");
+				snprintf(buffer, 25, "ps -elf | grep %d", getpid());
+				system(buffer);
+				printf("\n\n [INFO] Child executed successfully \n\n\n");
 			}
 			else{
 				// Inside parent process
@@ -189,15 +194,79 @@ void main(){
 				printf("\n Sorted Array using Merge sort -> ");
 				merge_sort(arr,0,n-1);
 				print_arr(arr,n);
+				snprintf(buffer, 25, "ps -elf | grep %d", getpid());
+				system(buffer);				
 				printf("\n\n [INFO] Parent executed successfully \n\n\n");
 			}
 			break;
 		case 2:
+			// Fork System call
+			printf("\n\n Forking the process - ");
+			newpid = fork();
+
+			if(newpid == -1)
+				printf("\n Unfortunately the child was not born");
+			else if(newpid == 0){
+				// Inside child process
+				printf("\n\n\n Hello from the child process !");
+				printf("\n My id is -> %d",getpid());		
+				printf("\n Sorted Array using Quick sort -> ");
+				quick_sort(arr,0,n-1);
+				print_arr(arr,n);
+				snprintf(buffer, 25, "ps -elf | grep %d", getpid());
+				system(buffer);
+				printf("\n\n [INFO] Child executed successfully \n\n\n");
+				printf("\n --------------- CHILD IS NOW IN ZOMBIE STATE --------------------");
+			}
+			else{
+				// Inside parent process
+				sleep(10);
+				printf("\n Hello from the parent process !");
+				printf("\n My id is -> %d",getpid());
+				printf("\n Child Id -> %d",newpid);		
+				printf("\n Sorted Array using Merge sort -> ");
+				merge_sort(arr,0,n-1);
+				print_arr(arr,n);
+				snprintf(buffer, 25, "ps -elf | grep %d", newpid);
+				system(buffer);
+				printf("\n\n [INFO] Parent executed successfully \n\n\n");
+				wait(NULL);
+				exit(0);
+			}
 			break;
 		case 3:
+			// Fork System call
+			printf("\n Forking the process - ");
+			newpid = fork();
+
+			if(newpid == -1)
+				printf("\n Unfortunately the child was not born");
+			else if(newpid == 0){
+				// Inside child process
+				printf("\n\n\n Hello from the child process !");
+				printf("\n My id is -> %d",getpid());		
+				printf("\n Sorted Array using Quick sort -> ");
+				quick_sort(arr,0,n-1);
+				print_arr(arr,n);
+				sleep(10);
+				snprintf(buffer, 25, "ps -elf | grep %d", getpid());
+				system(buffer);								
+				printf("\n\n [INFO] Child executed successfully \n\n\n	");
+			}
+			else{
+				// Inside parent process
+				printf("\n Hello from the parent process !");
+				printf("\n My id is -> %d",getpid());
+				printf("\n Child Id -> %d",newpid);		
+				printf("\n Sorted Array using Merge sort -> ");
+				merge_sort(arr,0,n-1);
+				print_arr(arr,n);
+				printf("\n\n [INFO] Parent executed successfully \n\n\n");
+				printf("\n --------------- PARENT DIED CHILD IS NOW ORPHAN --------------------");				
+				exit(0);
+			}
 			break;
 		default:
 			printf("\n OOPS! INVALID INPUT");
 	}
-
 }
