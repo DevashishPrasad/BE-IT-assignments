@@ -2,22 +2,25 @@
 <html>
 	<head>
 		<title> Videos </title>
+		<!-- Link the external stylesheet -->
+		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px; margin:0; padding:0;">
 	
-		<!-- Header  -->
-		<header style="border-bottom:solid 5px #666666; width:100%; height:100px; background-color:#000000; color:#ffffff">
-			<img src="images/logo.png" style="margin-left:5%;width:8%; height:100; float:left;" />
-			<div style="margin-left:43%; padding-top:10px;">
-				<span style="font-size: 75px; color:#ffffff">I</span>
-				<span style="font-size: 65px; color:#eeeeee">N</span>
-				<span style="font-size: 60px; color:#dddddd"">F</span>
-				<span style="font-size: 55px; color:#cccccc"">I</span>
-				<span style="font-size: 50px; color:#bbbbbb"">N</span>
-				<span style="font-size: 45px; color:#aaaaaa"">I</span>
-				<span style="font-size: 40px; color:#999999"">T</span>
-				<span style="font-size: 35px; color:#888888"">Y</span>
-			</div>
+		<header>
+			<nav>
+				<img src="images/logo.png" id="logo" />
+				<div style="margin-left:43%; padding-top:10px;">
+					<span style="font-size: 75px; color:#ffffff">I</span>
+					<span style="font-size: 65px; color:#eeeeee">N</span>
+					<span style="font-size: 60px; color:#dddddd">F</span>
+					<span style="font-size: 55px; color:#cccccc">I</span>
+					<span style="font-size: 50px; color:#bbbbbb">N</span>
+					<span style="font-size: 45px; color:#aaaaaa">I</span>
+					<span style="font-size: 40px; color:#999999">T</span>
+					<span style="font-size: 35px; color:#888888">Y</span>
+				</div>
+			</nav>
 		</header>
 		
 		<!-- Sub Header  -->
@@ -37,22 +40,22 @@
 		<!-- Section for videos -->
 		<section style="width:90%;margin-left:5%;;margin-top: 20px;">
 			<!-- Video tags -->
-			<video controls style="float:left;width:40%;margin-left:5%;background: #ffffff;text-align: center;margin-top: 20px;"  >
+			<video controls class="smallim">
 			  <source src="vid.mp4" type="video/mp4">
 			  Your browser does not support HTML5 video.
 			</video>
 			
-			<video style="float:left;width:40%;margin-left:10%;background: #ffffff;text-align: center;margin-top: 20px;"  controls >
+			<video class="smallim"  controls >
 			  <source src="vid.mp4" type="video/mp4">
 			  Your browser does not support HTML5 video.
 			</video>
 			
-			<video style="float:left;width:40%;margin-left:5%;background: #ffffff;text-align: center;margin-top: 20px;"  controls >
+			<video class="smallim"  controls >
 			 <source src="vid.mp4" type="video/mp4">
 			  Your browser does not support HTML5 video.
 			</video>
 			
-			<video  style="float:left;width:40%;margin-left:10%;background: #ffffff;text-align: center;margin-top: 20px;"  controls >
+			<video  class="smallim"  controls >
 			  <source src="vid.mp4" type="video/mp4">
 			  Your browser does not support HTML5 video.
 			</video>
@@ -67,6 +70,7 @@
 		<h1 style="color:#ffffff;float:left;margin-top:30px;margin-left:20px;"> Audio </h1>
 		<!-- Section for audios -->
 		<section style="width:90%;margin-left:5%;margin-top: 200px;">
+				<br><br><br>
 			 <audio controls>
 			  <source src="horse.ogg" type="audio/ogg">
 			  <source src="horse.mp3" type="audio/mpeg">
