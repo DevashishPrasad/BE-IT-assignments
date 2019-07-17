@@ -5,54 +5,31 @@
 		<!-- Link the external stylesheet -->
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
-	<style>
-		.hidden{
-			display:none;
-			position: fixed;
-			margin-left: -50px;
-			width: 15%;
-			height: 125px;
-			top: 145px;
-			background-color:#ffffff;
-			text-align: center;
-		}
-		.hidden ul{
-			padding: 0px;
-			text-align: center;
-		}
-		.hidden ul li{
-			margin-left: 0px;
-			margin-right: 0px;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			color: #333333;
-			border-bottom: solid #333333;
-			display: block;
-			width: 100%;
-		}
-		#li1:hover #hid1{
-			color: #ffffff;
-			text-shadow: 0px 0px 5px #cccccc;
-			display: block;
-		}
-		#li2:hover #hid2{
-			color: #ffffff;
-			text-shadow: 0px 0px 5px #cccccc;
-			display: block;
-		}
-		#li3:hover #hid3{
-			color: #ffffff;
-			text-shadow: 0px 0px 5px #cccccc;
-			display: block;
-		}
-	</style>
+	<script>
+		// When the user scrolls the page, execute myFunction
+		window.onscroll = function() {myFunction()};
+
+		// Get the navbar
+		var navbar = document.getElementById("thenav");
+
+		// Get the offset position of the navbar
+		var sticky = navbar.offsetTop;
+
+		// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+		function myFunction() {
+		  if (window.pageYOffset >= sticky) {
+		    navbar.classList.add("sticky")
+		  } else {
+		    navbar.classList.remove("sticky");
+		  }
+		} 
+	</script>
 	<body>
-	
 		<!-- Header  -->
 		<header>
 			<nav>
 				<img src="images/logo.png" id="logo" />
-				<div style="margin-left:43%; padding-top:10px;">
+				<a style="margin-left:27%; padding-top:10px;" href="main.html">
 					<span style="font-size: 75px; color:#ffffff">I</span>
 					<span style="font-size: 65px; color:#eeeeee">N</span>
 					<span style="font-size: 60px; color:#dddddd">F</span>
@@ -61,14 +38,14 @@
 					<span style="font-size: 45px; color:#aaaaaa">I</span>
 					<span style="font-size: 40px; color:#999999">T</span>
 					<span style="font-size: 35px; color:#888888">Y</span>
-				</div>
+				</a>
 			</nav>
 		</header>
 
 		<!-- Nav bar  -->
-		<header style="height:50px;text-align:center;padding:5px;">
-			<ul>
-				<li id="li1">
+		<header style="text-align:center;height:39px;" id="thenav">
+			<ul style="margin-top:0px;">
+				<li id="li1" class="active">
 				<a href="planets.html">PLANETS</a>
 				<div class="hidden" id="hid1">
 					<ul>
