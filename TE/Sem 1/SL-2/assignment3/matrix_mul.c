@@ -5,25 +5,33 @@
 #include<pthread.h>
 #include<string.h>
 
+// structure for passing parameters
+struct params{
+	int *a,*b;
+};
+
 // function for thread
 void *multiply(void *arg);
 void *take_input1(void *arg);
 void *take_input2(void *arg);
 void *put_output(void *arg);
 
-
-// message to be printed
-int *A;
-int *B;
-int result[10][10];
-
 int main() {
-	// -----------------  Declare Variables -------------------------------
+	// -----------------  Declare Variables ------------------
 	// variable for result status of thread creation
 	int res,r1,c1,r2,c2;
 	// for taking result after joining
 	void *thread_result;
-
+	// Matrices	
+	int *A;
+	int *B;
+	int *result;
+	// structure for parameters
+	struct params p;
+	// declare the threads
+	pthread_t *TA;
+	
+	// ------------------ input from user --------------------
 	printf("\n Enter the number of rows for Matrix 1 - ");
 	scanf("%d",&r1);
 	printf("\n Enter the number of columns for Matrix 1 - ");
@@ -33,29 +41,46 @@ int main() {
 	printf("\n Enter the number of columns for Matrix 2 - ");
 	scanf("%d",&c2);
 
-	//declare matrices
+	if (c1 != r2){
+		printf("The matrices can't be multiplied with each other.\n");
+		exit(0);
+	}
+	
+	// allocate matrices
 	A =  (int *)malloc(r1 * c1 * sizeof(int));
 	B =  (int *)malloc(r2 * c2 * sizeof(int));
-
-	*(A + 0*c1 + 0)=2;
-	*(B + 0*c1 + 0)=2;
-	int * params[2];
-	// declare the threads
-	pthread_t TA[r1][c1];
-	pthread_t TB[r2][c2];
+	Result = (int *)malloc(r1 * c2 * sizeof(int));
+	TA = (pthread_t *)malloc(r1 * c2 * sizeof(pthread_t));
 	
-	params[0] = (A + 0*c1 + 0);
-	params[1] = (B + 0*c1 + 0);
-	/*for(int i=0;i<r1;i++)
-		for(int j=0;j<r2;j++)*/
-			res = pthread_create(&TA[0][0], NULL, take_input1, (void *)params);
-/*
-	for (int i = 0; i <  r1; i++) {
-	      	for (int j = 0; j < c1; j++)
-        		printf(" %d ",*(A + i*c1 + j));
+	printf("\n Enter elements of first matrix - \n");
+	for (int r` = 0; c < r1; c++)
+		for (int d = 0; d < c1; d++){
+			printf("\n Enter element [%d][%d] - ",c,d);
+			scanf("%d", (A + c*c1 + d));
+		}
+ 
+	printf("\n Enter elements of second matrix - \n");
+	for (c = 0; c < r2; c++)
+		for (d = 0; d < c2; d++){
+ 			printf("\n Enter element [%d][%d] - ",c,d);
+			scanf("%d", (B + c*c1 + d));
+		}
+
+	// ------------------ Multiply using threads --------------------
+	for (c = 0; c < r1; c++) 
+		for (d = 0; d <c2; d++){ 
+			for (k = 0; k < r1; k++) {
+				p.a += (A + c*c1 + k);
+				p.b += (B + k*c1 + d);
+			}
+		}
+		
+	
+	for (int c = 0; c <  r1; c++) {
+	      	for (int d = 0; d < c2; d++)
+        			pthread_join(the_thread, (Result + c*c2 + d));
 		printf("\n");
 	}
-/*
 	// check for thread creation failure
 	if (res != 0) {
 		perror("Thread creation failed");
@@ -82,11 +107,4 @@ void *multiply(void *arg) {
 	sleep(3);
 	strcpy(message, "Bye!");
 	pthread_exit("Thank you for the CPU time");*/
-}
-void *take_input1(void *arg){
-	printf("%d",(*(int*)arg[0] * *(int*)arg[1]));
-	//memcpy(arg,6,sizeof(int*));
-}
-void *take_input2(void *arg){
-	//memcpy(arg,2,sizeof(int));
 }

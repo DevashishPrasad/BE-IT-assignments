@@ -1,4 +1,4 @@
-// COMPILE : gcc Assignment2.c -o op1.out
+// COMPILE : gcc OrphanZombie.c -o op1.out
 // EXECUTE : ./op1.out
 	
 #include <stdio.h>
