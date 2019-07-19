@@ -2,17 +2,7 @@
 #include<stdio.h>
 #include<unistd.h>
 #include<stdlib.h>
-#include<pthread.h>
-#include<string.h>
 #include<time.h>
-
-// structure for passing parameters
-struct params{
-	int i,j,c;
-};
-
-// function for thread
-void *multiply(void *arg);
 
 // Global Matrices
 int *A,*B,*Result;
@@ -21,9 +11,7 @@ int main(){
 
 	// -----------------  Declare Variables ------------------
 	// variable for result status of thread creation
-	int res,r1,c1,r2,c2,c,d,t;
-	// structure for parameters
-	struct params *p;
+	int res,r1,c1,r2,c2,c,d,k,t;
 	// declare the threads
 	pthread_t *TA;
 	// clock
@@ -81,32 +69,11 @@ int main(){
 	for(t=0;t<100;t++){
 		for (c = 0; c < r1; c++) 
 			for (d = 0; d <c2; d++){
-				p = (struct params*)malloc(sizeof(struct params));
-				p->i=c;
-				p->j=d;
-				p->c=c2;
-				res = pthread_create((TA+c*c2+d),NULL,multiply,p);
-				// check for thread creation failure
-				if (res != 0) {
-					perror("Thread creation failed");
-					exit(EXIT_FAILURE);
+				for (k = 0; k < c1; k++){
+					*(Result + c*c1 + d)+=*(A + c*c1 + k)**(B + k*c1 + d);
 				}
 			}
-	}	
-	// ------------------ Wait for threads to finish ----------------
-	printf(" Waiting for threads to finish...\n");
-	// joining or waiting for thread to finish
-	for (c = 0; c < r1; c++) 
-		for (d = 0; d <c2; d++){
-			printf(" %d %d \n",c,d);
-			res = pthread_join(*(TA+c*c2+d), NULL);	
-			// check for thread join failure
-			if (res != 0) {
-				perror("Thread join failed");
-				exit(EXIT_FAILURE);
-			}
-		}
-
+	}		
 	// -------------------- Display the result --------------------
 	printf(" Result of execution -\n");
 	for (c = 0; c < r1; c++){ 
@@ -114,20 +81,8 @@ int main(){
 			printf(" %d ",*(Result+c*c2+d));
 		printf("\n");
 	}
-
-	end = clock();
 	
+	end = clock();
 	totaltime = ((double) (end - start)) / _SC_CLK_TCK;
 	printf("\n Time for execution --> %f \n\n",totaltime);
-}
-
-// function executed by the thread
-void *multiply(void *arg) {
-	int k;
-	struct params *p = arg;
-	*(Result + p->i*p->c + p->j)=0;
-	for (k = 0; k < p->c; k++){
-		*(Result + p->i*p->c + p->j)+=*(A + p->i*p->c + k)**(B + k*p->c + p->j);
-	}
-	pthread_exit("Thank you for the CPU time");
 }
