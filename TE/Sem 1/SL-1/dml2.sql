@@ -136,14 +136,16 @@ OUTPUT
 select dayname(order_date) as dayname, monthname(order_date) as month, year(order_date) as year from orders where order_date='2019-6-1';
 /*
 OUTPUT
-+----------+--------------------+
-| order_id | total              |
-+----------+--------------------+
-| 5        | 1408.4299621582031 |
-| 1        |  972.1699905395508 |
-| 4        |  751.1699905395508 |
-| 3        |  630.1899871826172 |
-| 2        |  351.1800003051758 |
-+----------+--------------------+
-5 rows in set (0.00 sec)
++----------+-------+------+
+| dayname  | month | year |
++----------+-------+------+
+| Saturday | June  | 2019 |
+| Saturday | June  | 2019 |
+| Saturday | June  | 2019 |
+| Saturday | June  | 2019 |
+| Saturday | June  | 2019 |
+| Saturday | June  | 2019 |
+| Saturday | June  | 2019 |
++----------+-------+------+
+7 rows in set (0.00 sec)
 */
