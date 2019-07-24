@@ -1,7 +1,7 @@
 <!DOCTYPE html5>
 <html>
 	<head>
-		<title> Giant Planets </title>
+		<title> Videos </title>
 		<!-- Link the external stylesheet -->
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
@@ -25,9 +25,9 @@
 		</header>
 
 		<!-- Nav bar  -->
-		<header style="text-align:center;height:39px;" id="thenav">
+		<header style="text-align:center;height:39px;">
 			<ul style="margin-top:0px;">
-				<li id="li1" class="active">
+				<li id="li1">
 				<a href="planets.html">PLANETS</a>
 				<div class="hidden" id="hid1">
 					<ul>
@@ -44,7 +44,7 @@
 						</ul>
 					</div>
 				</li>
-				<li id="li3">
+				<li id="li3" class="active">
 					<a href="videos.html">VIDEOS</a>
 					<div class="hidden" id="hid3">
 						<ul>
@@ -56,33 +56,38 @@
 		</header>
 
 
-		<!-- Section for images -->
+		<h1 style="color:#ffffff"> Videos </h1>
+		
+		<!-- Section for videos -->
 		<section style="width:90%;margin-left:5%;;margin-top: 20px;">
-			<div  class="smallim">
-				<a href="" style="text-decoration:None;color:#444">
-					<img style="width:100%;height:350px;" src="images/jupiter.jpg"/>
-					<h3>Jupiter</h3>
-				</a>
-			</div>	
-			<div  class="smallim">
-				<a href="" style="text-decoration:None;color:#444">
-					<img style="width:100%;height:350px;" src="images/saturn.jpg"/>
-					<h3>Saturn</h3>
-				</a>
-			</div>
-			<div  class="smallim">
-				<a href="" style="text-decoration:None;color:#444">
-					<img style="width:100%;height:350px;" src="images/neptune.jpg"/>
-					<h3>Neptune</h3>
-				</a>
-			</div>
-			<div  class="smallim">
-				<a href="" style="text-decoration:None;color:#444">
-					<img style="width:100%;height:350px;" src="images/uranus.jpg"/>
-					<h3>Uranus</h3>
-				</a>
-			</div>
+			<!-- Video tags -->
+			<video controls class="smallim">
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video class="smallim"  controls >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video class="smallim"  controls >
+			 <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video  class="smallim"  controls >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
 		</section>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<p> </p>
 	</body>
 </html>
-<script src="script/js.js"></script>

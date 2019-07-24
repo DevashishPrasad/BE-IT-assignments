@@ -1,0 +1,93 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Infinity </title>
+	</head>
+	<body>
+		<form>
+			<h1>Registration</h1>
+			<fieldset>
+				<legend>Personal Information</legend>
+				<label>NAME : </lable>
+				<br>
+				<input type="text" name="First" value="First" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<input type="text" name="Middle" value="Middle"  onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<input type="text" name="Last" value="Last"  onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<br>
+				<br>
+				<label>ADDRESS : </lable>
+				<br>
+				<textarea name="Street" onfocusin="highlight(this)" onfocusout="lowlight(this)">Street</textArea>
+				<textarea name="Area" onfocusin="highlight(this)" onfocusout="lowlight(this)">Area</textArea>
+				<br>
+				<input type="text" name="City" value="City" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<input type="text" name="State" value="State" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<input type="text" name="Country" value="Country" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<br>
+				<br>
+				<label>GENDER : </lable>
+				<br>
+				<input type="Radio" name="gender" value="Male"/><lable>Male</lable>
+				<br>
+				<input type="Radio" name="gender" value="Female"/><lable>Female</lable>
+				<br>
+				<br>
+				<label>DATE OF BIRTH : </lable>
+				<br>
+				<label> Day : </label>
+				<select>
+				  <script>
+				  	for(var i=1; i<31; i++){
+	  				  document.write('<option value="' + i + '">' + i + '</option>')
+	  				}
+				  </script>
+				</select> 
+				<label> Month : </label>
+				<select>
+					<option value="jan">jan</option>
+					<option value="feb">feb</option>
+					<option value="mar">mar</option>
+					<option value="apr">apr</option>
+					<option value="may">may</option>
+					<option value="jun">jun</option>
+					<option value="jul">jul</option>
+					<option value="aug">aug</option>
+					<option value="sep">sep</option>
+					<option value="oct">oct</option>
+					<option value="nov">nov</option>
+					<option value="dec">dec</option>
+				</select>
+				<label> Day : </label>
+				<select>
+				  <script>
+				  	for(var i=1930; i<2010; i++){
+	  				  document.write('<option value="' + i + '">' + i + '</option>')
+	  				}
+				  </script>
+				</select> 
+				<br>
+				<br>
+				
+			</fieldset>
+			<br>
+			<fieldset>
+				<legend>User Account Information</legend>
+				<label>Email : </lable>
+				<br>
+				<input type="email"/>
+				<br>
+				<br>
+				<label>Password : </lable>
+				<br>
+				<input type="password"/>
+				<br>
+				<label>Re-Enter Password : </lable>
+				<br>
+				<input type="password"/>
+			</fieldset>
+			<input type="submit" value="SUBMIT"/>
+			<input type="reset" value="RESET"/>
+		</form>
+	</body>
+</html>
+<script src="js.js"></script>

@@ -5,25 +5,6 @@
 		<!-- Link the external stylesheet -->
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
-	<script>
-		// When the user scrolls the page, execute myFunction
-		window.onscroll = function() {myFunction()};
-
-		// Get the navbar
-		var navbar = document.getElementById("thenav");
-
-		// Get the offset position of the navbar
-		var sticky = navbar.offsetTop;
-
-		// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-		function myFunction() {
-		  if (window.pageYOffset >= sticky) {
-		    navbar.classList.add("sticky")
-		  } else {
-		    navbar.classList.remove("sticky");
-		  }
-		} 
-	</script>
 	<body>
 		<!-- Header  -->
 		<header>
@@ -46,13 +27,14 @@
 		<header style="text-align:center;height:39px;" id="thenav">
 			<ul style="margin-top:0px;">
 				<li id="li1" class="active">
-				<a href="planets.html">PLANETS</a>
-				<div class="hidden" id="hid1">
-					<ul>
-						<a href="dwarf.html"><li>DWARF</li></a>
-						<a href="giant.html"><li>GIANT</li></a>
-						<a href="terrestrial.html"><li>TERRESTRIAL</li></a>
-					</ul>
+					<a href="planets.html">PLANETS</a>
+					<div class="hidden" id="hid1">
+						<ul>
+							<a href="dwarf.html"><li>DWARF</li></a>
+							<a href="giant.html"><li>GIANT</li></a>
+							<a href="terrestrial.html"><li>TERRESTRIAL</li></a>
+						</ul>
+					</div>
 				</li>				
 				<li id="li2">
 					<a href="galaxies.html">GALAXIES</a>
@@ -105,3 +87,4 @@
 		</footer>
 	</body>
 </html>
+<script src="script/js.js"></script>
