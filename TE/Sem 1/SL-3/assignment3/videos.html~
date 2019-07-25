@@ -1,0 +1,93 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Videos </title>
+		<!-- Link the external stylesheet -->
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px; margin:0; padding:0;">
+	
+		<!-- Header  -->
+		<header>
+			<nav>
+				<img src="images/logo.png" id="logo" />
+				<a style="margin-left:27%; padding-top:10px;" href="main.html">
+					<span style="font-size: 75px; color:#ffffff">I</span>
+					<span style="font-size: 65px; color:#eeeeee">N</span>
+					<span style="font-size: 60px; color:#dddddd">F</span>
+					<span style="font-size: 55px; color:#cccccc">I</span>
+					<span style="font-size: 50px; color:#bbbbbb">N</span>
+					<span style="font-size: 45px; color:#aaaaaa">I</span>
+					<span style="font-size: 40px; color:#999999">T</span>
+					<span style="font-size: 35px; color:#888888">Y</span>
+				</a>
+			</nav>
+		</header>
+
+		<!-- Nav bar  -->
+		<header style="text-align:center;height:39px;">
+			<ul style="margin-top:0px;">
+				<li id="li1">
+				<a href="planets.html">PLANETS</a>
+				<div class="hidden" id="hid1">
+					<ul>
+						<a href="dwarf.html"><li>DWARF</li></a>
+						<a href="giant.html"><li>GIANT</li></a>
+						<a href="terrestrial.html"><li>TERRESTRIAL</li></a>
+					</ul>
+				</li>				
+				<li id="li2">
+					<a href="galaxies.html">GALAXIES</a>
+					<div class="hidden" id="hid2">
+						<ul>
+							<a href="galaxies.html"><li>GALAXIES</li></a>
+						</ul>
+					</div>
+				</li>
+				<li id="li3" class="active">
+					<a href="videos.html">VIDEOS</a>
+					<div class="hidden" id="hid3">
+						<ul>
+							<a href="videos.html"><li>VIDEOS</li></a>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</header>
+
+
+		<h1 style="color:#ffffff"> Videos </h1>
+		
+		<!-- Section for videos -->
+		<section style="width:90%;margin-left:5%;;margin-top: 20px;">
+			<!-- Video tags -->
+			<video controls class="smallim">
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video class="smallim"  controls >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video class="smallim"  controls >
+			 <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+			<video  class="smallim"  controls >
+			  <source src="vid.mp4" type="video/mp4">
+			  Your browser does not support HTML5 video.
+			</video>
+			
+		</section>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<p> </p>
+	</body>
+</html>
