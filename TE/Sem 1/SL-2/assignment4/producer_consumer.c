@@ -14,22 +14,27 @@ sem_t empty,full;
 pthread_mutex_t lock;
 
 // Thread functions for producer and consumer 
-void *producer_thread();
-void *consumer_thread();
+void *producer_thread(void *no);
+void *consumer_thread(void *no);
 
 // The Buffer
 int buffer[BUF_SIZE];
 
-// Current Index
-int idx;
+// Current Indices
+int pidx,cidx;
 
 // Main function
 void main(){
 
 	// Declare the variables for the program
-	int res;
+	int res,nopro,nocon,i;
+	int *arg;
 	printf("\n ================== PRODUCER CONSUMER ====================");
-		
+	printf("\n Enter the number of PRODUCERS => ");
+	scanf("%d",&nopro);
+	printf("\n Enter the number of CONSUMERS => ");
+	scanf("%d",&nocon);
+
 	// Create threads
 	pthread_t producer,consumer;
 	
@@ -55,24 +60,36 @@ void main(){
 		exit(EXIT_FAILURE);
 	}	
 
-	// Initialize the index
-	idx = 0;
+	// Initialize the indices
+	pidx = 0;
+	cidx = 0;
 	
-	// Create the threads
-	printf("\n Creating a Producer");		
-	res = pthread_create(&producer,NULL,producer_thread,NULL);
-	if (res != 0) {
-		printf("\n ERROR :: Thread Creation failed");
-		printf("\n ERROR :: Failed to proceed");
-		exit(EXIT_FAILURE);
-	}	
-	printf("\n Creating a Consumer");
-	res = pthread_create(&consumer,NULL,consumer_thread,NULL);	
-	if (res != 0) {
-		printf("\n ERROR :: Thread Creation failed");
-		printf("\n ERROR :: Failed to proceed");
-		exit(EXIT_FAILURE);
-	}	
+	// Create producers threads
+	printf("\n Creating Producer Threads");
+	for(i=1;i<=nopro;i++){		
+		printf("\n Creating Producer number <%d> ",i);
+		arg = (int *) malloc(sizeof(int));
+		*arg = i;
+		res = pthread_create(&producer,NULL,producer_thread,arg);
+		if (res != 0) {
+			printf("\n ERROR :: Thread Creation failed");
+			printf("\n ERROR :: Failed to proceed");
+			exit(EXIT_FAILURE);
+		}	
+	}
+	// Create consumers threads	
+	printf("\n Creating Consumer Threads");
+	for(i=1;i<=nocon;i++){		
+		printf("\n Creating Consumer number <%d> ",i);	
+		arg = (int *) malloc(sizeof(int));
+		*arg = i;
+		res = pthread_create(&consumer,NULL,consumer_thread,arg);	
+		if (res != 0) {
+			printf("\n ERROR :: Thread Creation failed");
+			printf("\n ERROR :: Failed to proceed");
+			exit(EXIT_FAILURE);
+		}	
+	}
 	
 	// Waiting for both threads to finish
 	res = pthread_join(producer, NULL);		
@@ -89,51 +106,58 @@ void main(){
 	}	
 }
 
-void *producer_thread(){
+void *producer_thread(void *no){
+	int *num = (int*) no;
 	while(1){
 		// Entry section
-		int temp = rand()%10,i;
+		int temp = rand()%3,i;
+		if (temp == 0)
+			temp = 2;
 		sleep(temp);
 		sem_wait(&empty);
 		pthread_mutex_lock(&lock);
 		// The critical section
-		printf("\n\n Entered in PRODUCER");
+		printf("\n\n Entered in PRODUCER no <%d> ",*num);
 		// Produce an item in buffer
-		buffer[idx] = temp;
+		buffer[pidx] = temp;
 		// Print the BUFFER
 		printf("\n\n [ ");
 		for(i=0;i<BUF_SIZE;i++)
 			printf(" %d ",buffer[i]);
 		printf(" ]");
 		// Update the index value
-		idx = (idx + 1)%BUF_SIZE;				
-		printf("\n\n Exited from PRODUCER");
+		pidx = (pidx + 1)%BUF_SIZE;				
+		printf("\n\n Exited from PRODUCERno <%d> ",*num);
 		pthread_mutex_unlock(&lock);		
 		sem_post(&full);		
 		// Remainder section
 	}	
 }
 
-void *consumer_thread(){
+void *consumer_thread(void *no){
+	int *num = (int*) no;
 	while(1){
 		// Entry section
 		int temp = rand()%7,i;
+		if (temp == 0)
+			temp = 2;
 		sleep(temp);
 		sem_wait(&full);
 		pthread_mutex_lock(&lock);
 		// Critical section
-		printf("\n\n Entered in CONSUMER");
+		printf("\n\n Entered in CONSUMER  no <%d> ",*num);
 		// Consumer an item from the buffer
-		buffer[idx-1]=0;
+		buffer[cidx] = 0;		
 		// Print the BUFFER
 		printf("\n\n [ ");
 		for(i=0;i<BUF_SIZE;i++)
 			printf(" %d ",buffer[i]);
 		printf(" ]");
-		printf("\n\n Entered in CONSUMER");
+		// Update the index value
+		cidx = (cidx + 1)%BUF_SIZE;				
+		printf("\n\n Exited from CONSUMER no <%d> ",*num);
 		pthread_mutex_unlock(&lock);		
 		sem_post(&empty);		
 		// Remainder section
 	}	
 }
-
