@@ -4,35 +4,35 @@
 		<title> Infinity </title>
 	</head>
 	<body>
-		<form>
+		<form onsubmit="return validate()">
 			<h1>Registration</h1>
 			<fieldset>
 				<legend>Personal Information</legend>
-				<label>NAME : </lable>
+				<label>NAME : </label>
 				<br>
-				<input type="text" name="First" value="First" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
-				<input type="text" name="Middle" value="Middle"  onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
-				<input type="text" name="Last" value="Last"  onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
-				<br>
-				<br>
-				<label>ADDRESS : </lable>
-				<br>
-				<textarea name="Street" onfocusin="highlight(this)" onfocusout="lowlight(this)">Street</textArea>
-				<textarea name="Area" onfocusin="highlight(this)" onfocusout="lowlight(this)">Area</textArea>
-				<br>
-				<input type="text" name="City" value="City" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
-				<input type="text" name="State" value="State" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
-				<input type="text" name="Country" value="Country" onfocusin="highlight(this)" onfocusout="lowlight(this)"/>
+				<input type="text" id="First" placeholder="First"/>
+				<input type="text" id="Middle"  placeholder="Middle"/>
+				<input type="text" id="Last" placeholder="Last"/>
 				<br>
 				<br>
-				<label>GENDER : </lable>
+				<label>ADDRESS : </label>
 				<br>
-				<input type="Radio" name="gender" value="Male"/><lable>Male</lable>
+				<textarea id="Street" placeholder="Street"></textArea>
+				<textarea id="Area" placeholder="Area"></textArea>
 				<br>
-				<input type="Radio" name="gender" value="Female"/><lable>Female</lable>
+				<input type="text" id="City" placeholder="City"/>
+				<input type="text" id="State"  placeholder="State"/>
+				<input type="text" id="Country" placeholder="Country"/>
 				<br>
 				<br>
-				<label>DATE OF BIRTH : </lable>
+				<label>GENDER : </label>
+				<br>
+				<lable><input type="Radio" name="gender" id="male" value="Male"/>Male</label>
+				<br>
+				<lable><input type="Radio" name="gender" id="female" value="Female"/>Female</label>
+				<br>
+				<br>
+				<label>DATE OF BIRTH : </label>
 				<br>
 				<label> Day : </label>
 				<select>
@@ -67,7 +67,21 @@
 				</select> 
 				<br>
 				<br>
-				
+				<label>EDUCATION : </lable>
+					<br>
+					<label>(select all that applies)</label>
+					<br>
+					<lable><input type="Checkbox" name="gender" value="Male"/>10th</lable>
+					<br>
+					<lable><input type="Checkbox" name="gender" value="Female"/>12th</lable>
+					<br>
+					<lable><input type="Checkbox" name="gender" value="Female"/>Diploma</lable>
+					<br>
+					<lable><input type="Checkbox" name="gender" value="Female"/>Bachelor's Degree</lable>
+					<br>
+					<lable><input type="Checkbox" name="gender" value="Female"/>Master's Degree</lable>
+					<br>
+					<lable><input type="Checkbox" name="gender" value="Female"/>PhD</lable>
 			</fieldset>
 			<br>
 			<fieldset>
@@ -75,6 +89,11 @@
 				<label>Email : </lable>
 				<br>
 				<input type="email"/>
+				<br>
+				<br>
+				<label>Phone : </lable>
+				<br>
+				<input type="number"/>
 				<br>
 				<br>
 				<label>Password : </lable>
@@ -85,9 +104,12 @@
 				<br>
 				<input type="password"/>
 			</fieldset>
+			<br>
+			<p id="val" style="color:red;"></p>	
 			<input type="submit" value="SUBMIT"/>
 			<input type="reset" value="RESET"/>
 		</form>
+		<button onclick="validate()">temp</button>
 	</body>
 </html>
 <script src="js.js"></script>
