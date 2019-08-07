@@ -10,26 +10,26 @@
 				<legend>Personal Information</legend>
 				<label>NAME : </label>
 				<br>
-				<input type="text" id="First" placeholder="First"/>
-				<input type="text" id="Middle"  placeholder="Middle"/>
-				<input type="text" id="Last" placeholder="Last"/>
+				<input type="text" id="First" onblur="blurcheckname(this)" placeholder="First" required="true"/>
+				<input type="text" id="Middle" onblur="blurcheckname(this)" placeholder="Middle" required="true"/>
+				<input type="text" id="Last" onblur="blurcheckname(this)" placeholder="Last" required="true"/>
 				<br>
 				<br>
 				<label>ADDRESS : </label>
 				<br>
-				<textarea id="Street" placeholder="Street"></textArea>
-				<textarea id="Area" placeholder="Area"></textArea>
+				<textarea rows=2 cols=50 id="Street" onblur="blurcheckaddress(this)" placeholder="Street" required="true"></textArea>
+				<textarea rows=2 cols=50 id="Area" onblur="blurcheckaddress(this)" placeholder="Area" required="true"></textArea>
 				<br>
-				<input type="text" id="City" placeholder="City"/>
-				<input type="text" id="State"  placeholder="State"/>
-				<input type="text" id="Country" placeholder="Country"/>
+				<input type="text" id="City" onblur="blurcheckname(this)" placeholder="City" required="true"/>
+				<input type="text" id="State" onblur="blurcheckname(this)"  placeholder="State" required="true"/>
+				<input type="text" id="Country" onblur="blurcheckname(this)" placeholder="Country" required="true"/>
 				<br>
 				<br>
 				<label>GENDER : </label>
 				<br>
-				<lable><input type="Radio" name="gender" id="male" value="Male"/>Male</label>
+				<label><input type="Radio" name="gender" id="male" value="Male"/>Male</label>
 				<br>
-				<lable><input type="Radio" name="gender" id="female" value="Female"/>Female</label>
+				<label><input type="Radio" name="gender" id="female" value="Female"/>Female</label>
 				<br>
 				<br>
 				<label>DATE OF BIRTH : </label>
@@ -71,45 +71,45 @@
 					<br>
 					<label>(select all that applies)</label>
 					<br>
-					<lable><input type="Checkbox" name="gender" value="Male"/>10th</lable>
+					<label><input type="Checkbox" name="gender" value="Male"/>10th</label>
 					<br>
-					<lable><input type="Checkbox" name="gender" value="Female"/>12th</lable>
+					<label><input type="Checkbox" name="gender" value="Female"/>12th</label>
 					<br>
-					<lable><input type="Checkbox" name="gender" value="Female"/>Diploma</lable>
+					<label><input type="Checkbox" name="gender" value="Female"/>Diploma</label>
 					<br>
-					<lable><input type="Checkbox" name="gender" value="Female"/>Bachelor's Degree</lable>
+					<label><input type="Checkbox" name="gender" value="Female"/>Bachelor's Degree</label>
 					<br>
-					<lable><input type="Checkbox" name="gender" value="Female"/>Master's Degree</lable>
+					<label><input type="Checkbox" name="gender" value="Female"/>Master's Degree</label>
 					<br>
-					<lable><input type="Checkbox" name="gender" value="Female"/>PhD</lable>
+					<label><input type="Checkbox" name="gender" value="Female"/>PhD</label>
 			</fieldset>
 			<br>
 			<fieldset>
 				<legend>User Account Information</legend>
-				<label>Email : </lable>
+				<label>Email : </label>
 				<br>
-				<input type="email"/>
-				<br>
-				<br>
-				<label>Phone : </lable>
-				<br>
-				<input type="number"/>
+				<input id="email" type="email" required="true"/>
 				<br>
 				<br>
-				<label>Password : </lable>
+				<label>Phone : </label>
 				<br>
-				<input type="password"/>
+				<input id="phone" type="number" required="true"/>
 				<br>
-				<label>Re-Enter Password : </lable>
 				<br>
-				<input type="password"/>
+				<label>Password : </label>
+				<br>
+				<input id="pass1" onblur="blurcheckpassword(this)" type="password" required="true" oncontextmenu="return false" onkeydown="checkctrl(event)"/>
+				<br>
+				<br>
+				<label>Re-Enter Password : </label>
+				<br>
+				<input id="pass2" onblur="blurcheckpassword(this)" type="password" required="true" oncontextmenu="return false" onkeydown="checkctrl(event)"/>
 			</fieldset>
 			<br>
 			<p id="val" style="color:red;"></p>	
 			<input type="submit" value="SUBMIT"/>
 			<input type="reset" value="RESET"/>
 		</form>
-		<button onclick="validate()">temp</button>
 	</body>
 </html>
 <script src="js.js"></script>
