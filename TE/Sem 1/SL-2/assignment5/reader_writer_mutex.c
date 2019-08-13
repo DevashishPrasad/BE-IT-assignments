@@ -113,11 +113,12 @@ void *reader_thread(void *no){
 		pthread_mutex_unlock(&lock);
 
 		// The critical section for reader and writers
-		printf("\n\n\n R : Entered in READER no <%d> ",*num);
+		printf("\n\n\n R <%d> : Entered in READER ",*num);
 		// Read the data
+		sleep(temp);
 		temp = data;
 		printf("\n R : DATA => %d ",temp);
-		printf("\n R : Exited from READER no <%d> ",*num);
+		printf("\n R <%d> : Exited from READER ",*num);
 
 		pthread_mutex_lock(&lock);
 			// Critical section for readers
@@ -141,11 +142,11 @@ void *writer_thread(void *no){
 
 		pthread_mutex_lock(&rwlock);
 			// The Critical section for readers ad writers
-			printf("\n\n\n W : Entered in WRITER  no <%d> ",*num);
+			printf("\n\n\n W <%d> : Entered in WRITER ",*num);
 			// Write the data
 			data = temp * 12;
 			printf("\n W : The data was changed");		
-			printf("\n W : Exited from WRITER no <%d> ",*num);
+			printf("\n W <%d> : Exited from WRITER ",*num);
 		pthread_mutex_unlock(&rwlock);		
 		// Remainder section
 	}	

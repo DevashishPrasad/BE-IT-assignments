@@ -40,7 +40,7 @@ void main(){
 	pthread_t reader,writer;
 	
 	// Initialize the semapahores;
-	res =  sem_init(&rwlock, 0, nowrt + 1);
+	res =  sem_init(&rwlock, 0, 1);
 	if (res != 0) {
 		printf("\n ERROR :: Semaphore initialization failed");
 		printf("\n ERROR :: Failed to proceed");
@@ -104,11 +104,11 @@ void *reader_thread(void *no){
 	int *num = (int*) no;
 	while(1){
 		// Entry section
-		int temp = rand()%3,i;
+		int temp = rand()%4,i;
 		if (temp == 0)
 			temp = 2;
 		sleep(temp);
-
+		
 		sem_wait(&mutex);
 			// Critical section for readers
 			readcount++;
@@ -117,11 +117,12 @@ void *reader_thread(void *no){
 		sem_post(&mutex);
 
 		// The critical section for reader and writers
-		printf("\n\n\n R : Entered in READER no <%d> ",*num);
+		printf("\n\n\n R <%d> : Entered in READER ",*num);
 		// Read the data
+		sleep(temp);
 		temp = data;
 		printf("\n R : DATA => %d ",temp);
-		printf("\n R : Exited from READER no <%d> ",*num);
+		printf("\n R <%d> : Exited from READER ",*num);
 
 		sem_wait(&mutex);
 			// Critical section for readers
@@ -145,11 +146,11 @@ void *writer_thread(void *no){
 
 		sem_wait(&rwlock);
 			// The Critical section for readers ad writers
-			printf("\n\n\n W: Entered in WRITER  no <%d> ",*num);
+			printf("\n\n\n W <%d> : Entered in WRITER ",*num);
 			// Write the data
 			data = temp * 12;
 			printf("\n W : The data was changed");		
-			printf("\n W : Exited from WRITER no <%d> ",*num);
+			printf("\n W <%d> : Exited from WRITER ",*num);
 		sem_post(&rwlock);		
 		// Remainder section
 	}	
