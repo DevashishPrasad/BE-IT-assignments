@@ -1,11 +1,11 @@
-
 #!/bin/sh
 echo "Welcome to the grading system"
 echo "Enter your marks - \c"
 read marks
 
 # Validate the input
-if test $marks -gt 100; then
+if [ $marks -gt 100 ] 
+then
         echo "Invalid input! Marks should be between 0-100"
         exit 1
 fi

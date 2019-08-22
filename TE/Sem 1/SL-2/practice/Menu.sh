@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
 while test 1 -eq 1; do
 echo "MENU \n1) Add \n2) Subtract \n3) Multiply \n4) Divide \n5) Exit" 
@@ -12,7 +12,7 @@ case "$choice" in
 	read no1
 	echo "Enter number 2 -  \c"
 	read no2
-	res=$(($no1+$no2))
+	res=`expr $no1 + $no2`
 	echo "Result of addition is - $res"
 ;;
 2)
