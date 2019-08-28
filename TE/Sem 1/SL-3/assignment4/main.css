@@ -1,0 +1,64 @@
+body{
+	background-color:#dddddd;
+}
+h1{
+	text-align:center;
+	color:#333333;
+	font-size:48px;
+}
+fieldset{
+	box-shadow: #888 8px 8px 8px 8px;
+	border: solid 5px #888888;
+	background-color:#bbbbbb;
+	width:80%;
+	margin-left:5%;
+	border-radius:60px;
+	padding:5%;
+	color:#111111;
+}
+
+fieldset:hover{
+	border: solid 5px #1111ff;
+	background-color:#ffffff;
+	transition: all 0.4s;
+}
+
+fieldset:hover legend{
+	color:#1111ff;
+	transition: all 0.4s;
+}
+
+legend{
+	color:#888888;
+	font-size:38px;
+	
+}
+
+input[type=text],input[type=number],input[type=password],input[type=email],textarea{
+	background-color:transparent;
+	border:none;
+	border-bottom:solid 2px #1111ff;
+}
+
+label{
+	font-size:22px;
+}
+
+#val{
+	color:#ff0000;
+	font-size:28px;
+}
+
+.but{
+	width:200px;
+	height: 50px;
+	color: white;
+	background-color:#1111FF;
+	border: none;
+	border-radius: 10px;
+}
+
+.but:hover{
+	background-color:#4444FF;
+	transition: all 0.4s ease;	
+}
