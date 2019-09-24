@@ -17,7 +17,7 @@ struct employee{
 // Main function
 int main()
 {
-	int fd, sz, choice, cnt;
+	int fd, sz, choice, cnt, ibuf, id, tfd, sbuf,wrt;
 	char *buf = (char *) calloc(100, sizeof(char)); 
 	char c;
 	struct employee emp;
@@ -51,33 +51,67 @@ int main()
 				fd = open("thefile.txt", O_WRONLY | O_APPEND);  
 			
 				// Insert the record
-				sz = write(fd, emp.name, strlen(emp.name));
-				sz = write(fd, "\t", strlen("\t"));
-				sprintf(buf, "%d", emp.id);
+				sprintf(buf, "%d\t%s\t%d\n", emp.id, emp.name, emp.salary);
 				sz = write(fd, buf, strlen(buf));
-				sz = write(fd, "\t", strlen("\t"));				
-				sprintf(buf, "%d", emp.salary);			
-				sz = write(fd, buf, strlen(buf));	
-				sz = write(fd, "\n", strlen("\n"));				
 						
 				printf("\n Record was written successfully");
 				break;
 			case 2:
+				// Remove record
 				printf("\n Enter the id of the employee -> ");
 				scanf("%d",&emp.id);		
+				printf("%d",emp.id);
 				
 				fd = open("thefile.txt", O_RDONLY);
-				
+				tfd = open("temp.txt", O_WRONLY);
 				cnt = 0;
-				
-				while(1){
-					c = read(fd,&c,1);
-					if(c == '\n')
+				emp.salary=0;
+				emp.name[0]='\0';
+				ibuf=0;
+				sbuf=0;
+				id=0;
+				wrt=0;
+				while(read(fd,&c,1)){
+					printf("\n ORIG -> %c",c);
+					if(c != '\n'){
+						if(c == '\t'){
+							cnt++;
+							continue;
+						}
+						if(cnt==0){
+							//ibuf = c - '0';
+							ibuf = atoi(&c);
+							id += ibuf;
+							printf("\n ID -> %d %d",id,(id == emp.id));
+							if(id == emp.id){
+								wrt = 1;
+								printf("\n\n 6666666666666666666666666666666666666 \n\n");
+							}
+							id *= 10;
+						}	
+						if(cnt==1)
+							strncat(emp.name,&c,1);
+						if(cnt==2){	
+							//sbuf = c - '0';
+							sbuf = atoi(&c);
+							emp.salary += sbuf;
+							emp.salary *= 10;	
+							printf("\n SAL -> %d ",emp.salary);
+						}
+					}
+					else{
 						cnt = 0;
-					if(c == '\t')
-						cnt++;
-					if(cnt == 1)
-						printf("%c",c);
+						if(wrt==0){
+							sprintf(buf, "%d\t%s\t%d\n", (id/10), emp.name, (emp.salary/10));
+							sz = write(tfd, buf, strlen(buf));
+						}
+						emp.salary=0;
+						emp.name[0]='\0';
+						ibuf=0;
+						sbuf=0;
+						id=0;
+						wrt = 0;
+					}
 				}
 				
 				break;			
@@ -88,7 +122,7 @@ int main()
 			case 4:
 				// Open the file
 				fd = open("thefile.txt", O_RDONLY);
-				printf("\n Name\tid\tsalary\n");
+				printf("\n ID\tNAME\tSALARY\n");
 				while(read(fd,&c,1))
 					printf("%c",c);
 				break;
