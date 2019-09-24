@@ -19,7 +19,7 @@ int main()
     // mkfifo(<pathname>, <permission>) 
     mkfifo(myfifo, 0666); 
   
-    char arr1[80], arr2[80]; 
+    char arr1[180], arr2[180]; 
     while (1) 
     { 
         // Open FIFO for write only 
@@ -27,7 +27,7 @@ int main()
   
         // Take an input arr2ing from user. 
         // 80 is maximum length 
-        fgets(arr2, 80, stdin); 
+        fgets(arr2, 180, stdin); 
   
         // Write the input arr2ing on FIFO 
         // and close it 
