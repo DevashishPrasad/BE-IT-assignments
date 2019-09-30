@@ -30,9 +30,10 @@ int main()
 		printf("\n ============================================");
 		printf("\n | 1. Add record                            |");		
 		printf("\n | 2. Remove record                         |");
-		printf("\n | 3. Update record                         |");	
-		printf("\n | 4. View records                          |");	
-		printf("\n | 5. Exit                                  |");		
+		printf("\n | 3. Update record                         |");
+		printf("\n | 4. Search record                         |");	
+		printf("\n | 5. View records                          |");	
+		printf("\n | 6. Exit                                  |");		
 		printf("\n ============================================");	
 		printf("\n Enter your choice - ");
 		scanf("%d",&choice);
@@ -60,10 +61,9 @@ int main()
 				// Remove record
 				printf("\n Enter the id of the employee -> ");
 				scanf("%d",&emp.id);		
-				printf("%d",emp.id);
 				
 				fd = open("thefile.txt", O_RDONLY);
-				tfd = open("temp.txt", O_WRONLY);
+				tfd = open("temp.txt", O_WRONLY | O_CREAT);
 				cnt = 0;
 				emp.salary=0;
 				emp.name[0]='\0';
@@ -72,31 +72,26 @@ int main()
 				id=0;
 				wrt=0;
 				while(read(fd,&c,1)){
-					printf("\n ORIG -> %c",c);
 					if(c != '\n'){
 						if(c == '\t'){
 							cnt++;
 							continue;
 						}
 						if(cnt==0){
-							//ibuf = c - '0';
 							ibuf = atoi(&c);
 							id += ibuf;
-							printf("\n ID -> %d %d",id,(id == emp.id));
-							if(id == emp.id){
-								wrt = 1;
-								printf("\n\n 6666666666666666666666666666666666666 \n\n");
-							}
 							id *= 10;
 						}	
-						if(cnt==1)
+						if(cnt==1){
+							if((id/10) == emp.id){
+								wrt = 1;
+							}
 							strncat(emp.name,&c,1);
+						}
 						if(cnt==2){	
-							//sbuf = c - '0';
 							sbuf = atoi(&c);
 							emp.salary += sbuf;
 							emp.salary *= 10;	
-							printf("\n SAL -> %d ",emp.salary);
 						}
 					}
 					else{
@@ -113,20 +108,134 @@ int main()
 						wrt = 0;
 					}
 				}
-				
+				rename("thefile.txt","temp2.txt");
+				rename("temp.txt","thefile.txt");
+				remove("temp2.txt");
 				break;			
 			case 3:
+				// Update record
 				printf("\n Enter the id of the employee -> ");
-				scanf("%d",&emp.id);			
-				break;
-			case 4:
-				// Open the file
+				scanf("%d",&emp.id);		
+				
 				fd = open("thefile.txt", O_RDONLY);
+				tfd = open("temp.txt", O_WRONLY | O_CREAT);
+				cnt = 0;
+				emp.salary=0;
+				emp.name[0]='\0';
+				ibuf=0;
+				sbuf=0;
+				id=0;
+				wrt=0;
+				while(read(fd,&c,1)){
+					if(c != '\n'){
+						if(c == '\t'){
+							cnt++;
+							continue;
+						}
+						if(cnt==0){
+							ibuf = atoi(&c);
+							id += ibuf;
+							if(id == emp.id){
+								wrt = 1;
+							}
+							id *= 10;
+						}	
+						if(cnt==1)
+							strncat(emp.name,&c,1);
+						if(cnt==2){	
+							sbuf = atoi(&c);
+							emp.salary += sbuf;
+							emp.salary *= 10;	
+						}
+					}
+					else{
+						cnt = 0;
+						if(wrt==0){
+							sprintf(buf, "%d\t%s\t%d\n", (id/10), emp.name, (emp.salary/10));
+							sz = write(tfd, buf, strlen(buf));
+						}
+						else{
+							printf("\n Enter new name of the employee -> ");
+	                        scanf("%s",&emp.name);
+	                        printf("\n Enter new id of the employee -> ");
+	                        scanf("%d",&emp.id);			
+	                        printf("\n Enter new salary of the employee -> ");
+	                        scanf("%d",&emp.salary);						        
+							sprintf(buf, "%d\t%s\t%d\n", emp.id, emp.name, emp.salary);
+							sz = write(tfd, buf, strlen(buf));
+						}
+						emp.salary=0;
+						emp.name[0]='\0';
+						ibuf=0;
+						sbuf=0;
+						id=0;
+						wrt = 0;
+					}
+				}
+				rename("thefile.txt","temp2.txt");
+				rename("temp.txt","thefile.txt");
+				remove("temp2.txt");			
+				break;
+				
+	        case 4:
+		        // Search record
+				printf("\n Enter the id of the employee -> ");
+				scanf("%d",&emp.id);		
+				
+				fd = open("thefile.txt", O_RDONLY);
+				cnt = 0;
+				emp.salary=0;
+				emp.name[0]='\0';
+				ibuf=0;
+				sbuf=0;
+				id=0;
+				wrt=0;
+				while(read(fd,&c,1)){
+					if(c != '\n'){
+						if(c == '\t'){
+							cnt++;
+							continue;
+						}
+						if(cnt==0){
+							ibuf = atoi(&c);
+							id += ibuf;
+							id *= 10;
+						}	
+						if(cnt==1){
+							if((id/10) == emp.id)
+								wrt = 1;
+							strncat(emp.name,&c,1);
+						}
+						if(cnt==2){	
+							sbuf = atoi(&c);
+							emp.salary += sbuf;
+							emp.salary *= 10;	
+						}
+					}
+					else{
+						if(wrt == 1){
+						    printf("\n RECORD FOUND - ");
+							printf("\n ID\tNAME\tSALARY\n");						    
+							printf("\n%d\t%s\t%d\n", (id/10), emp.name, (emp.salary/10));
+						}
+						emp.salary=0;
+						emp.name[0]='\0';
+						ibuf=0;
+						sbuf=0;
+						id=0;
+						wrt = 0;
+						cnt = 0;
+					}
+				}	
+		        break;
+			case 5:
+				// Open the file
+				fd = open("thefile.txt", O_RDONLY | O_CREAT);
 				printf("\n ID\tNAME\tSALARY\n");
 				while(read(fd,&c,1))
 					printf("%c",c);
 				break;
-			case 5:
+			case 6:
 				exit(0);
 			default:
 				printf("\n Please Enter a valid choice");
