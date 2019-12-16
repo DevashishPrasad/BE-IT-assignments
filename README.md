@@ -13,8 +13,12 @@ It contains all the assignments of labs of subjects - <br>
     3) PIL (Programming Interface Lab) <br>
 ## TE folder
 1st semester - <br>
-    1) SL-1 <br>
-    2) SL-2 <br>
-    3) SL-3 <br>
+    1) SL-1 (DBMS)<br>
+    2) SL-2 (Operating Systems)<br>
+    3) SL-3 (Web Designing)<br>
+2nd semester - <br>
+    1) SL-4 ()<br>
+    2) SL-5 (System Programming And Design & Analysis of Algorithms)<br>
+    3) SL-6 ()<br>
 
 
