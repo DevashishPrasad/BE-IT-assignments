@@ -8,17 +8,25 @@ void main(){
 	printf("===========================  File Input Output Program ==========================");
 
 	// Variables for the program
-	FILE *read_fp, *write_fp;
-	char ch, buffer[400], keywords[32][10] = { "auto", "break", "case", "char", "const", "continue",	"default", "do", "double", "else",
-						 	"enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short",
-						 	"signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", 
-						 	"volatile", "while"};
+	FILE *read_fp, *write_fp, *read_keywords;
+	char ch, buffer[400], keywords[32][10];
 	int num_chars = 0,num_spaces = 0,num_lines = 0, num_keywords[32],i,j;
 	
 	// Initialize the array
 	for(j=0;j<32;j++)
 		num_keywords[j] = 0;
 		
+	// Open the keywords file for reading
+	read_keywords = fopen("keywords.txt","r");
+
+	// Populate the keywords array
+	for(j=0;j<32;j++){
+		fscanf(read_keywords,"%s",buffer);
+		strcpy(keywords[j],buffer);
+	}
+		
+	fclose(read_keywords);	
+
 	// Open the file for reading
 	read_fp = fopen("file_ip_op.c","r");
 	// Open the file for reading
@@ -84,4 +92,5 @@ void main(){
     }
 
 	fclose(read_fp);
+	fclose(write_fp);	
 }
