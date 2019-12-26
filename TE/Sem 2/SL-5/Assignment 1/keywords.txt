@@ -1,0 +1,8 @@
+start
+read
+print
+movem
+mover
+mov
+add
+stop
