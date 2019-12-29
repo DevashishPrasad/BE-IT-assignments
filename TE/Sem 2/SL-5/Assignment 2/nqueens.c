@@ -3,7 +3,7 @@
 #include<math.h>
 
 // Declare global variables
-int no_queens,size_chessboard;
+int no_queens,size_chessboard,remember_i=-1,remember_j=-1,remember_q=-2;
 // Declare the chessboard
 int chessboard[100][100];
 // Declare the queens
@@ -34,39 +34,64 @@ void print_board(){
 
 int check_queens(int check_i,int check_j,int qno){
 	int k;
-	// Place queens on chessboard
-	//for(k=0;k<no_queens;k++){
-		//check_i = queens[k][0];
-		//check_j = queens[k][1]; 
-		for(k=0;k<no_queens;k++){
-			if(chessboard[check_i][check_j] == 1){
-				printf("\n\nOccupied pos\n");
-				printf("queen =  %d %d \n",check_i,check_j);				
-				return 0;
-			}	
-			if(queens[k][0] == -1)
-				continue;
-			if(k == qno)
-				continue;
-			if(queens[k][0] == check_i){
-				printf("\n\nUnplausible row\n");
-				printf("queen =  %d %d \n",check_i,check_j);				
-				return 0;
-			}
-			if(queens[k][1] == check_j){
-				printf("\n\nUnplausible col\n");
-				printf("queen =  %d %d \n",check_i,check_j);				
-				return 0;
-			}
-			if((abs(queens[k][0] - check_i) - abs(queens[k][1] - check_j)) == 0){
-				printf("\n\nUnplausible digonal\n");	
-				printf("queen =  %d %d \n",check_i,check_j);				
-				return 0;
-			}
+	for(k=0;k<no_queens;k++){
+		if(check_i<=remember_i && check_j<=remember_j && k == remember_q){
+			printf("\n\nRemember pos : ");
+			printf("queen =  %d %d \n",check_i,check_j);				
+			return 0;
 		}	
-	//}		
+		if(chessboard[check_i][check_j] == 1){
+			printf("\n\nOccupied pos : ");
+			printf("queen =  %d %d \n",check_i,check_j);				
+			return 0;
+		}	
+		if(queens[k][0] == -1)
+			continue;
+		if(k == qno)
+			continue;
+		if(queens[k][0] == check_i){
+			printf("\n\nUnplausible row : ");
+			printf("queen =  %d %d \n",check_i,check_j);				
+			return 0;
+		}
+		if(queens[k][1] == check_j){
+			printf("\n\nUnplausible col : ");
+			printf("queen =  %d %d \n",check_i,check_j);				
+			return 0;
+		}
+		if((abs(queens[k][0] - check_i) - abs(queens[k][1] - check_j)) == 0){
+			printf("\n\nUnplausible digonal : ");	
+			printf("queen =  %d %d \n",check_i,check_j);				
+			return 0;
+		}
+	}	
 	
 	return 1;
+}
+
+int backtrack(int i){
+	int no_q,j,k;
+	no_q = i-1;
+	if(no_q<0)
+		no_q=0;
+	remember_q=no_q;
+	remember_i=queens[no_q][0];
+	remember_j=queens[no_q][1];
+	chessboard[remember_i][remember_j]=0;
+	for(j=no_q;j<no_queens;j++){
+		chessboard[queens[j][0]][queens[j][1]]=0;
+		queens[j][0] = -1;
+		queens[j][1] = -1;	
+		printf("\n Backtrack printfqueens");	
+		for(j=0;j<no_queens;j++){
+			printf("\n");
+			for(k=0;k<2;k++)
+				printf(" %d ",queens[j][k]);
+		}		
+	}
+	printf("\n Backtrack printfboard");
+	print_board();
+	return no_q-1;						
 }
 
 void main(){
@@ -96,7 +121,7 @@ void main(){
 		flg = 1;
 		for(j=0;j<size_chessboard;j++){
 			if(flg == 0){
-				printf("\n Taking next queen");
+				printf("\n Taking next queen to place");
 				break;
 			}
 			for(k=0;k<size_chessboard;k++){
@@ -111,18 +136,32 @@ void main(){
 					printf("\n Queen placed at location - %d %d \n",queens[i][0],queens[i][1]);
 					chessboard[queens[i][0]][queens[i][1]]=1;
 					print_board();
+					printf("\n Normal printfqueens");	
+					for(j=0;j<no_queens;j++){
+						printf("\n");
+						for(k=0;k<2;k++)
+							printf(" %d ",queens[j][k]);
+					}		
 					flg=0;
 					break;
 				}
 			}
-		}	
+		}
+		if(j==size_chessboard && k==size_chessboard){
+			printf("\n Back track");
+			if(remember_q==0)
+				break;		
+			if(remember_q==-1)
+				i = backtrack(0);
+			if(remember_q==-2)
+				i = backtrack(i);				
+			else
+				i = backtrack(remember_q-1);
+				
+		}
 	}
-	/*queens[2][0] = 1;
-	queens[2][1] = 3;	
-	
-	queens[0][0] = 2;
-	queens[0][1] = 2;	*/
-	
+
 	//place_queens();
 	print_board(chessboard,queens);
 }
+
