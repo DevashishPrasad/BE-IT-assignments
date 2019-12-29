@@ -20,6 +20,7 @@ int main()
     mkfifo(myfifo, 0666); 
   
     char arr1[180], arr2[180]; 
+
     while (1) 
     { 
         // Open FIFO for write only 

@@ -94,3 +94,7 @@ void main(){
 	fclose(read_fp);
 	fclose(write_fp);	
 }
+
+Number of Characters in the file - 1239
+Number of Spaces in the file - 427
+Number of Lines in the file - 96

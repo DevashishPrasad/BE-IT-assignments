@@ -56,3 +56,4 @@ void main(int argc, char* argv[], char* envp){
 
 	binary_search(arr,argc-1,search);
 }
+

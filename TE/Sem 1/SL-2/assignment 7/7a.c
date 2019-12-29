@@ -1,4 +1,4 @@
-// gcc pipe_assignment.c -o pa.out
+// gcc 7a.c -o 7a.out
 #include<sys/types.h>
 #include<stdio.h>
 #include<string.h>
