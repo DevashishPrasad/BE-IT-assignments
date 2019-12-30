@@ -3,7 +3,7 @@
 #include<math.h>
 
 // Declare global variables
-int no_queens,size_chessboard,remember_i=-1,remember_j=-1,remember_q=-2,times;
+int no_queens,size_chessboard,times;
 // Declare the chessboard
 int chessboard[100][100];
 // Declare the queens
