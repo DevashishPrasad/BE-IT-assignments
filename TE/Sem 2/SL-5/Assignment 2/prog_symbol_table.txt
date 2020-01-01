@@ -1,0 +1,4 @@
+
+Number of Characters in the file - 40
+Number of Spaces in the file - 5
+Number of Lines in the file - 8

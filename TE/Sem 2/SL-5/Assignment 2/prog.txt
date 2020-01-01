@@ -1,0 +1,8 @@
+start 100
+read a
+print a
+read b
+movem areg,a
+aksjaslkj
+
+
