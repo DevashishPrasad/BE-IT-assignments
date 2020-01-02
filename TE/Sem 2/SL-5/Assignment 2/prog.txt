@@ -1,8 +1,6 @@
-start 100
-read a
-print a
-read b
-movem areg,a
-aksjaslkj
-
-
+START 100
+READ a
+PRINT a
+READ b
+MOVEM areg a
+END
