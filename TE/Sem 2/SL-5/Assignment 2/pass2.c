@@ -105,7 +105,7 @@ void main(int argc, char *argv[]){
 	time_t t;
     time(&t);
 	int verbose;
-
+	
 	if(argc < 2){
 		printf("[ERROR] Please specify input program file \n\n");
 		return;
@@ -119,7 +119,7 @@ void main(int argc, char *argv[]){
 		printf("=========================== 2 PASS ASSEMBLER ==========================");
 		printf(" %s ",ctime(&t));
 	}
-
+	
 	// Variables for the program
 	FILE *write_IC, *read_keywords, *read_program, *write_symbol;
 	char ch, buffer1D[400],buffer2D[3][10];
@@ -131,6 +131,7 @@ void main(int argc, char *argv[]){
 	// Populate the keywords array IS, DS, AD, REG
 	if(verbose)
 		printf("\n[INFO] Initializing keywords in all arrays IS, DL, AD, REG");
+
 	flg=1;
 	for(j=0;flg!=-1;j++){
 		flg = fscanf(read_keywords,"%s",buffer1D);
