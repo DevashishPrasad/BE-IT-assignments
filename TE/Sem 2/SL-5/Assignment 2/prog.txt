@@ -1,8 +1,7 @@
-start 100
-read a
-print a
-read b
-movem areg,a
-aksjaslkj
-
-
+START 100
+LOOP READ AREG
+PRINT CREG
+READ DREG
+MOVEM AREG a
+ADD AREG BREG
+END

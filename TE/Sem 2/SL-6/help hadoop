@@ -1,0 +1,63 @@
+-----------------------------------------------------------------------------------------------------
+				WORD COUNT MAP REDUCE ASSIGNMENT
+-----------------------------------------------------------------------------------------------------
+
+Step 1) Start hadoop using => start-all.sh
+
+Step 2) Create new Java Project =>
+	
+	Open Eclipse> File > New > Java Project >( Name it – MRProgramsDemo) > Finish.
+
+	Right Click > New > Package ( Name it - PackageDemo) > Finish.
+
+	Right Click on Package > New > Class (Name it - WordCount).
+
+	Add Following Reference Libraries:
+
+	Right Click on Project > Build Path> Add External
+	(The libraries are available in Download folder,if not search where they are stored)
+	a) /usr/lib/hadoop-0.20/hadoop-core.jar
+	b) /usr/lib/hadoop-0.20/lib/Commons-cli-1.2.jar
+
+Step 3) Make  a jar file =>
+
+	Right Click on Project> Export> Select export destination as Jar File  > next> Finish
+
+Step 4) Create an input text file and store it in home directory
+
+Step 5) export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+	export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
+	Move this file from local home directory to Hadoop File System =>
+
+	eg: hadoop fs -put wordcountFile wordCountFile 
+
+Step 6) Run the jar file =>
+	
+	hadoop jar jarfilename.jar packageName.ClassName  PathToInputTextFile PathToOutputDirectry
+
+	eg: hadoop jar MRProgramsDemo.jar PackageDemo.WordCount wordCountFile MRDir1
+
+Step 7) View the output =>
+	
+	hadoop fs -cat MRDir1/part-r-00000
+
+Step 8) Stop hadoop using => stop-all.sh
+
+-----------------------------------------------------------------------------------------------------
+
+Help -
+
+1) Use "-ls" command to view hadoop file stucture
+
+   Syntax : hadoop fs -ls
+
+   If not working then try : hadoop fs -ls /
+
+2) Use "-rm -r" command to remove a directory from hadoop file system
+
+   Syntax : hadoop fs -rm -r directory_name
+
+3) If any command doesnt work then try specifying the path to hadoop home directory
+	
+   eg: hadoop fs -put inputFile /usr/local/hadoop/fileName
+------------------------------------------------------------------------------------------------------

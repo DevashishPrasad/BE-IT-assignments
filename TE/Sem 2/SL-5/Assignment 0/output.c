@@ -9,11 +9,11 @@ void main(){
 
 	// Variables for the program
 	FILE *read_fp, *write_fp, *read_keywords;
-	char ch, buffer[400], keywords[10][10];
-	int num_chars = 0,num_spaces = 0,num_lines = 0, num_keywords[10],i,j,flg=0;
+	char ch, buffer[400], keywords[32][10];
+	int num_chars = 0,num_spaces = 0,num_lines = 0, num_keywords[32],i,j;
 	
 	// Initialize the array
-	for(j=0;j<10;j++)
+	for(j=0;j<32;j++)
 		num_keywords[j] = 0;
 		
 	// Open the keywords file for reading
@@ -28,9 +28,9 @@ void main(){
 	fclose(read_keywords);	
 
 	// Open the file for reading
-	read_fp = fopen("prog.asm","r");
+	read_fp = fopen("file_ip_op.c","r");
 	// Open the file for reading
-	write_fp = fopen("output.txt","w");
+	write_fp = fopen("output.c","w");
 	
 	// Check if this filePointer is null 
     // which maybe if the file does not exist 
@@ -38,7 +38,9 @@ void main(){
         printf( "file_ip_op.c file failed to open." ) ; 
     else
     { 
-        printf("\n\nData from file :  \n\n"); 
+        printf("\n The file is now opened.\n"); 
+
+        printf("\n\n Data from file -->  \n\n"); 
                 
 		// Read character by character
         ch = fgetc(read_fp);  
@@ -57,52 +59,42 @@ void main(){
 			// Count number of characters
 			if(isalpha(ch))
 				num_chars++;
-			if(ch == ' '){
+			if(ch == ' ')
 				num_spaces++;
-			}	
 			if(ch == '\n'){
-				if(buffer[0] == '-')
-					break;
-				flg = 0;
 				num_lines++;
 				// Search the line for keywords
-				for(j=0;j<10;j++){
+				for(j=0;j<32;j++){
 					char *ptr = strstr(buffer, keywords[j]);
-					if (ptr != NULL){
+					if (ptr != NULL)
 						num_keywords[j]++;
-						ptr = strchr(buffer, ' ');
-						//for(j=0;j<10;j++){
-						flg = 1;
-					}
 				}
-				if(flg == 0){
-					printf("\n[INFO] ERROR on line number %d : Keyword not found",num_lines);
-					break;
-				}
-				
 				for(j=0;buffer[j];j++)
 					buffer[j] = '-';
 				i=0;
 			}
-		
-			// Put character in buffer
-			buffer[i] = ch;
-			i++;
-		
+			else{
+				// Put character in buffer
+				buffer[i] = ch;
+				i++;
+			}
 			// Read character by character
           	ch = fgetc(read_fp);
         } 
- 
- 		printf("\n[INFO] No ERRORS found\n");       
+        
         // Print the file statistics
-        fprintf(write_fp,"\n Number of Characters in the file : %d",num_chars);
-        fprintf(write_fp,"\n Number of Spaces in the file : %d",num_spaces);        
-        fprintf(write_fp,"\n Number of Lines in the file : %d",num_lines);        
+        fprintf(write_fp,"\nNumber of Characters in the file - %d",num_chars);
+        fprintf(write_fp,"\nNumber of Spaces in the file - %d",num_spaces);        
+        fprintf(write_fp,"\nNumber of Lines in the file - %d\n",num_lines);        
         // print keywords stats
-        for(j=0;j<10;j++)
-	        fprintf(write_fp,"\n%s : %d ",keywords[j],num_keywords[j]);
+        for(j=0;j<32;j++)
+	        printf("\n%s --> %d ",keywords[j],num_keywords[j]);
     }
 
 	fclose(read_fp);
 	fclose(write_fp);	
 }
+
+Number of Characters in the file - 1239
+Number of Spaces in the file - 427
+Number of Lines in the file - 96

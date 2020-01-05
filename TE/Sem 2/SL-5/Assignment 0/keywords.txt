@@ -1,0 +1,4 @@
+mov
+read
+print
+movem
