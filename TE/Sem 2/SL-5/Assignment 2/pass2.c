@@ -28,7 +28,8 @@ void split(char buffer2D[3][10], char *str,char sep){
 // Function to check operands
 void check_operand(int Op[2], char *buf){
 	int j,flag=0,i;
-	char *ptr;	
+	char *ptr;
+	
 	// Search for REG keyword
 	for(j=0;j<4;j++){
 		ptr = strstr(buf, REG[j]);
@@ -42,7 +43,7 @@ void check_operand(int Op[2], char *buf){
 	for(i=0,flag=0;buf[i];i++)
 		if(buf[i]=='0'||buf[i]=='1'||buf[i]=='2'||buf[i]=='3'||buf[i]=='5'||buf[i]=='6'||buf[i]=='7'||buf[i]=='8'||buf[i]=='9')
 		 	flag++;
-	if(flag==(i-1)){
+	if(flag==i){
 		Op[0]=7;
 		Op[1]=1;
 		return;
@@ -59,7 +60,7 @@ void check_mnemonics(int Op[2], char *buf){
 	char *ptr;
 	// Search the word for keywords
 	// Search for IS keyword
-	for(j=0;j<12;j++){
+	for(j=0;j<13;j++){
 		ptr = strstr(buf, IS[j]);
 		if (ptr != NULL){
 			Op[0]=2;
@@ -100,12 +101,87 @@ void check_label(int Op[2],char *buf){
 	Op[1]=0;
 }
 
+// Function to write mnemonics in file
+void write_mnemonic(FILE *write_IC, int Op[2], char *buffer1D, int verbose){
+	// Bracket open
+	fputc('(',write_IC);
+
+	// Write Class 
+	if(Op[0] == 2)
+		fputs("IS",write_IC);
+	if(Op[0] == 3)
+		fputs("AD",write_IC);
+	if(Op[0] == 4)
+		fputs("DL",write_IC);
+	fputc(',',write_IC);
+	
+	// Write Opcode
+	sprintf(buffer1D,"%d",Op[1]);
+	fputs(buffer1D,write_IC);
+	
+	// Print Opcode
+	if(verbose)            
+	   printf("\n Class : %d Opcode : %s ",Op[0],buffer1D);
+	
+	fputc(')',write_IC);
+}
+
+// Fucntion to write registers in file
+void write_register(FILE *write_IC, int Op[2], char *buffer1D, int verbose){
+	// Process register
+	// Write in intermediate code file
+	fputc('(',write_IC);
+
+	// Write Reg Class 
+	if(Op[1] == 1)
+		fputs("1",write_IC);
+	if(Op[1] == 2)
+		fputs("2",write_IC);
+	if(Op[1] == 3)
+		fputs("3",write_IC);
+	if(Op[1] == 4)
+		fputs("4",write_IC);								
+									
+	fputc(')',write_IC);
+	
+	// Print Register
+	if(verbose)            
+	   printf("\n Register : %d ",Op[1]);
+}
+
+// Fucntion to write constants in file
+void write_constant(FILE *write_IC, char *buffer1D, int verbose){
+	// Write constant
+	fputc('(',write_IC);
+	fputs("c,",write_IC);
+	fputs(buffer1D,write_IC);
+	fputc(')',write_IC);
+	
+	// Print Register
+	if(verbose)            
+	   printf("\n Constant : %s ",buffer1D);	
+}
+
+// Fucntion to write symbol in file
+void write_symbol(FILE *write_IC, char *buffer1D, int verbose){
+	// Write Symbol
+	fputc('(',write_IC);
+	fputs("s,",write_IC);
+	fputs(buffer1D,write_IC);
+	fputc(')',write_IC);
+	
+	// Print Register
+	if(verbose)            
+	   printf("\n Symbol : %s ",buffer1D);	
+}
+
 // Main function
 void main(int argc, char *argv[]){
 	time_t t;
     time(&t);
 	int verbose;
 	
+	// Check commandline arguments
 	if(argc < 2){
 		printf("[ERROR] Please specify input program file \n\n");
 		return;
@@ -121,7 +197,7 @@ void main(int argc, char *argv[]){
 	}
 	
 	// Variables for the program
-	FILE *write_IC, *read_keywords, *read_program, *write_symbol;
+	FILE *write_IC, *read_keywords, *read_program, *write_symbol_file;
 	char ch, buffer1D[400],buffer2D[3][10];
 	int num_lines, num_keywords[32], i, j, flg, count, Op[2];
 
@@ -131,7 +207,6 @@ void main(int argc, char *argv[]){
 	// Populate the keywords array IS, DS, AD, REG
 	if(verbose)
 		printf("\n[INFO] Initializing keywords in all arrays IS, DL, AD, REG");
-
 	flg=1;
 	for(j=0;flg!=-1;j++){
 		flg = fscanf(read_keywords,"%s",buffer1D);
@@ -144,6 +219,7 @@ void main(int argc, char *argv[]){
 		else if(flg!=-1)
 			strcpy(REG[j-20],buffer1D);
 	}
+	
 	// Print out the arrays
 	if(verbose){
 		printf("\n[INFO] IS array :");
@@ -173,7 +249,7 @@ void main(int argc, char *argv[]){
 	split(buffer2D,argv[1],'.');
 
 	// Creating and opening the file for writing symbol table
-	write_symbol = fopen(strcat(buffer2D[0],"_symbol_table.txt"),"w");
+	write_symbol_file = fopen(strcat(buffer2D[0],"_symbol_table.txt"),"w");
 	split(buffer2D,buffer2D[0],'_');
 	write_IC = fopen(strcat(buffer2D[0],"_ic.txt"),"w");
 
@@ -198,50 +274,36 @@ void main(int argc, char *argv[]){
 	    while(ch != EOF){
 
 			// Encoutered space
-			if(ch == ' '){
+			if(ch == ' ' || ch == '\n'){
 				buffer1D[i] = '\0';
+				
 			    // Print words  
 			    if(verbose)            
-				   printf("%s \n",buffer1D);
+				   printf("\n String : %s Count : %d",buffer1D,count);
 
 				i = 0;
+				
 				// 1st word in line
 				if(count == 0){
-					// Appropriate label syntax
+					// Check for appropriate label syntax
 					check_label(Op,buffer1D);
+					// Correct Label found
 					if(Op[0] == 1){
 						// Check for mnemonic class and respective opcode
 						check_mnemonics(Op,buffer1D);
 						if(Op[0] != 1){
-							// Write in intermediate code file
-							fputc('(',write_IC);
-
-							// Write Class 
-							if(Op[0] == 2)
-								fputs("IS",write_IC);
-							if(Op[0] == 3)
-								fputs("AD",write_IC);
-							if(Op[0] == 4)
-								fputs("DL",write_IC);
-							fputc(',',write_IC);
-							
-							// Write Opcode
-							sprintf(buffer1D,"%d",Op[1]);
-							fputs(buffer1D,write_IC);
-
+							// Write mnemonic in IC file
 							// Print Opcode
-							if(verbose)            
-							   printf("%d %s \n",Op[0],buffer1D);
-							
-							fputc(')',write_IC);
+							write_mnemonic(write_IC, Op, buffer1D,verbose);
 						}
 						else{
 							// Check and update the symbol table
 						}
 					}
 					else if(Op[0] == 0)
-						printf("[ERROR] Incorrect Mnemonics or Label on line number %d ",num_lines);
+						printf("\n [ERROR] Incorrect Mnemonics or Label on line number %d ",num_lines);
 				}
+				
 				// 2nd word in line
 				else if(count == 1){
 					// Process mnemonic
@@ -249,62 +311,50 @@ void main(int argc, char *argv[]){
 						check_mnemonics(Op,buffer1D);
 						// Label cannot be repeated after Label
 						if(Op[0] == 1)
-							printf("[ERROR] Missing Mnemonics on line number %d ",num_lines);
+							printf("\n [ERROR] Missing Mnemonics on line number %d ",num_lines);
 						else{
-							fputc('(',write_IC);
-
-							// Write Class 
-							if(Op[0] == 2)
-								fputs("IS",write_IC);
-							else if(Op[0] == 3)
-								fputs("AD",write_IC);
-							else if(Op[0] == 4)
-								fputs("DL",write_IC);
-							fputc(',',write_IC);
-							
-							// Write Opcode
-							sprintf(buffer1D,"%d",Op[1]);
-							fputs(buffer1D,write_IC);
-							
-							fputc(')',write_IC);
+							// Write mnemonic in IC file
+							write_mnemonic(write_IC, Op, buffer1D,verbose);
 						}
 					}
-					// Process Operand
+					// IS class preceded : Process Operand
 					if(Op[0] == 2){
-						// Opcode wise Operand selection
+						// Opcode wise Operand selection (Skip STOP)
 						if(Op[1] > 0){
 							check_operand(Op, buffer1D);
 							if(Op[0] == 5){
 								// Check and update Symbol table
 							}
 							else if(Op[0] == 6){
-								// Process register
-								// Write in intermediate code file
-								fputc('(',write_IC);
-
-								// Write Reg Class 
-								if(Op[1] == 1)
-									fputs("1",write_IC);
-								if(Op[1] == 2)
-									fputs("2",write_IC);
-								if(Op[1] == 3)
-									fputs("3",write_IC);
-								if(Op[1] == 4)
-									fputs("4",write_IC);								
-																
-								fputc(')',write_IC);
+								// Write register in IC file
+								write_register(write_IC, Op, buffer1D,verbose);
 							}
 							else if(Op[0] == 7){
 								// Write constant
-								fputc('(',write_IC);
-								fputs("c",write_IC);
-								fputs(buffer1D,write_IC);
-								fputc(')',write_IC);
+								write_constant(write_IC, buffer1D, verbose);
 							}
 						}
 					}
+					// AD class preceded : Process Operand
 					else if(Op[0] == 3){
-						// AD	   
+						// Opcode wise Operand selection (Skip END)
+						if(Op[1] == 2){
+							printf("\n [ERROR] End cannot have operands %d ",num_lines);
+						}
+						else{
+							check_operand(Op, buffer1D);
+							if(Op[0] == 5){
+								// Check and update Symbol table
+								write_symbol(write_IC, buffer1D, verbose);
+							}
+							else if(Op[0] == 6){
+								printf("\n [ERROR] Assembler Directives cannot use Registers %d ",num_lines);
+							}
+							else if(Op[0] == 7){
+								// Write constant
+								write_constant(write_IC, buffer1D, verbose);
+							}
+						}
 					}
 					else if(Op[0] == 4){
 	   					// DL
@@ -319,30 +369,15 @@ void main(int argc, char *argv[]){
 							check_operand(Op, buffer1D);
 							if(Op[0] == 5){
 								// Check and update Symbol table
+								write_symbol(write_IC, buffer1D, verbose);
 							}
 							else if(Op[0] == 6){
-								// Process register
-								// Write in intermediate code file
-								fputc('(',write_IC);
-
-								// Write Reg Class 
-								if(Op[1] == 1)
-									fputs("1",write_IC);
-								if(Op[1] == 2)
-									fputs("2",write_IC);
-								if(Op[1] == 3)
-									fputs("3",write_IC);
-								if(Op[1] == 4)
-									fputs("4",write_IC);								
-																
-								fputc(')',write_IC);
+								// Write register in file
+								write_register(write_IC, Op, buffer1D, verbose);
 							}
 							else if(Op[0] == 7){
 								// Write constant
-								fputc('(',write_IC);
-								fputs("c",write_IC);
-								fputs(buffer1D,write_IC);
-								fputc(')',write_IC);
+								write_constant(write_IC, buffer1D, verbose);
 							}
 						}
 					}
@@ -360,8 +395,8 @@ void main(int argc, char *argv[]){
 					}										
 				}
 				for(j=0;buffer1D[j];j++)
-					buffer1D[j] = '-';
-					count++;
+					buffer1D[j] = '\0';
+				count++;
 			}
 			if(ch == '\n'){
 				count = 0;
@@ -374,7 +409,7 @@ void main(int argc, char *argv[]){
 		        fputc('\n',write_IC);
 				i=0;
 			}
-			else{
+			else if(ch != ' '){
 				// Put character in buffer
 				buffer1D[i] = ch;
 				i++;
@@ -384,6 +419,6 @@ void main(int argc, char *argv[]){
 		}	 
 	}
 	fclose(read_program);
-	fclose(write_symbol);
+	fclose(write_symbol_file);
 	fclose(write_IC);
 }
