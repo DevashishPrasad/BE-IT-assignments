@@ -47,6 +47,12 @@ void check_operand(int Op[2], char *buf){
 		Op[1]=1;
 		return;
 	}	
+	// Search for a Literal
+	if(buf[0] == '=' and buf[1] == '\''){{
+		Op[0]=8;
+		Op[1]=1;
+		return;
+	}
 	// Else a Symbol
 	Op[0]=5;
 	Op[1]=1;
@@ -143,7 +149,7 @@ int write_mnemonic(FILE *write_IC, int Op[2], char *buffer1D, int verbose, int L
 void write_register(FILE *write_IC, int Op[2], char *buffer1D, int verbose){
 	// Process register
 	// Write in intermediate code file
-	fputc('(',write_IC);
+	fputc('(',write_IC);check_update_literal_table(literal_pool,literal_table,buffer1D)
 
 	// Write Reg Class 
 	if(Op[1] == 1)
@@ -194,10 +200,10 @@ int check_update_symbol_table(char symbol_table[30][100],char *buffer1D){
 	int i,j;
 
 	for(i=0;i<30;i++){
-		if(!strcmp(symbol_table[i],buffer1D))
+		if(!strcmp(symbol_table[i],buffer1D)){
 			return i;
+		}
 		else if(symbol_table[i][0] == '\0'){
-			strcat(buffer1D,",");
 			strcpy(symbol_table[i],buffer1D);
 			return i;
 		}
@@ -205,10 +211,10 @@ int check_update_symbol_table(char symbol_table[30][100],char *buffer1D){
 }
 
 // Insert address in Symbol Table
-void insert_address_symbol_table(char symbol_table[30][100],int temp,int LC,int size){
+int insert_address_symbol_table(char symbol_table[30][100],int temp,int LC,int size){
 	int i,j;
 	char buff[20];
-	sprintf(buff,"%d,%d-",LC,size);
+	sprintf(buff,",%d,%d-",LC,size);
 	
 	i=0;
 	for(j=0;j<100;j++){
@@ -221,6 +227,24 @@ void insert_address_symbol_table(char symbol_table[30][100],int temp,int LC,int 
 		i++;
 	}
 	symbol_table[temp][j] = '\n';
+	//printf("%s",symbol_table[temp]);
+	return LC+size;
+}
+
+// Function to insert labels in symbol table
+int check_update_literal_table(char literal_pool[30][100], char literal_table[][], char *buffer1D){
+	// Insert Label at first empty index
+	int i,j;
+
+	for(i=0;i<30;i++){
+		if(!strcmp(symbol_table[i],buffer1D)){
+			return i;
+		}
+		else if(symbol_table[i][0] == '\0'){
+			strcpy(symbol_table[i],buffer1D);
+			return i;
+		}
+	}
 }
 
 // Main function
@@ -241,12 +265,12 @@ void main(int argc, char *argv[]){
 
 	if(verbose){
 		printf("=========================== 2 PASS ASSEMBLER ==========================");
-		printf(" %s ",ctime(&t));
+		printf("\n %s ",ctime(&t));
 	}
 	
 	// Variables for the program
 	FILE *write_IC, *read_keywords, *read_program, *write_symbol_file;
-	char ch, buffer1D[400],buffer2D[3][10],symbol_table[30][100],maintain_symbol[20];
+	char ch,buffer1D[400],buffer2D[3][10],symbol_table[30][100],maintain_symbol[20],literal_pool[10][20],literal_table[10][70],pool_tab[10][20];
 	int num_lines, num_keywords[32], i, j, flg, count, Op[2], LC, temp;
 
 	// Open the keywords file for reading
@@ -254,7 +278,7 @@ void main(int argc, char *argv[]){
 
 	// Populate the keywords array IS, DS, AD, REG
 	if(verbose)
-		printf("\n[INFO] Initializing keywords in all arrays IS, DL, AD, REG");
+		printf("\n[INFO] Initializing KEYWORDS in all arrays IS, DL, AD, REG");
 	flg=1;
 	for(j=0;flg!=-1;j++){
 		flg = fscanf(read_keywords,"%s",buffer1D);
@@ -275,7 +299,32 @@ void main(int argc, char *argv[]){
 	for(i=0;i<30;i++)
 		for(j=0;j<10;j++)
 			symbol_table[i][j] = '\0';
-			
+	
+	// Populate Literal Table
+	if(verbose)
+		printf("\n[INFO] Initializing Literal Table Data Structures");	
+	
+	// Initialze Symbol Table Data Structure
+	for(i=0;i<30;i++)
+		for(j=0;j<10;j++)
+			literal_table[i][j] = '\0';
+	
+	// Populate Literal Pool
+	if(verbose)
+		printf("\n[INFO] Initializing Literal Pool Data Structures");	
+	// Initialze Symbol Table Data Structure
+	for(i=0;i<30;i++)
+		for(j=0;j<10;j++)
+			literal_pool[i][j] = '\0';
+	
+	// Populate Pool Tab
+	if(verbose)
+		printf("\n[INFO] Initializing Pool Tab Data Structures");	
+	// Initialze Symbol Table Data Structure
+	for(i=0;i<30;i++)
+		for(j=0;j<10;j++)
+			pool_tab[i][j] = '\0';
+					
 	// Print out the arrays
 	if(verbose){
 		printf("\n[INFO] IS array :");
@@ -357,7 +406,7 @@ void main(int argc, char *argv[]){
 						}
 					}
 					else if(Op[0] == 0)
-						printf("\n [ERROR] Incorrect Mnemonics or Label :: LINE NUMBER %d ",num_lines);
+						printf("\n [ERROR] Incorrect MNEMONICS or LABEL :: LINE NUMBER %d ",num_lines);
 				}
 				
 				// 2nd word in line
@@ -367,14 +416,14 @@ void main(int argc, char *argv[]){
 						check_mnemonics(Op,buffer1D);
 						// Label cannot be repeated after Label
 						if(Op[0] == 1)
-							printf("\n [ERROR] Missing Mnemonics :: LINE NUMBER %d ",num_lines);
+							printf("\n [ERROR] Missing MNEMONICS :: LINE NUMBER %d ",num_lines);
 						// Encountered a DL statement : Update symbol table
 						else if(Op[0] == 4){
 							// DC statement
 							if(Op[1]==1){
 								// Write Symbol in symbol table with the approproiate size
 								temp = check_update_symbol_table(symbol_table,maintain_symbol);
-			   					insert_address_symbol_table(symbol_table[30][100],temp,LC,1);
+			   					LC = insert_address_symbol_table(symbol_table,temp,LC,1);
 							}
 		   					// Write mnemonic in IC file
 							LC = write_mnemonic(write_IC, Op, buffer1D,verbose,LC);
@@ -382,7 +431,7 @@ void main(int argc, char *argv[]){
 						else{
 							// Write address of label in Symbol table
 							temp = check_update_symbol_table(symbol_table,maintain_symbol);
-							insert_address_symbol_table(symbol_table[30][100],temp,LC,1);
+							LC = insert_address_symbol_table(symbol_table,temp,LC,1);
 		   					// Write mnemonic in IC file
 							LC = write_mnemonic(write_IC, Op, buffer1D,verbose,LC);							
 						}
@@ -406,6 +455,10 @@ void main(int argc, char *argv[]){
 								// Write constant
 								write_constant(write_IC, buffer1D, verbose);
 							}
+							else if(Op[0] == 8){
+								printf("\n [ERROR] LITERALS not allowed in 1st OPERANDS :: LINE NUMBER %d ",num_lines);
+							}	
+							
 						}
 					}
 					// AD class preceded : Process Operand
@@ -414,7 +467,7 @@ void main(int argc, char *argv[]){
 						if(Op[1] == 1){
 							check_operand(Op, buffer1D);
 							if(Op[0] == 5 || Op[0] == 6){
-								printf("\n [ERROR] START Assembler Directive cannot use Registers or symbols :: LINE NUMBER %d ",num_lines);
+								printf("\n [ERROR] START Assembler Directive cannot use REGISTERS or SYMBOLS :: LINE NUMBER %d ",num_lines);
 							}
 							else if(Op[0] == 7){
 								LC = atoi(buffer1D);
@@ -434,7 +487,7 @@ void main(int argc, char *argv[]){
 								write_symbol(write_IC,buffer1D,verbose);
 							}
 							else if(Op[0] == 6){
-								printf("\n [ERROR] Assembler Directives cannot use Registers :: LINE NUMBER %d ",num_lines);
+								printf("\n [ERROR] ASSEMBLER DIRECTIVES cannot use REGISTER :: LINE NUMBER %d ",num_lines);
 							}
 							else if(Op[0] == 7){
 								// Write constant
@@ -470,7 +523,7 @@ void main(int argc, char *argv[]){
 						// 1st Operand is Symbol
 						check_operand(Op, buffer1D);
 						if(Op[0] == 5){
-							printf("\n [ERROR] Operands cannot be both symbols :: LINE NUMBER %d ",num_lines);
+							printf("\n [ERROR] OPERANDS cannot be both symbols :: LINE NUMBER %d ",num_lines);
 						}
 						else if(Op[0] == 6){
 							// Write register in file
@@ -478,10 +531,15 @@ void main(int argc, char *argv[]){
 						}
 						else if(Op[0] == 7){
 							// Write constant
-							printf("\n [ERROR] Constant and Symbol cannot be used both at a time as operands :: LINE NUMBER %d ",num_lines);
+							printf("\n [ERROR] CONSTANT and SYMBOL cannot be used both at a time as OPERANDS :: LINE NUMBER %d ",num_lines);
+						}
+						else if(Op[0] == 8){
+							// Write literal
+							printf("\n [ERROR] LITERAL and SYMBOL cannot be used both at a time as OPERANDS :: LINE NUMBER %d ",num_lines);
 						}
 					}					
 					else if(Op[0] == 6){
+						// 1st Operand is Register
 						check_operand(Op, buffer1D);
 						if(Op[0] == 5){
 							// Check and update Symbol table
@@ -497,12 +555,18 @@ void main(int argc, char *argv[]){
 							// Write constant
 							write_constant(write_IC, buffer1D, verbose);
 						}
+						else if(Op[0] == 8){
+							// Write literal
+							temp = check_update_literal_table(literal_pool,literal_table,buffer1D);
+							sprintf(buffer1D,"%d",temp);
+							write_litral(write_IC, buffer1D, verbose);
+						}
 					}					
 					else if(Op[0] == 7){
-						// 1st Operand is Symbol
+						// 1st Operand is Constant
 						check_operand(Op, buffer1D);
 						if(Op[0] == 5){
-							printf("\n [ERROR] Constant and Symbol cannot be used both at a time as operands :: LINE NUMBER %d ",num_lines);
+							printf("\n [ERROR] CONTANT and SYMBOL cannot be used both at a time as OPERANDS :: LINE NUMBER %d ",num_lines);
 						}
 						else if(Op[0] == 6){
 							// Write register in file
@@ -510,9 +574,14 @@ void main(int argc, char *argv[]){
 						}
 						else if(Op[0] == 7){
 							// Write constant
-							printf("\n [ERROR] Operands cannot be both constants :: LINE NUMBER %d ",num_lines);
-						}						
-					}					
+							printf("\n [ERROR] OPERANDS cannot be both CONTANTS :: LINE NUMBER %d ",num_lines);
+						}					
+						else if(Op[0] == 8){
+							// Write literal
+							printf("\n [ERROR] LITERAL and CONSTANT cannot be used both at a time as OPERANDS :: LINE NUMBER %d ",num_lines);
+						}
+	
+					}	
 					else if(Op[0] == 3){
 						// AD	   
 					}
@@ -531,10 +600,10 @@ void main(int argc, char *argv[]){
 							else if(Op[0] == 7){
 								// Constant size
 								temp = check_update_symbol_table(symbol_table,maintain_symbol);
-			   					insert_address_symbol_table(symbol_table[30][100],temp,LC,atoi(buffer1D));
+			   					LC = insert_address_symbol_table(symbol_table,temp,LC,atoi(buffer1D));
 							}
 						}
-						else if(Op[1]==1){
+						/*else if(Op[1]==1){
 		   					check_operand(Op, buffer1D);
 		   					if(Op[0] == 5){
 		   						// Symbols not allowed
@@ -547,9 +616,9 @@ void main(int argc, char *argv[]){
 							else if(Op[0] == 7){
 								// Constant size
 								temp = check_update_symbol_table(symbol_table,maintain_symbol);
-			   					insert_address_symbol_table(symbol_table[30][100],temp,LC,atoi(buffer1D));
+			   					LC = insert_address_symbol_table(symbol_table,temp,LC,atoi(buffer1D));
 							}
-						}
+						}*/
 					}										
 				}
 				for(j=0;buffer1D[j];j++)
