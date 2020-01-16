@@ -4,6 +4,21 @@
 #include<ctype.h>
 #include<time.h>
 
+// Literal data structures
+typedef struct literal_pool{
+	char literal[10];
+}lit_pool;
+
+typedef struct literal_table{
+	int i;
+	char literal[10];
+	int address;
+}lit_table;
+
+typedef struct pool_tab{
+	int i;
+}pool_t;
+
 // Global arrays
 char IS[13][8], DL[2][4], AD[5][8], REG[4][5];
 
@@ -48,7 +63,7 @@ void check_operand(int Op[2], char *buf){
 		return;
 	}	
 	// Search for a Literal
-	if(buf[0] == '=' and buf[1] == '\''){{
+	if(buf[0] == '=' && buf[1] == '\''){
 		Op[0]=8;
 		Op[1]=1;
 		return;
@@ -149,7 +164,7 @@ int write_mnemonic(FILE *write_IC, int Op[2], char *buffer1D, int verbose, int L
 void write_register(FILE *write_IC, int Op[2], char *buffer1D, int verbose){
 	// Process register
 	// Write in intermediate code file
-	fputc('(',write_IC);check_update_literal_table(literal_pool,literal_table,buffer1D)
+	fputc('(',write_IC);
 
 	// Write Reg Class 
 	if(Op[1] == 1)
@@ -232,21 +247,81 @@ int insert_address_symbol_table(char symbol_table[30][100],int temp,int LC,int s
 }
 
 // Function to insert labels in symbol table
-int check_update_literal_table(char literal_pool[30][100], char literal_table[][], char *buffer1D){
+void update_literal_data(lit_pool lp[10], lit_table[10], char *buffer1D){
+	// Insert Label at first empty index
+	int i;
+	char no[100];
+	
+	for(i=0;i<10;i++){
+		if(lit_pool[i].[0] == '\0'){
+			strcpy(literal_pool[i],buffer1D);
+			break;
+		}
+	}
+
+	for(i=0;i<10;i++){
+		if(literal_table[i][0] == '\0'){
+			sprintf(no," %d ", i);
+			strcpy(no,buffer1D);
+			strcpy(literal_table[i],no);
+			return;
+		}
+	}
+}
+
+// Insert address in Symbol Table
+int insert_address_literal_data(char literal_table[10][70],int temp,int LC,int size){
+	int i,j;
+	char buff[20];
+	sprintf(buff,",%d,%d-",LC,size);
+	
+	i=0;
+	for(j=0;j<100;j++){
+		if(literal_table[temp][j])
+			continue;
+
+		literal_table[temp][j] = buff[i];
+		if(buff[i] == '-')
+			break;
+		i++;
+	}
+	literal_table[temp][j] = '\n';
+	//printf("%s",symbol_table[temp]);
+	return LC+size;
+}
+
+// Function to insert labels in Literal Pool
+int check_update_literal_pool(char literal_pool[10][20], char literal_table[10][70], char *buffer1D){
 	// Insert Label at first empty index
 	int i,j;
 
 	for(i=0;i<30;i++){
-		if(!strcmp(symbol_table[i],buffer1D)){
+		if(!strcmp(literal_table[i],buffer1D)){
 			return i;
 		}
-		else if(symbol_table[i][0] == '\0'){
-			strcpy(symbol_table[i],buffer1D);
+		else if(literal_table[i][0] == '\0'){
+			strcpy(literal_table[i],buffer1D);
 			return i;
 		}
 	}
 }
 
+// Function to insert labels in Literal Pool
+int check_update_pool_tab(char literal_pool[10][20], char literal_table[10][70], char *buffer1D){
+	// Insert Label at first empty index
+	int i,j;
+
+	for(i=0;i<30;i++){
+		if(!strcmp(literal_table[i],buffer1D)){
+			return i;
+		}
+		else if(literal_table[i][0] == '\0'){
+			strcpy(literal_table[i],buffer1D);
+			return i;
+		}
+	}
+
+}
 // Main function
 void main(int argc, char *argv[]){
 	time_t t;
@@ -269,10 +344,13 @@ void main(int argc, char *argv[]){
 	}
 	
 	// Variables for the program
-	FILE *write_IC, *read_keywords, *read_program, *write_symbol_file;
+	FILE *write_IC, *read_keywords, *read_program, *write_symbol_file, *write_literal_file;
 	char ch,buffer1D[400],buffer2D[3][10],symbol_table[30][100],maintain_symbol[20],literal_pool[10][20],literal_table[10][70],pool_tab[10][20];
 	int num_lines, num_keywords[32], i, j, flg, count, Op[2], LC, temp;
-
+	lit_pool lp[10];
+	lit_table lt[10];
+	pool_t pt[10];
+			
 	// Open the keywords file for reading
 	read_keywords = fopen("keywords.txt","r");
 
@@ -304,23 +382,29 @@ void main(int argc, char *argv[]){
 	if(verbose)
 		printf("\n[INFO] Initializing Literal Table Data Structures");	
 	
-	// Initialze Symbol Table Data Structure
+	// Initialze Literal Table Data Structure
 	for(i=0;i<30;i++)
 		for(j=0;j<10;j++)
 			literal_table[i][j] = '\0';
+	for(i=0;i<30;i++)
+		for(j=0;j<10;j++)
+			lit_table[i][j] = '\0';
 	
 	// Populate Literal Pool
 	if(verbose)
 		printf("\n[INFO] Initializing Literal Pool Data Structures");	
-	// Initialze Symbol Table Data Structure
+	// Initialze Literal Pool Data Structure
 	for(i=0;i<30;i++)
 		for(j=0;j<10;j++)
 			literal_pool[i][j] = '\0';
+	for(i=0;i<30;i++)
+		for(j=0;j<10;j++)
+			lit_pool[i][j] = '\0';
 	
 	// Populate Pool Tab
 	if(verbose)
 		printf("\n[INFO] Initializing Pool Tab Data Structures");	
-	// Initialze Symbol Table Data Structure
+	// Initialze Pool Tab Data Structure
 	for(i=0;i<30;i++)
 		for(j=0;j<10;j++)
 			pool_tab[i][j] = '\0';
@@ -358,6 +442,9 @@ void main(int argc, char *argv[]){
 	split(buffer2D,buffer2D[0],'_');
 	write_IC = fopen(strcat(buffer2D[0],"_ic.txt"),"w");
 
+	// Creating and opening the file for writing symbol table
+	split(buffer2D,buffer2D[0],'_');
+	write_literal_file = fopen(strcat(buffer2D[0],"_literal.txt"),"w");
 
 	// Start with main algorithm
 	if(read_program == NULL){
@@ -399,6 +486,9 @@ void main(int argc, char *argv[]){
 							// Write mnemonic in IC file
 							// Print Opcode
 							LC = write_mnemonic(write_IC, Op, buffer1D,verbose,LC);
+						}
+						else if(Op[1] == 2 || Op[1] == 5){
+							LC = insert(write_IC, Op, buffer1D,verbose,LC);
 						}
 						else{
 							// Maintain the symbol for DL statements
@@ -557,9 +647,9 @@ void main(int argc, char *argv[]){
 						}
 						else if(Op[0] == 8){
 							// Write literal
-							temp = check_update_literal_table(literal_pool,literal_table,buffer1D);
-							sprintf(buffer1D,"%d",temp);
-							write_litral(write_IC, buffer1D, verbose);
+							update_literal_data(literal_pool,literal_table,buffer1D);
+//							sprintf(buffer1D,"%d",temp);
+//							write_litral(write_IC, buffer1D, verbose);
 						}
 					}					
 					else if(Op[0] == 7){
@@ -649,6 +739,18 @@ void main(int argc, char *argv[]){
 	// store symbol table in file
 	for(i=0;symbol_table[i][0];i++)
 		fprintf(write_symbol_file,"%s",symbol_table[i]);
+
+	// store Literal Pool, Literal table and Pool Tab in file
+	for(i=0;literal_pool[i][0];i++)
+		fprintf(write_literal_file,"%s",literal_pool[i]);
+
+	fprintf(write_literal_file,"\n\n");
+	for(i=0;literal_table[i][0];i++)
+		fprintf(write_literal_file,"%s",literal_table[i]);
+
+	fprintf(write_literal_file,"\n\n");
+	for(i=0;pool_tab[i][0];i++)
+		fprintf(write_literal_file,"%s",pool_tab[i]);
 
 	fclose(read_program);
 	fclose(write_symbol_file);
