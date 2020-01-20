@@ -3,13 +3,19 @@
 #include<time.h>
 #include<string.h>
 
-// Custom datastructure 
+// Data Structure for Machine Code 
 typedef struct machine_code{
 	int LC;
 	int Opcode;
 	int Reg;
 	int Mem;
 }mc;
+
+typedef struct table{
+	char symbol[20];
+	int size;
+	int address;
+}tab;
 
 // Main function
 void main(int argc, char *argv[]){
@@ -34,16 +40,116 @@ void main(int argc, char *argv[]){
 	
 	// Variables for the program
 	mc mc_line;
-	FILE *read_IC,*write_MC;
+	tab sym_table[10],lit_table[10];	
+	FILE *read_IC, *read_sym, *read_lit, *write_MC;
 	char ch,buffer1D[40];
-	int i,j,count;
+	int i,j,k,count;
 				
 	// Open the IC file for reading
 	read_IC = fopen(argv[1],"r");
 
 	// Creating and opening the file for writing symbol table
-	write_MC = fopen("mc.txt","w");	           
+	write_MC = fopen("mc.txt","w");    
 
+	// Opening the file for reading symbol table
+	read_sym = fopen("symbol.txt","r");
+	
+	// Initialize arrays
+	for(i=0;i<10;i++){
+		strcpy(sym_table[i].symbol,"\0");
+		sym_table[i].size = -99;
+		sym_table[i].address = -99;
+		
+		strcpy(lit_table[i].symbol,"\0");
+		lit_table[i].size = -99;
+		lit_table[i].address = -99;
+	}		
+
+	// Populate symbol table
+	ch = fgetc(read_sym);
+	count = 0;
+	i = 0;
+	j = 0;
+	while(ch != EOF){
+		if(count == 1 && !sym_table[i].symbol[0]){
+			strcpy(sym_table[i].symbol,buffer1D);
+			for(k=0;k<40;k++)
+				buffer1D[k] = '\0';
+		}
+		if(ch == '\n' && sym_table[i].size == -99){
+			sym_table[i].size = atoi(buffer1D);
+			for(k=0;k<40;k++)
+				buffer1D[k] = '\0';
+		}
+		if(count == 2 && sym_table[i].address == -99){
+			sym_table[i].address = atoi(buffer1D);
+			for(k=0;k<40;k++)
+				buffer1D[k] = '\0';
+		}		
+		if(ch == ','){
+			count++;
+			j=0;
+		}
+		else if(ch == '\n'){
+			count = 0;
+			j=0;
+			i++;
+			for(k=0;k<20;k++)
+				buffer1D[k] = '\0';		
+		}
+		else{
+			buffer1D[j] = ch;
+			j++;
+		}
+		
+		ch = fgetc(read_sym);
+	}
+	
+		 
+	// Opening the file for reading literal table
+	read_lit = fopen("literal.txt","r");
+
+	// Populate literal table
+	ch = fgetc(read_lit);
+	count = 0;
+	i = 0;
+	j = 0;
+	while(ch != EOF){
+		if(count == 1 && !lit_table[i].symbol[0]){
+			strcpy(lit_table[i].symbol,buffer1D);
+			for(k=0;k<40;k++)
+				buffer1D[k] = '\0';
+		}
+		if(ch == '\n' && lit_table[i].size == -99){
+			lit_table[i].size = atoi(buffer1D);
+			for(k=0;k<40;k++)
+				buffer1D[k] = '\0';
+		}
+		if(count == 2 && lit_table[i].address == -99){
+			lit_table[i].address = atoi(buffer1D);
+			for(k=0;k<40;k++)
+				buffer1D[k] = '\0';
+		}		
+		if(ch == ','){
+			count++;
+			j=0;
+		}
+		else if(ch == '\n'){
+			count = 0;
+			j=0;
+			if(lit_table[i].address != -99)
+				i++;
+			for(k=0;k<20;k++)
+				buffer1D[k] = '\0';		
+		}
+		else{
+			buffer1D[j] = ch;
+			j++;
+		}
+		
+		ch = fgetc(read_lit);
+	}
+			
 	// Initialize the mc_line
 	mc_line.LC = -99;
 	mc_line.Opcode = -99;
@@ -92,7 +198,7 @@ void main(int argc, char *argv[]){
 	    	count = 2;
     	}
     	else if(count >= 3){
-	    	if((buffer1D[0] == 'S' || buffer1D[0] == 'L' || buffer1D[0] == 'C') && mc_line.Mem == -99 && strlen(buffer1D)>2){
+	    	if(buffer1D[0] == 'S' && mc_line.Mem == -99 && strlen(buffer1D)>2){
 				j = 0;
     			while(buffer1D[j] != ',')
     				j++;	
@@ -103,7 +209,20 @@ void main(int argc, char *argv[]){
     				j++;
     			}
     			buffer1D[j - i] = '\0';
-	    		mc_line.Mem = atoi(buffer1D);
+	    		mc_line.Mem = sym_table[atoi(buffer1D)].address;
+	    	}
+	    	if(buffer1D[0] == 'L' && mc_line.Mem == -99 && strlen(buffer1D)>2){
+				j = 0;
+    			while(buffer1D[j] != ',')
+    				j++;	
+    			j++;				
+    			i = j;		
+    			while(buffer1D[j]){
+    				buffer1D[j - i] = buffer1D[j];
+    				j++;
+    			}
+    			buffer1D[j - i] = '\0';
+	    		mc_line.Mem = lit_table[atoi(buffer1D)].address;
 	    	}
 	    	else if(mc_line.Reg == -99 ){
 	    		mc_line.Reg = atoi(buffer1D);	
@@ -156,5 +275,7 @@ void main(int argc, char *argv[]){
 
 	// Cleanup
 	fclose(read_IC);
+	fclose(read_lit);
+	fclose(read_sym);
 	fclose(write_MC);
 }
