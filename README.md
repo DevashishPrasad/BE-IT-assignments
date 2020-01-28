@@ -17,8 +17,8 @@ It contains all the assignments of labs of subjects - <br>
     2) SL-2 (Operating Systems)<br>
     3) SL-3 (Web Designing)<br>
 <b>2nd semester - </b><br>
-    1) SL-4 ()<br>
+    1) SL-4 (Computer Networking Lab)<br>
     2) SL-5 (System Programming And Design & Analysis of Algorithms)<br>
-    3) SL-6 ()<br>
+    3) SL-6 (Database Systems and Big Data Analytics)<br>
 
 
