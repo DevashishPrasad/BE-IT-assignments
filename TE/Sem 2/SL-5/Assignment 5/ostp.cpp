@@ -7,18 +7,26 @@ using namespace std;
 float retrieve(vector<int>tape){
 	if(tape.size() == 0)
 		return 0;
-	int rt=0;
+	float rt=0;
 	for(int y=0;y<tape.size();y++)
 		rt+=tape[y];
-	return rt/tape.size();
+	return rt/(float)tape.size();
 }
+
+int tape_vol(vector<int>tape){
+	int total=0;
+	for(int y=0;y<tape.size();y++)
+		total+=tape[y];
+	return total;
+}
+
 int main(int argc, char *args[]){
 
 	// Variables of the program
 	vector< vector<int> > tapes;
 	vector<int> orig_progs,sorted_progs,capacities;
 	float mrt;
-	int no_tapes,no_programs,buffer,debug=0,ch;
+	int no_tapes,no_programs,buffer,debug=0,ch,buffer2;
 	
 	if(argc == 2)
 		debug = atoi(args[1]);
@@ -74,7 +82,33 @@ int main(int argc, char *args[]){
 		switch(ch){
 			case 1:
 				// Round Robin
-			break;
+				buffer = 0;
+				for(int i=0;i<no_programs;i++){ 										
+					int j=buffer%tapes.size();
+					if(capacities[j]>=(tape_vol(tapes[j])+sorted_progs[i])){
+						buffer2 = 0;
+						tapes[j].push_back(sorted_progs[i]);
+					}
+					else{
+						i--;	
+						buffer2++;
+					}
+					buffer++;					
+					if(buffer2>=no_tapes)
+						break;
+				}
+				cout<<"\n Contents of the Tapes : ";
+				for(int x=0;x<tapes.size();x++){
+					cout<<"\nTAPE ["<<x<<"] : ";
+					for(int y=0;y<tapes[x].size();y++)
+						cout<<tapes[x][y]<<" ";
+					cout<<"\n";											
+				}
+				
+				cout<<"\n Mean Retirval time of Tapes : ";
+				for(int x=0;x<tapes.size();x++)
+					cout<<"\n MRT of TAPE ["<<x<<"] : "<<retrieve(tapes[x]);				
+				break;
 			case 2:
 				// Normal
 				buffer = 0;
@@ -90,7 +124,7 @@ int main(int argc, char *args[]){
 				}
 				cout<<"\n Contents of the Tapes : ";
 				for(int x=0;x<tapes.size();x++){
-					cout<<"TAPE ["<<x<<"] : ";
+					cout<<"\nTAPE ["<<x<<"] : ";					
 					for(int y=0;y<tapes[x].size();y++)
 						cout<<tapes[x][y]<<" ";
 					cout<<"\n";
@@ -100,7 +134,7 @@ int main(int argc, char *args[]){
 				for(int x=0;x<tapes.size();x++)
 					cout<<"\n MRT of TAPE ["<<x<<"] : "<<retrieve(tapes[x]);
 
-			break;
+				break;
 			case 3:
 				// Exit
 				return 0;
