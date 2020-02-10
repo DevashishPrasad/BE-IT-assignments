@@ -40,6 +40,17 @@ void split(char buffer2D[3][10], char *str,char sep){
 	}
 }
 
+// Custom function to count occurrences
+int occur(char string[20], char ch){
+	int count,i;
+	
+	for(i=0;string[i];i++)
+		if(string[i] == ch)
+			count++;
+			
+	return count;
+}
+
 // Function to check operands
 void check_operand(int Op[2], char *buf){
 	int j,flag=0,i;
@@ -701,8 +712,12 @@ void main(int argc, char *argv[]){
 	}	 
 
 	// store symbol table in file
-	for(i=0;symbol_table[i][0];i++)
-		fprintf(write_symbol_file,"%s",symbol_table[i]);
+	for(i=0;symbol_table[i][0];i++){
+		if(occur(symbol_table[i],',')==2)
+			fprintf(write_symbol_file,"%s",symbol_table[i]);
+		else
+			printf("\n [ERROR] No Declarations found for %s ",symbol_table[i]);
+	}
 
 	// store Literal Pool, Literal table and Pool Tab in file
 	for(i=0;lp[i].literal[0];i++){
@@ -724,6 +739,7 @@ void main(int argc, char *argv[]){
 		fprintf(write_literal_file,"\n");
 	}
 
+	// Cleanup
 	fclose(read_program);
 	fclose(write_symbol_file);
 	fclose(write_IC);
