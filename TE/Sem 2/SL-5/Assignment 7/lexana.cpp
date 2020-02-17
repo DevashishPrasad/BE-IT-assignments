@@ -5,11 +5,10 @@
 
 using namespace std;
 
-vector<string> identifiers,operators,constants,keywords,c_keywords,c_operators;
+vector<string> identifiers,operators,constants,keywords,c_keywords,c_operators,c_double_operators;
 
 // Function for Trimimg
-string trim(const string& str)
-{
+string trim(const string& str){
     size_t first = str.find_first_not_of(' ');
     if (string::npos == first)
         return str;
@@ -18,38 +17,75 @@ string trim(const string& str)
     return str.substr(first, (last - first + 1));
 }
 
-short int is_op(string op){
-    for(short int i=0;i<c_operators.size();i++){
-        if(op == c_operators[i]){
-            if(i<4)
-                return 0;
-            return 1;
-        }
-    }
-    return 2;
+// Function to check double operator
+bool is_double_op(string op){
+    for(short int i=0;i<c_double_operators.size();i++)
+        if(op.compare(c_operators[i]) == 0)
+            return true;
+    return false;
 }
 
-bool is_char(){
-
+// Function to check single operator
+bool is_op(string op){
+    for(short int i=0;i<c_operators.size();i++)
+        if(op.compare(c_operators[i]) == 0)
+            return true;
+    return false;
 }
 
+// Function to check keyword
+bool is_keyword(string word){
+    for(short int i=0;i<c_keywords.size();i++)
+        if(word.compare(c_keywords[i]))
+            return true;
+    return false;
+}
+
+// Function to check separator
+bool is_separator(char a){
+    if(a == ' ')
+        return true;
+    else if(a == ',')
+        return true;
+}
+
+// Function to check constants
+bool is_constant(string word){
+   short int flg = 0;
+   for(short int i=0;i<word.length();i++)
+        if( word[i] == 0 || word[i] == 1 || word[i] == 2 || word[i] == 3 || 
+            word[i] == 4 || word[i] == 5 || word[i] == 6 || word[i] == 7 || 
+            word[i] == 8 || word[i] == 9)
+            flg=1;
+        else
+            flg=0;
+   if(flg)
+        return true;  
+}
+
+// Function to process lines
 void regex(string line){
     line = trim(line);
-    string op="00";
     string chars="";
     for(int i=0;i<line.length();i++){
-        
-        // operators
-        if(is_op(string(1,line[i]))==1){
-            operators.push_back(string(line[i],1));
-        }
-        else if(is_op((char*)&line[i])==0){
-            if(line[i]==line[i+1]){
-                op[0]=line[i];
-                op[1]=line[i+1];
-                operators.push_back(op);
-                i++;
+        if(is_double_op(line.substr(i,2))){
+            operators.push_back(line.substr(i,2));
+            i++;
+            if(chars.size()>0){
             }
+        }
+        else if(is_op(line[i])){
+            operators.push_back(line[i]);
+            if(chars.size()>0){
+            }
+        }
+        else if(is_separator(line[i]) && chars.size()>0){
+            if(is_keyword(chars))
+                keywords.push_back(chars);
+            else if(is_const(chars))
+                constants.push_back(chars);
+                
+            chars = "";
         }
         
         // characters
@@ -57,6 +93,7 @@ void regex(string line){
     }
 }
 
+// Main funtion of the program
 int main(){
     // declare variables    
     string buffer;
@@ -71,8 +108,10 @@ int main(){
     c_keywords.push_back("namespace");
     c_keywords.push_back("int");
     c_keywords.push_back("return");
-                    
+    
     // populate operators
+    c_operators.push_back("\"");    
+    c_operators.push_back("'");    
     c_operators.push_back("+");
     c_operators.push_back("-");
     c_operators.push_back(">");
@@ -84,18 +123,42 @@ int main(){
     c_operators.push_back("{");
     c_operators.push_back("}");
     c_operators.push_back(";"); 
-    c_operators.push_back("-");
     c_operators.push_back("(");                                           
     c_operators.push_back(")");
-
-    ifstream ifile("lexana.cpp");
+    c_operators.push_back("<");    
+    c_operators.push_back(">");   
+    c_operators.push_back(".");    
+    c_operators.push_back("?"); 
+    c_operators.push_back(":"); 
+    c_operators.push_back("[");
+    c_operators.push_back("]"); 
+    c_operators.push_back("!");          
     
+    //populate double chars
+    c_double_operators.push_back("<=");
+    c_double_operators.push_back(">=");
+    c_double_operators.push_back("==");
+    c_double_operators.push_back("++");
+    c_double_operators.push_back("--");
+    c_double_operators.push_back("<<");    
+    c_double_operators.push_back(">>");
+    c_double_operators.push_back("&&");    
+    c_double_operators.push_back("||");
+    c_double_operators.push_back("!=");        
+    c_double_operators.push_back("::");                           
+                
+    // Open the file        
+    ifstream ifile("input.cpp");
+    
+    // Read line by line
     while(getline(ifile,buffer)){
         regex(buffer);
     }
     
+    // Close the file
     ifile.close();
  
+    // Write output to a file
     ofstream ofile("output.txt");
     for(int i=0;i<operators.size();i++)
         ofile<<operators[i]<<"\n";
