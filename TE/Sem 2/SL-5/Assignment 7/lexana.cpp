@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<string> identifiers,operators,constants,keywords,c_keywords,c_operators,c_double_operators;
+vector<string> output,identifiers,operators,constants,keywords,c_keywords,c_operators,c_double_operators;
 
 // Function for Trimimg
 string trim(const string& str){
@@ -26,15 +26,16 @@ bool is_double_op(string op){
 }
 
 // Function to check single operator
-bool is_op(string op){
+bool is_op(char op){
     for(short int i=0;i<c_operators.size();i++)
-        if(op.compare(c_operators[i]) == 0)
+        if(string(1,op).compare(c_operators[i]) == 0)
             return true;
     return false;
 }
 
 // Function to check keyword
 bool is_keyword(string word){
+    cout<<word<<"\n";
     for(short int i=0;i<c_keywords.size();i++)
         if(word.compare(c_keywords[i]))
             return true;
@@ -47,10 +48,11 @@ bool is_separator(char a){
         return true;
     else if(a == ',')
         return true;
+    return false;
 }
 
 // Function to check constants
-bool is_constant(string word){
+bool is_const(string word){
    short int flg = 0;
    for(short int i=0;i<word.length();i++)
         if( word[i] == 0 || word[i] == 1 || word[i] == 2 || word[i] == 3 || 
@@ -65,31 +67,58 @@ bool is_constant(string word){
 
 // Function to process lines
 void regex(string line){
-    line = trim(line);
+    line = trim(line);    
     string chars="";
+    int idx;
     for(int i=0;i<line.length();i++){
         if(is_double_op(line.substr(i,2))){
             operators.push_back(line.substr(i,2));
+            output.push_back(line.substr(i,2).append(string("\t : Operator")));
             i++;
-            if(chars.size()>0){
+            if(chars.length()>0){
+                if(is_keyword(chars)){
+                    keywords.push_back(chars);
+                    output.push_back(string(line[i],1).append(string("\t : Keyword")));
+                    chars = "";                    
+                }
+                else if(is_const(chars)){
+                    constants.push_back(chars);
+                    output.push_back(string(1,line[i]).append(string("\t : Constant")));
+                    chars = "";                    
+                }
             }
         }
         else if(is_op(line[i])){
-            operators.push_back(line[i]);
-            if(chars.size()>0){
+            operators.push_back(string(1,line[i]));
+            output.push_back(string(1,line[i]).append(string("\t : Operator")));
+            if(chars.length()>0){
+                if(is_keyword(chars)){
+                    keywords.push_back(chars);
+                    output.push_back(string(1,line[i]).append(string("\t : Keyword")));
+                    chars = "";                    
+                }
+                else if(is_const(chars)){
+                    constants.push_back(chars);
+                    output.push_back(string(1,line[i]).append(string("\t : Constant")));
+                    chars = "";                    
+                }
             }
         }
-        else if(is_separator(line[i]) && chars.size()>0){
-            if(is_keyword(chars))
+        else if(is_separator(line[i]) && chars.length()>0){
+            if(is_keyword(chars)){
                 keywords.push_back(chars);
-            else if(is_const(chars))
+                output.push_back(string(1,line[i]).append(string("\t : Keyword")));
+            }
+            else if(is_const(chars)){
                 constants.push_back(chars);
-                
+                output.push_back(string(1,line[i]).append(string("\t : Constant")));
+            }
             chars = "";
         }
         
         // characters
-        chars[i]=line[i];
+        chars.append(string(1,line[i]));
+        cout<<chars<<"\n";        
     }
 }
 
@@ -108,10 +137,15 @@ int main(){
     c_keywords.push_back("namespace");
     c_keywords.push_back("int");
     c_keywords.push_back("return");
+    c_keywords.push_back("if");
+    c_keywords.push_back("else");
+    c_keywords.push_back("void");
+    c_keywords.push_back("bool");
+    c_keywords.push_back("true");             
     
     // populate operators
-    c_operators.push_back("\"");    
-    c_operators.push_back("'");    
+    c_operators.push_back("\"");
+    c_operators.push_back("'");   
     c_operators.push_back("+");
     c_operators.push_back("-");
     c_operators.push_back(">");
@@ -160,7 +194,21 @@ int main(){
  
     // Write output to a file
     ofstream ofile("output.txt");
+    ofile<<" ================ Output ==================== \n\n";
+    for(int i=0;i<operators.size();i++)
+        ofile<<output[i]<<"\n";
+    ofile<<" ================ Operators ================ \n";
     for(int i=0;i<operators.size();i++)
         ofile<<operators[i]<<"\n";
+    ofile<<" ================ Keywords ================ \n";
+    for(int i=0;i<keywords.size();i++)
+        ofile<<keywords[i]<<"\n";
+    ofile<<" ================ Identifires ================ \n";
+    for(int i=0;i<identifiers.size();i++)
+        ofile<<identifiers[i]<<"\n";
+    ofile<<" ================ Constants ================ \n";
+    for(int i=0;i<constants.size();i++)
+        ofile<<constants[i]<<"\n";
+
 	return 0;
 }
