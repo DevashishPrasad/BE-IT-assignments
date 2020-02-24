@@ -35,9 +35,8 @@ bool is_op(char op){
 
 // Function to check keyword
 bool is_keyword(string word){
-    cout<<word<<"\n";
     for(short int i=0;i<c_keywords.size();i++)
-        if(word.compare(c_keywords[i]))
+        if(word.compare(c_keywords[i])==0)
             return true;
     return false;
 }
@@ -71,6 +70,9 @@ void regex(string line){
     string chars="";
     int idx;
     for(int i=0;i<line.length();i++){
+        // characters
+        chars.append(string(1,line[i]));
+        cout<<chars<<"\n";          
         if(is_double_op(line.substr(i,2))){
             operators.push_back(line.substr(i,2));
             output.push_back(line.substr(i,2).append(string("\t : Operator")));
@@ -78,15 +80,14 @@ void regex(string line){
             if(chars.length()>0){
                 if(is_keyword(chars)){
                     keywords.push_back(chars);
-                    output.push_back(string(line[i],1).append(string("\t : Keyword")));
-                    chars = "";                    
+                    output.push_back(string(line[i],1).append(string("\t : Keyword")));                    
                 }
                 else if(is_const(chars)){
                     constants.push_back(chars);
                     output.push_back(string(1,line[i]).append(string("\t : Constant")));
-                    chars = "";                    
                 }
             }
+            chars = "";
         }
         else if(is_op(line[i])){
             operators.push_back(string(1,line[i]));
@@ -94,31 +95,28 @@ void regex(string line){
             if(chars.length()>0){
                 if(is_keyword(chars)){
                     keywords.push_back(chars);
-                    output.push_back(string(1,line[i]).append(string("\t : Keyword")));
-                    chars = "";                    
+                    output.push_back(string(1,line[i]).append(string("\t : Keyword")));                    
                 }
                 else if(is_const(chars)){
                     constants.push_back(chars);
                     output.push_back(string(1,line[i]).append(string("\t : Constant")));
-                    chars = "";                    
                 }
-            }
-        }
-        else if(is_separator(line[i]) && chars.length()>0){
-            if(is_keyword(chars)){
-                keywords.push_back(chars);
-                output.push_back(string(1,line[i]).append(string("\t : Keyword")));
-            }
-            else if(is_const(chars)){
-                constants.push_back(chars);
-                output.push_back(string(1,line[i]).append(string("\t : Constant")));
             }
             chars = "";
         }
-        
-        // characters
-        chars.append(string(1,line[i]));
-        cout<<chars<<"\n";        
+        else if(is_separator(line[i]) && chars.length()>0){
+            i++;
+            chars = chars.substr(0, chars.length()-2);
+        }
+        else if(is_keyword(chars)){
+            keywords.push_back(chars);
+            output.push_back(string(1,line[i]).append(string("\t : Keyword")));
+        }
+        else if(is_const(chars)){
+            constants.push_back(chars);
+            output.push_back(string(1,line[i]).append(string("\t : Constant")));
+        }
+        chars = "";
     }
 }
 
@@ -195,7 +193,7 @@ int main(){
     // Write output to a file
     ofstream ofile("output.txt");
     ofile<<" ================ Output ==================== \n\n";
-    for(int i=0;i<operators.size();i++)
+    for(int i=0;i<output.size();i++)
         ofile<<output[i]<<"\n";
     ofile<<" ================ Operators ================ \n";
     for(int i=0;i<operators.size();i++)
@@ -203,7 +201,7 @@ int main(){
     ofile<<" ================ Keywords ================ \n";
     for(int i=0;i<keywords.size();i++)
         ofile<<keywords[i]<<"\n";
-    ofile<<" ================ Identifires ================ \n";
+    ofile<<" ================ Identifiers ================ \n";
     for(int i=0;i<identifiers.size();i++)
         ofile<<identifiers[i]<<"\n";
     ofile<<" ================ Constants ================ \n";
