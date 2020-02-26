@@ -1,7 +1,7 @@
+// A C++ program for Bellman-Ford's single source 
+// shortest path algorithm. 
 #include <bits/stdc++.h> 
- 
-using namespace std;
-
+  
 // a structure to represent a weighted edge in graph 
 struct Edge { 
     int src, dest, weight; 
@@ -18,7 +18,8 @@ struct Graph {
 }; 
   
 // Creates a graph with V vertices and E edges 
-struct Graph* createGraph(int V, int E){
+struct Graph* createGraph(int V, int E) 
+{ 
     struct Graph* graph = new Graph; 
     graph->V = V; 
     graph->E = E; 
@@ -29,7 +30,7 @@ struct Graph* createGraph(int V, int E){
 // A utility function used to print the solution 
 void printArr(int dist[], int n) 
 { 
-    cout<<"Vertex Distance from Source\n"; 
+    printf("Vertex Distance from Source\n"); 
     for (int i = 0; i < n; ++i) 
         printf("%d \t\t %d\n", i, dist[i]); 
 } 
@@ -41,13 +42,13 @@ void BellmanFord(struct Graph* graph, int src)
 { 
     int V = graph->V; 
     int E = graph->E; 
-    int dist[V];
+    int dist[V]; 
   
     // Step 1: Initialize distances from src to all other vertices 
     // as INFINITE 
     for (int i = 0; i < V; i++) 
         dist[i] = INT_MAX; 
-    dist[src] = 0;
+    dist[src] = 0; 
   
     // Step 2: Relax all edges |V| - 1 times. A simple shortest 
     // path from src to any other vertex can have at-most |V| - 1 
@@ -61,17 +62,7 @@ void BellmanFord(struct Graph* graph, int src)
                 dist[v] = dist[u] + weight; 
         } 
     } 
-    
-    printArr(dist, V);
-    
-    // Print out the shortest path from src to all other edges
-    for (int i=0; i <= V-1; i++){ 
-        for (int j = 0; j < E; j++) {
-            int u = graph->edge[j].src; 
-            int v = graph->edge[j].dest; 
-            int weight = graph->edge[j].weight; 
-        }
-    }
+  
     // Step 3: check for negative-weight cycles.  The above step 
     // guarantees shortest distances if graph doesn't contain 
     // negative weight cycle.  If we get a shorter path, then there 
@@ -81,9 +72,8 @@ void BellmanFord(struct Graph* graph, int src)
         int v = graph->edge[i].dest; 
         int weight = graph->edge[i].weight; 
         if (dist[u] != INT_MAX && dist[u] + weight < dist[v]) { 
-            cout<<"\n Edge from src "<<u<<" to dst "<<v<<" is a negative edge";
-            //cout<<"Graph contains negative weight cycle"; 
-            //return; // If negative cycle is detected, simply return 
+            printf("Graph contains negative weight cycle"); 
+            return; // If negative cycle is detected, simply return 
         } 
     } 
   
@@ -144,4 +134,3 @@ int main()
   
     return 0; 
 } 
-
