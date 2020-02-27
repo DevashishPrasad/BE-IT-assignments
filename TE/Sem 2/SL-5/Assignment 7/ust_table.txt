@@ -1,0 +1,54 @@
+ ================ ust_table ==================== 
+
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 33		 : >
+ ID   : 		 0		 : iostream
+ TRM  : 		 5		 : using
+ TRM  : 		 6		 : namespace
+ TRM  : 		 41		 : ;
+ ID   : 		 1		 : std
+ TRM  : 		 7		 : int
+ TRM  : 		 42		 : (
+ ID   : 		 2		 : main
+ TRM  : 		 43		 : )
+ TRM  : 		 39		 : {
+ TRM  : 		 34		 : <
+ ID   : 		 3		 : cout
+ TRM  : 		 22		 : <<
+ TRM  : 		 28		 : "
+ ID   : 		 4		 : hello
+ TRM  : 		 28		 : "
+ ID   : 		 5		 : world
+ TRM  : 		 41		 : ;
+ TRM  : 		 7		 : int
+ ID   : 		 6		 : a
+ TRM  : 		 52		 : =
+ LIT : 		 0		 : 10;
+ TRM  : 		 12		 : char
+ TRM  : 		 30		 : ,
+ ID   : 		 7		 : b
+ ID   : 		 8		 : c
+ TRM  : 		 52		 : =
+ TRM  : 		 29		 : '
+ TRM  : 		 29		 : '
+ ID   : 		 9		 : x
+ TRM  : 		 41		 : ;
+ TRM  : 		 8		 : return
+ LIT : 		 1		 : 0;
+ TRM  : 		 40		 : }
+ ================ Identifiers ================ 
+0 : iostream
+1 : std
+2 : main
+3 : cout
+4 : hello
+5 : world
+6 : a
+7 : b
+8 : c
+9 : x
+ ================ Literal ================ 
+0 : 10
+1 : 0
