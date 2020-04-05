@@ -1,0 +1,192 @@
+How ARTIFICAL INTELLIGENCE is making a huge impact across various sectors
+
+You might be familiar with the word Artificial intelligence. You might have heard on the radio might have seen some news stories or a Hollywood movie depicting the same. So, what is it? And why all of the sudden there is such a trend about it in recent times. For starters, the thing is so popular that almost all the top companies from around the world who are in the FORTUNE 500 are partially or directly involved in evolving or developing or using some form of ARTIFICIAL intelligence. Be it, Tesla, Facebook, Google, Microsoft, OpenAI, and the list goes on and on. So, then let us look at what is artificial intelligence and how it is impacting in various sectors
+ 
+ 
+ARTIFICIAL INTELLIGENCE
+ 
+Artificial intelligence (AI), generally called machine intelligence, is intelligence determined by machines, in comparison to the natural intelligence displayed by humans.
+ 
+ 
+We are trying to bring about artificial intelligence in such a way where a System or a program can mimic a human brain and think like humans and give faster results, is it possible? Yes, by a pre-stored data so that the machines can analyze the same, or letting it figure out the surroundings like what a human brain does when it grows over the years and come cognizant of everything around. AI is working as a human brain but its decision is unlike a human because AI is unbiased in making decisions or predictions. It seems Science fiction, isn't it? But it's not, it is the reality.
+ 
+ 
+Many think it's a Human threat, and this has started a hot debate among many well-known personalities from the world.
+ 
+ 
+ELON MUSK - "I am really quite close, I am very close to the cutting edge in AI and it scares the hell out of me,'' It's capable of vastly more than almost anyone knows and the rate of improvement is exponential.
+ 
+ 
+MARK ZUCKERBERG - â€œAI is going to make our lives better in the future, and doomsday scenarios are "pretty irresponsible,"
+ 
+ 
+Both think differently but we won't know what will happen but the truth is AI already is a part of our lives whether we know it or not. It is almost everywhere if it's not it will be implementing there soon. Almost all the sectors in the world are using AI in some form and that is what we would know here.
+ 
+ 
+How Artificial intelligence is making an impact on across various sectors:
+ 
+ 
+In the last few years Big data, Machine learning and the development of deep learning
+have brought a revolution in artificial intelligence. Today the devices store everyday data and generate huge data sets, which â€œMachine learning â€œand â€œdeep learningâ€ algorithms analyses to find trends and make predictions.
+Similarly, to almost every single industry, IT, Finance, Fashion, Pharmaceutical, Automobile all have been stormed by the ongoing technological revolution. Recent evolutions in technologies such as AI, deep-learning, machine-learning, and others are leading us all towards the 4th Industrial Age.
+ 
+ 
+The AI systems are powerful enough to cut down human efforts in different areas. To execute various activities in the industry, many of them are using artificial intelligence to create machine algorithms that perform various tasks daily. What important role does artificial intelligence play today?
+So, let's see the role of AI in each one of these sectors one by one.
+ 
+ 
+ 
+1. ARTIFICIAL INTELLIGENCE ROLE IN IT SECTOR
+ 
+ 
+This is probably the biggest sector that AI is influencing right now, every company is either building AI of some kind or companies who are big enough directly buy the small startups that are into AI.
+ 
+Google, Apple, Microsoft, Huawei, At&t and all the other big players are already in the act. You may ask how? Well, the answer is everywhere around you. The Android phone you are using uses Google assistant, it's an AI application that does everything you ask from it, like making a call to playing your favorite songs. Alexa is a new trend these days and offers a similar role as that of Google assistant, Microsoft has now a chatbot in skype called Ruuh, It's a chatbot that can talk with you for hours and won't bore you because it just talks like an actual human, we can also put chatbots from hike messenger, Facebook messenger and Google allows messenger, all of them are running on AI.
+ 
+ 
+But the most amazing thing that you people don't know is something Google has already shown back in 2018 in its yearly Google I/O meet, the thing is a step above your google assistant as it can talk to someone in your absence without them even knowing that's it's actually not you, and as time passes it keeps learning from you and how you speak or stop between sentence or put emphasis on some words, it knows it all. So what they showed there was the person told the assistant to book a dinner table in a hotel, the Google assistant directly called the hotel from the online search and then talked to the person in almost unbelievable human tone and booked a table without the person on-the-other side of the phone, without realizing that he just talked with an AI machine. How cool is that? Can you believe this? if you have been a big-time fan of Tony Stark's Jarvis, now is the time you need to get eager or enthusiastic about it because it's not Sci-Fi anymore.
+ 
+ 
+It's quite logical now that how this AI is already in our day-to-day lives and it's somehow making our lives easier.
+ 
+Whenever you hear the term Artificial Intelligence in the IT Sector, you might get an image of civilization hem in by robots. But unlike what we see in Sci-Fi movies, machine intelligence is more practical and sensible. Everything surroundings you are changing with AI, like how systems and software are put together, how users can connect and what can be programmed. We are now a part of the new generation where machines started to learns from user behavior and predict and recognize the next move.
+ 
+Why is it taking off? And that too at a rapid rate? Here are a few reasons:
+ 
+ 
+EVERYTHING IS CONNECTED: we are now living in a time where everything is connected, thanks to the internet and cloud computing everything now is just one click away from us. Here â€œAIâ€ can play a superior role in making the workload less on such forms of communication, where it already knows what you want instead of typing something, For example your Google feed on your computer or your YouTube recommendations bar, they all know what you want to search or see by learning from your  history and usage scenarios.
+ 
+ 
+COMPUTING IS BECOMING PRETTY CHEAPER: There was a time when computers were costly. Now it's not, we all have our smartphones which are the future of computing, it's amazing how the requirement of a computer started from the need to calculate something and now it is way bigger than that, basically, we have the world in our hands in the form of these devices.
+ 
+ 
+DATA IS SUPER VALUABLE: Every company wants data now, and you might have read it somewhere regarding the latest Facebook data leak thing, that how Facebook was stealing data, you might think why? A company like Facebook needs data of a person like you, well that's because those data will be used to train and feed the Artificial intelligence of these companies, so you are basically a trainer to the AI of these companies and you don't even know, the more data the AI has the more it knows the easier is for the giant leader like Facebook to influence you, maybe through ads or through some political thought that may be used to win elections. And the latter case was seen in US general elections. Have you ever noticed it, if you are searching for an online product on some site, you see the same product again and again as an advertisement for the whole day on all the other websites you visit? How does that happen? Well, I think now your know-how. just a few days back Facebook has announced that it will pay you for your data, you must think â€œoh yeahâ€ Iâ€™m getting paid for my personal information, but that will help Facebook beat the race because data in the future will become more essential than money. The more data you have the power you are because you can influence millions of people just by a click. sneaky? Isn't it?
+ 
+ 
+ 
+With the use of Artificial Intelligence in the IT Sector, we can now extend and enhance human capacity to solve real problems that affect education, health, politics, and poverty. Through the lens of AI, you can take a new look at solving a problem. These companies are thinking into the future and they know that AI is somewhat a key to solve problems in the future, manpower won't be that important if AI will kick in with full force like Tesla, Uber and other giant companies are developing self-driven cars where there could be changes in the future we may not require any cabbie to drive the car. And we believe that it enhances human society and not adversely affect it.
+ 
+ 
+ 
+ 
+ 
+2. ARTIFICIAL INTELLIGENCE ROLE IN AUTOMOBILE INDUSTRY
+ 
+ 
+it's fascinating and might be astonishing for many of that Automobile sector out of all the sectors right now is using the foremost modern cutting-edge AI to develop better cars and automobiles.
+ 
+Might astonish many of you that
+ 
+ 
+so, what is the automotive industry working on? Well, it's self-driving cars, affirmative you most likely guessed it already, which is that the answer. AUDI, TESLA, TOYOTA, BMW, RENAULT, VOLKSWAGEN, PORSCHE, MAZDA, these automobile company is functioning on self-driving cars by using and implementing AI into their vehicles even now when you are reading this blog.
+ 
+ 
+In all probably/probability the most important Player of all is TESLA, a corporation established by one among the brightest minds of 21st-century ELON MUSK. The corporate is only committed to clean energy and cars that required no drivers and have created autopilot doable on highways and regular roads through their advance AI platform known as â€œTHE TESLA AUTOPILOT". You will not believe what all this could do, this is often in all probability the foremost advanced form of known AI in the world without delay.
+ 
+ 
+Tesla in its automotive has this method put in wherever you only sit in your car, set a destination and it will drive you all the way there without any issues. And oh! On top of that, the sensors on the automotive alongside the AI is so advanced that it knows when accidents area unit aiming to happen, you will not believe until you see it but this thing is capable of predicting accidents on a road 5-10 secs before it takes place. Also, if someone is coming to crash into you it will automatically change its path to save you from the accident. And yes, folks this is often, it is not a Hollywood sci-fi.
+ 
+ 
+if you want to go into additional detail about the system that runs the AI, Tesla has shown it in their recent demonstration where they show the whole SOC (system on a chip) that runs these cars and what powers the AI. No one would have thought that the cars will be able to take decisions on their own and make travel safer and fewer nerve-wracking. TESLA has launched 3 cars by now and all of them support the Tesla autopilot feature and guess what people have already been buying these cars from 2014. Almost all of the United State and Europe is using this feature on their Tesla cars right now which is saving human lives and providing transits from one place to a different to the passengers.
+ 
+ 
+Remember one thing about the prediction of crashes by the Tesla autopilot system. It works with the help of sensors and therefore SOC that work together in real-time providing the vehicle an awareness about the surroundings with 360-degree cameras and different sensors that send the information in terms of data to the SOC where it processes it and takes action. Damn it, we have made an artificial nervous system within our cars. We, humans, are simply amazing. Isnâ€™t it?
+ 
+ 
+The future of self-driving cars in long terms looks promising and now with companies like Tesla pushing it most, it would become a standard within the coming future. Uber and Apple have also talked positively about self-driving cars and that they are investing huge lumps of cash to make it a reality. Apple recently said that it wants to launch its self-driving car by 2025 to rival the present Tesla and uber says self-driving cars are the simplest for its profits as a result of then they won't need to pay for drivers. Simply one-time investment in self-driving cars and lifelong incomes. Sensible business there UBER, nice thought. Here is a word from UBER'S CEO - "Ultimately, self-driving cars will be safer than humans, but right now self-driving cars are learning," said Khosrowshahi of the technology, which is still being developed.
+ 
+ 
+Here are a few confirmations from Reuters about apple self-driving Automotive :(Reuters) - Apple Inc is planning to put off a hundred ninety workers in its self-driving car program, Project Titan, changes that offer a rare window into the automotive technologies the corporate has been following. A company spokesman confirmed that the reduction was from the self-driving automotive program.
+ 
+ 
+Well, this thing must be profitable that is why a company that produces smartphones is suddenly all into it. It might sound weird however it will soon be a reality. Sooner you will see apple cars on the street.
+ 
+ 
+So, I talked about Tesla and apple and uber however what about the giant leaders, wait do not assume that they are not into the game, BMW, Mercedes, Audi, Toyota, and Volkswagen are all into this war and are competing to be higher than the other. solely time will tell who will win the war however right now it appears TESLA is heads and shoulders higher than the competition right now.
+ 
+ 
+ 
+3. ARTIFICIAL INTELLIGENCE IN FASHION INDUSTRY
+ 
+ 
+When every sector is using AI then why fashion should be lagging. AI in the fashion sector is playing a role in helping brands with designs of their products and the machine learning helps to carve out ideas for future products which the consumers will like based on their prior likings of certain designs or products.
+ 
+ 
+The simple example would be of the Lenskartâ€™s new real-time face-scanning app that will let you know the fit of certain designs in a three-dimensional view so that you can buy it without worrying about its fit or how ugly it might make you look. so, you are trying out thousands of designs which you may not find in one place if you are physically going to a shop but virtually now it's possible because of AI and you are doing all this by just using your smartphone. Cool isn't it?
+ 
+ 
+Recently it was one of the hottest topics around fashion magazines in the world when Kylie Jenner used an Artificial intelligence beauty app for her makeup to get ready for a photoshoot. It's called BEAUTY_GAN.
+ 
+ 
+Beauty_GAN is not the only technology of its kind. Its creative director Sebastian Zimmerhackl sites German artist Mario Klingemann as an influence. Klingemann calls his work â€œneurographyâ€, whereby he trains a machine to create images without a camera. His system can produce thousands of images a day. In the world of fashion, artist Robbie Barrat created an AI that ingested all of Balenciagaâ€™s previous collections via their campaigns, look books and catwalk imagery â€“ his AI randomly generates hypothetical (but pretty plausible) designs.
+ 
+ 
+As with Beauty_GAN, there is an uncanniness that occurs, as well as a weird, trippy aesthetic â€“ the aesthetic of an alternate reality where machines dictate the way that we present our- selves. â€œIt doesnâ€™t look excellent,â€ acknowledges Sebastian of Beauty_GANâ€™s output, â€œbecause itâ€™s an experiment. however, in the future, itâ€™s the inventive mistakes that we will bear in mind.
+ 
+NIKE has already up to the Nike FIT app where you will be able to simply scan your feet and see the correct shoes of your style and fit. Just imagine you sitting in your room and doing tryouts of shoes without even leaving your home and almost trying all the available styles. So how do they work? These apps use AI and AR (augmented reality) where they know about the 3-D arrangements of objects and they can provide exact and hyper-accurate measuring of the objects in real-time. Well this is life king size, right? Everything you want is at your hands are now awesome.
+ 
+Artificial intelligence is also helping big companies to manage their inventory by using data science. How many products were sold, how many stocks are left, what products are selling more? What style is most liked? and so on. AI helps in this way to make a systematic arrangement of data where a company is producing a very large amount of goods and needs to check on their inventory.
+ 
+ 
+Artificial intelligence is additionally serving to the fashion companies to better interact with their customers with the help of chatbots that talk with the customer and know what their demands are, after that they create a data set that is used by the company to supply products that target the consumer needs better.
+ 
+ 
+
+ 
+ 
+Artificial intelligence is slowly however somehow creating its approach into the fashion industry. From designing dresses to selecting merchandise for the customer, AI is unquestionably reaching to play an amazing role, and as time passes more and more companies will join the race and from our hats to our shoes maybe everything will be designed and manufactured with the help of artificial intelligence. It is still early to say that AI could be a dominant force in the fashion within the industry however you never know what happens in the future and people's liking towards fashion and AI will surely create a synergy that will prove a way for AI to flourish in the fashion industry shortly.
+ 
+ 
+ 
+ 
+ 
+ 
+4. ARTIFICIAL INTELLIGENCE IN PHARMACEUTICALS AND MEDICINE
+ 
+ 
+Pharmaceuticals are lifesaving and indeed it's a vast sector that involves billions of dollars and several individuals operating worldwide to synthesize new medicine to raised counter diseases. So where does the role of Artificial intelligence stand here?
+ 
+ 
+Application of AI to pharmacy and medicine. Artificial intelligence is dealing with solving issues using symbolic programming. It has evolved into a problem-solving science with applications in business, engineering, and health care.
+ 
+ 
+Artificial intelligence (AI) in health care is the use of complicated algorithms and code to estimate human cognition in the analysis of complicated medical data. Specifically, AI is the ability for machine algorithms to approximate conclusions without direct human input.
+ 
+ 
+So, the issue is that the drugs that are synthesized need testing so they will be used by the patients all around the world, except for a drug to go on sale it must pass all the tests and additionally suppress the disease which it has to counter.
+ 
+So, the drug is tested in artificial simulations to visualize however it works and the extent of its effects without even bringing an actual human into the picture.
+ 
+A drug works by binding to a receptor that is present on enzymes. Once a drug molecule binds a chemical reaction takes place and a product is created, so the drug that binds with the enzyme either stops its activity and builds its non-functional or makes it affects lesser in our body. The structure of those enzymes and drug are seen in real-time with the help of simulations that are run by Artificial intelligence that decides that the drug is going to work or not, saving both time, money and human lives in the process.
+ 
+ 
+In health care, Artificial intelligence relies on the power of computers to sift through and add up reams of electronic data about patientsâ€”including ages, medical histories, health status, test results, medical images, DNA sequences, and lots of different sources of health information in a data set. Some applications work on AI and they facilitate in diagnosing diseases. These applications are MADDOX and PAYNE.
+ 
+ 
+MADDOX: This is an application of AI inpatient care that we currently see in imaging, to assist improve the diagnosis of cancer or heart problems. Many scans are done through CT scans, x-ray scans and MRI's. So, it will collect the information in the form of data and interpret it to give the result that
+can facilitate the identification and diagnose.
+ 
+ 
+PAYNE: In many ways, we tend to have very simple forms of AI in the clinic currently. Weâ€™ve had tools for an extended time that determine abnormal rhythms in an EKG, for example. An abnormal heartbeat pattern triggers an alert to draw a clinicianâ€™s attention. This is a computer trying to replicate a human being understanding that data and saying, â€œThis doesnâ€™t look traditional, you will address this drawback.â€
+ 
+  
+
+AI will play one of the biggest roles in this sector and the impact of AI in this sector can be a boon for the human community in the world. If we better understand More diseases it will facilitate us to eradicate life-threatening factors and provide us with a more healthy life. AI in the health sector and medical sector is a tool that affects us directly more than any other sector where AI is being used or will be used in the future. A healthy lifestyle and a long life to humans will ensure a sustainable development that will help our species to grow and flourish on this planet.
+ 
+ 
+5. ARTIFICIAL INTELLIGENCE IN FINANCE
+ 
+ 
+Computing has taken the financial services industry by storm. Almost every company within the monetary technology sector has already started using AI to save lots of time, scale back or reduce costs, and add value.
+ 
+ 
+Artificial intelligence in the finance sector helps to better understand the workings of account holders as to how they spend, invest and make decisions that are related to finance. this allows them to give a piece of better advice to their customers and creates a good understanding.
+ 
+ 
+Almost all the top finance sector in the world square measure investment heavily to get hold of leading-edge AI so that they can implement it in their banking method to gain lots of customers and to better in financial markets. Since AI is a thing that keeps getting better with time, it will additionally increase the profits of a bank if it knows the customers will stay or get churn, the stocks, the investment, and the various banking tools.
+ 
+ 
+Artificial intelligence can even start and augment rules and selections in commerce, serving to process the data and creating the algorithms that manage commerce rules. Investment corporations have enforced numerous commerce algorithms based on work and insights from various social media and other public information in terms of data sources for years to gain more information and also to better train the AI.
+ 
+ 
+Artificial Intelligence often used effectively in processes that involve the processing of financial transactions. Also, it helps in analyzing an enormous variety of pages of the tax changes. We can see shortly where corporations are going to completely rely on AI to make significant firm related decisions. AI also can identify how customers are going to react to various things and issues.

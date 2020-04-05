@@ -1,0 +1,67 @@
+1. Importing data into RStudio 
+   mydata <- read.csv("/home/Devashish/R assigns/dataset_Facebook.csv",header = TRUE, sep = ';')
+
+2. Create data subsets
+   > myvars <- c(2,3,4)
+   > newData <- mydata[myvars]
+   
+   > newdata <- mydata[1:5,]> head(newdata)
+  Page.total.likes   Type Category Post.Month Post.Weekday Post.Hour Paid Lifetime.Post.Total.Reach
+           139441  Photo        2         12            4         3    0                      2752
+           139441 Status        2         12            3        10    0                     10460
+           139441  Photo        3         12            3         3    0                      2413
+           139441  Photo        2         12            2        10    1                     50128
+           139441  Photo        2         12            2         3    0                      7244
+  Lifetime.Post.Total.Impressions Lifetime.Engaged.Users Lifetime.Post.Consumers Lifetime.Post.Consumptions
+                            5091                    178                     109                        159
+                           19057                   1457                    1361                       1674
+                            4373                    177                     113                        154
+                           87991                   2211                     790                       1119
+                           13594                    671                     410                        580
+  Lifetime.Post.Impressions.by.people.who.have.liked.your.Page Lifetime.Post.reach.by.people.who.like.your.Page
+                                                         3078                                             1640
+                                                        11710                                             6112
+                                                         2812                                             1503
+                                                        61027                                            32048
+                                                         6228                                             3200
+  Lifetime.People.who.have.liked.your.Page.and.engaged.with.your.post comment like share Total.Interactions
+                                                                 119       4   79    17                100
+                                                                1108       5  130    29                164
+                                                                 132       0   66    14                 80
+                                                                1386      58 1572   147               1777
+                                                                 396      19  325    49                393  	
+
+
+3. Merge Data
+   > total <- merge(mydata, newData, by = 'Type')
+   > View(total)	 
+
+4. Sort Data
+   
+   4.1 Sort by Pages.total.likes
+       > newdata <- mydata[order(mydata$Page.total.likes),] 
+       > View(newdata)
+   
+   4.2 Sort by Pages.total.likes (ascending) & Category (descending)
+       > newdata <- mydata[order(mydata$Page.total.likes, -mydata$Category),]
+       
+5. Transposing Data
+   > newdata <- t(newdata)
+   > View(newData)
+   
+6. Melting Data to long format
+   > md <- melt(newdata, id=c("Type", "Category", "Paid" ))
+   > View(md)
+	x1	x2			value   
+	
+   	18	Page.total.likes	138414
+	22	Page.total.likes	138414
+	23	Page.total.likes	138414
+	30	Page.total.likes	138895
+	35	Page.total.likes	138895
+	38	Page.total.likes	138895
+	40	Page.total.likes	138895
+	42	Page.total.likes	138895
+	43	Page.total.likes	138353
+	44	Page.total.likes	138353
+	
