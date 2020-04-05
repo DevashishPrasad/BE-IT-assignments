@@ -3,27 +3,24 @@
 
 using namespace std;
 
-string l("i+i$");
+string l;
 
-// Match function 
-void match(char t, int *i) 
-{ 
-    if (l[i] == t) { 
-        //l = getchar(); 
-        i++;
-    } 
-    else
-        cout<<"Error"; 
-}
+/*
+Grammar:
+
+E --> i E'
+E' --> + i E' | e
+*/
 
 // Definition of E' as per the given production 
 void E_(int *i)    
 { 
-    if (l[i] == '+') { 
-        match('+',i); 
-        i++;
-        match('i',i); 
-        E_(); 
+    if (l[*i] == '+') {  
+        *i = *i + 1;
+        if (l[*i] == 'i'){
+            *i = *i + 1;
+            E_(i);   
+        } 
     } 
     else
         return; 
@@ -32,20 +29,29 @@ void E_(int *i)
 // Definition of E, as per the given production 
 void E(int *i)
 { 
-    if (l[i] == 'i') { 
-        match('i',&i);     
-        E_(&i); 
+    if (l[*i] == 'i'){
+        *i = *i + 1;
+        E_(i); 
     }
 }  
 
 int main() 
 { 
-    int i=0;
-    // E is a start symbol. 
-    E(&i); 
+    // Index
+    int *i = new int;
+    *i = 0;
  
+    cout<<"\n Enter the String to check : ";
+    cin>>l;
+    
+    // E is a start symbol. 
+    E(i); 
+        
+    //cout<<l;
     // if lookahead = $, it represents the end of the string 
     // Here l is lookahead. 
-    if (l[i] == '$') 
+    if (l[*i] == '$') 
         cout<<"Parsing Successful"; 
+    else
+        cout<<"Parsing Unsuccessful"; 
 }
