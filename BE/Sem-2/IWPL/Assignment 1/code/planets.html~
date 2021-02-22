@@ -1,0 +1,93 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Planets </title>
+		<!-- Link the external stylesheet -->
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body style="background: url('images/planet.jpg'); background-size: 1500px 800px; margin:0; padding:0;">
+	
+		<!-- Header  -->
+		<header>
+			<nav>
+				<img src="images/logo.png" id="logo" />
+				<a style="margin-left:27%; padding-top:10px;" href="main.html">
+					<span style="font-size: 75px; color:#ffffff">I</span>
+					<span style="font-size: 65px; color:#eeeeee">N</span>
+					<span style="font-size: 60px; color:#dddddd">F</span>
+					<span style="font-size: 55px; color:#cccccc">I</span>
+					<span style="font-size: 50px; color:#bbbbbb">N</span>
+					<span style="font-size: 45px; color:#aaaaaa">I</span>
+					<span style="font-size: 40px; color:#999999">T</span>
+					<span style="font-size: 35px; color:#888888">Y</span>
+				</a>
+			</nav>
+		</header>
+
+		<!-- Nav bar  -->
+		<header style="text-align:center;height:39px;">
+			<ul style="margin-top:0px;">
+				<li id="li1" class="active">
+				<a href="planets.html">PLANETS</a>
+				<div class="hidden" id="hid1">
+					<ul>
+						<a href="dwarf.html"><li>DWARF</li></a>
+						<a href="giant.html"><li>GIANT</li></a>
+						<a href="terrestrial.html"><li>TERRESTRIAL</li></a>
+					</ul>
+				</li>				
+				<li id="li2">
+					<a href="galaxies.html">GALAXIES</a>
+					<div class="hidden" id="hid2">
+						<ul>
+							<a href="galaxies.html"><li>GALAXIES</li></a>
+						</ul>
+					</div>
+				</li>
+				<li id="li3">
+					<a href="videos.html">VIDEOS</a>
+					<div class="hidden" id="hid3">
+						<ul>
+							<a href="videos.html"><li>VIDEOS</li></a>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</header>
+
+
+		<!-- Section  -->
+		<section style="width:70%;margin-left:15%;margin-top: 50px;">
+			<div class="bigim">
+				<a href="giant.html" style="text-decoration:None;color:#444">
+					<img style="width:100%;height:450px;" src="images/giant.jpg"/>
+					<h3>Giant planets</h3>
+				</a>
+			</div>	
+			<div class="bigim">
+				<a href="terrestrial.html" style="text-decoration:None;color:#444">
+					<img style="width:100%;height:450px;" src="images/terrestrial.jpg"/>
+					<h3>Terrestrial planets</h3>
+				</a>
+			</div>
+			<div class="bigim">
+				<a href="dwarf.html" style="text-decoration:None;color:#444">
+					<img style="width:100%;height:450px;" src="images/dwarf.jpg"/>
+					<h3>Dwarf Planets</h3>
+				</a>
+			</div>
+		</section>
+		
+		<br>
+		<br>
+		<br>
+		
+		<!-- Footer -->
+		<footer style="color:#333333; padding:5px; width:100%; height:100px; background:#ffffff;float:left;margin-top:50px; border-top: solid 5px #000000">
+			<p style="margin-left:40px;"> Infinity Space Exploration Group </p>
+			<address style="margin-left:40px;">
+				Pune Institute of Computer Technology, Dhankawadi, Pune, Maharashtra, India, Earth `\__('.')__/`
+			</address>
+		</footer>
+	</body>
+</html>

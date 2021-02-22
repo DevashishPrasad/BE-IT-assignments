@@ -1,0 +1,118 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title> Infinity </title>
+		<link rel="stylesheet" href="main.css"/>
+	</head>
+	<body>
+		<form onsubmit="return validate()">
+			<h1>Registration</h1>
+			<fieldset>
+				<legend>Personal Information</legend>
+				<label>NAME : <span style="color:FF0000">*</span></label>
+				<br>
+				<input type="text" id="First" onblur="blurcheckname(this)" placeholder="First" required="true"/>
+				<input type="text" id="Middle" onblur="blurcheckname(this)" placeholder="Middle" required="true"/>
+				<input type="text" id="Last" onblur="blurcheckname(this)" placeholder="Last" required="true"/>
+				<br>
+				<br>
+				<label>ADDRESS : <span style="color:FF0000">*</span></label>
+				<br>
+				<textarea rows=2 cols=50 id="Street" onblur="blurcheckaddress(this)" placeholder="Street" required="true"></textArea>
+				<textarea rows=2 cols=50 id="Area" onblur="blurcheckaddress(this)" placeholder="Area" required="true"></textArea>
+				<br>
+				<input type="text" id="City" onblur="blurcheckname(this)" placeholder="City" required="true"/>
+				<input type="text" id="State" onblur="blurcheckname(this)"  placeholder="State" required="true"/>
+				<input type="text" id="Country" onblur="blurcheckname(this)" placeholder="Country" required="true"/>
+				<br>
+				<br>
+				<label>GENDER : <span style="color:FF0000">*</span></label>
+				<br>
+				<label><input type="Radio" name="gender" id="male" value="Male"/>Male</label>
+				<br>
+				<label><input type="Radio" name="gender" id="female" value="Female"/>Female</label>
+				<br>
+				<br>
+				<label>DATE OF BIRTH : </label>
+				<br>
+				<label> Day : </label>
+				<select>
+				  <script>
+				  	for(var i=1; i<31; i++){
+	  				  document.write('<option value="' + i + '">' + i + '</option>')
+	  				}
+				  </script>
+				</select> 
+				<label> Month : </label>
+				<select>
+					<option value="jan">jan</option>
+					<option value="feb">feb</option>
+					<option value="mar">mar</option>
+					<option value="apr">apr</option>
+					<option value="may">may</option>
+					<option value="jun">jun</option>
+					<option value="jul">jul</option>
+					<option value="aug">aug</option>
+					<option value="sep">sep</option>
+					<option value="oct">oct</option>
+					<option value="nov">nov</option>
+					<option value="dec">dec</option>
+				</select>
+				<label> Day : </label>
+				<select>
+				  <script>
+				  	for(var i=1930; i<2010; i++){
+	  				  document.write('<option value="' + i + '">' + i + '</option>')
+	  				}
+				  </script>
+				</select> 
+				<br>
+				<br>
+				<label>EDUCATION : </lable>
+					<br>
+					<label>(select all that applies)</label>
+					<br>
+					<label><input type="Checkbox" name="gender" value="Male"/>10th</label>
+					<br>
+					<label><input type="Checkbox" name="gender" value="Female"/>12th</label>
+					<br>
+					<label><input type="Checkbox" name="gender" value="Female"/>Diploma</label>
+					<br>
+					<label><input type="Checkbox" name="gender" value="Female"/>Bachelor's Degree</label>
+					<br>
+					<label><input type="Checkbox" name="gender" value="Female"/>Master's Degree</label>
+					<br>
+					<label><input type="Checkbox" name="gender" value="Female"/>PhD</label>
+			</fieldset>
+			<br>
+			<fieldset>
+				<legend>User Account Information</legend>
+				<label>Email : <span style="color:FF0000">*</span></label>
+				<br>
+				<input id="email" type="email" required="true"/>
+				<br>
+				<br>
+				<label>Phone : <span style="color:FF0000">*</span></label>
+				<br>
+				<input id="phone" type="number" required="true"/>
+				<br>
+				<br>
+				<label>Password : <span style="color:FF0000">*</span></label>
+				<br>
+				<input id="pass1" onblur="blurcheckpassword(this)" type="password" required="true" oncontextmenu="return false" onkeydown="checkctrl(event)"/>
+				<br>
+				<br>
+				<label>Re-Enter Password : <span style="color:FF0000">*</span></label>
+				<br>
+				<input id="pass2" onblur="blurcheckpassword(this)" type="password" required="true" oncontextmenu="return false" onkeydown="checkctrl(event)"/>
+			</fieldset>
+			<br>
+			<p id="val" style="color:red;"></p>	
+			<center>
+			<input class="but" type="submit" value="SUBMIT"/>
+			<input class="but" type="reset" value="RESET"/>
+			</center>
+		</form>
+	</body>
+</html>
+<script src="js.js"></script>
