@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css?family=Play');
+@import url('https://fonts.googleapis.com/css?family=El+Messiri');
+body{
+	/*padding: 5px auto;*/
+    font-family: 'El Messiri', sans-serif;
+    background:url(../img/bg3.jpg) fixed no-repeat;
+    background-size:cover;
+}
+.container-fluid{
+   /*background-color: white;*/
+   padding-right:0px;
+   padding-left:0px;
+   margin-right: auto;
+   margin-left: auto;
+}
+
+.header_top{
+	background:url(../img/header_img4.jpg) fixed no-repeat;
+    width: 100%;
+    height:323px;
+    background-size: 100% 80%!important;
+    font-family: 'El Messiri', sans-serif;
+	
+
+}
+.header_top img{
+	border-radius: 50%;
+}
+/*this is for present menu*/
+.menu{background-color:rgba(34, 35, 37, 0.99)!important;width:auto;height:35px}
+.navbar-default {
+    background-color: #9191e0!important;
+    border-color: #e7e7e7;
+}
+.nav{
+    min-height:37px!important;
+}
+.navbar-default {
+    background-color:#1f1f21!important;
+    border-color: #e7e7e7;
+}
+.menu ul{margin:0;padding:3px 6px;list-style:none}
+.menu ul li{float:left;border-right:1px solid #fff;position:relative;}
+
+.menu ul li:last-child{border-right:0px solid #fff}
+.menu ul li a{background:rgba(34, 35, 37, 0.99)!important;display:block;padding:5px 25px;text-decoration:none;color:#fff;}
+.menu ul li a:hover{background:rgb(46, 49, 142);color:#fff;}
+
+/*This CSS id for Dropdown Menu*/
+.menu ul li ul{position:absolute;left:-99999px;z-index:10000000}
+.menu ul li:hover ul{left:0px;}
+.menu ul li ul li{float:none;border-top:1px solid #fff;width:200px;border-right:0px solid;border-left:0px solid;}
+.menu ul li ul li:first-child{border-top:0px solid #fff;}
+.menu ul li ul li:last-child{border-bottom:0px solid #fff;}
+.menu ul li ul li a{background:#;display:block;padding:3px 52px;text-decoration:none;color:#fff;}
+.menu ul li ul li a:hover{background:#fff;color:#000;}
+
+
+.content{
+	    background-color:white;
+  	    color:#2b2121;
+        padding: 20px;
+}
+.main_content{
+
+}
+.fsection{
+    background-color: rgba(20, 21, 23, 0.99);
+    padding: 0px;
+    height: 35px;
+    padding-left: 485px;
+    color: #fff;
+}
+.share_img img {
+    width:40px;
+    height:40px;
+    margin-right: 5px;
+}
+.sliderImg img{
+	margin-left: 21px;
+    margin-right: 20px;
+    border: 2px solid #000;
+}
+table{border-collapse: collapse;
+	background-color: darkred;
+}
+table,th,td{
+     border: 1px solid #fff;width:;margin: 10px auto;
+ }
+ th{
+ background-color: red;color: white;
+ padding:12px;
+}
+td{
+	padding: 5px 20px;
+	text-align: center;
+    color: white;
+    background-color:black;
+}
+.stick{
+	position: fixed;
+	top: 0px;
+	z-index: 9999999999;
+}
+/*--------this is for input type--------*/
+input[type="text"],input[type="email"],input[type="password"],input[type="number"],input[type="file"],input[type="date"],select,option{
+    text-align: initial;
+    width:223px;
+    box-shadow:1px 1px 1px #2d2a2a;
+     height:35px;
+    line-height: normal;
+    line-break: inherit;
+    background-color: ivory;
+    align-self: normal;
+    margin-left: 5px;
+    border:1px solid grey;
+    border-radius: 4px; 
+    padding:4px 6px;
+    float: right;
+    margin-right: 170px;
+}
+input[type="submit"] {
+    margin-right: -709px;
+    margin-top: 25px;
+    /*background-color:#29b6f6;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px black;*/
+}
+select,option {
+    text-align: initial;
+    width: 237px;
+    box-shadow:1px 1px 1px #2d2a2a;
+    height:45px;
+    line-height: normal;
+    line-break: inherit;
+    background-color: ivory;
+    align-self: normal;
+    margin-left: 5px;
+    border:1px solid grey;
+    border-radius: 4px; 
+    padding:4px 6px;
+    float: right;
+    margin-right: 170px;
+}
+textarea {
+    text-align: initial;
+    width:223px;
+    box-shadow:1px 1px 1px #2d2a2a;
+    /*height: 20px;*/
+    line-height: normal;
+    line-break: inherit;
+    background-color: ivory;
+    align-self: normal;
+    margin-left: 5px;
+    border:1px solid grey;
+    border-radius: 4px; 
+    /*padding:4px 6px;*/
+    float: right;
+    margin-right: 170px;
+}
+input, textarea, .uneditable-input {
+    /*width: 206px;*/
+}
+label {
+    cursor: pointer;
+    float: right;
+}
+/*--------input type End--------*/
+
+/*contact us style*/
+/*.contact_form {
+    width: 500px;
+    height: 218px;
+    margin-left: 490px;
+    margin-top: 30px;
+}*/
+
+/*.contact_left{
+    margin-left: 30px!important;
+    border-right: 2px solid black;
+}
+*/
+.btn{
+    padding: 1px 9px!important;
+    border:1px solid!important;
+}
+
+
+.box{
+    width: 220px;
+    height:220px;
+    border-radius: 50%;
+    background-color:rgba(0, 0, 255, 0.58);
+    margin-left: 135px;
+    margin-bottom:35px;
+    opacity: .70
+}
+.box:hover{
+    opacity: 1;
+    border:2px solid red;
+    font-size: 10px;
+}
+
+.box h4{
+    padding-top: 83px;
+    padding-left: 33px;
+    color: white;
+}
+
+li{
+    text-decoration: none;
+    list-style: none;
+    color:#fff; 
+}
+
+
+.formstyle{
+    box-shadow: 4px 5px 3px 2px black;
+}
+
+
+
+
+
+
+
+

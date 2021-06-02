@@ -1,0 +1,10 @@
+module calc_val
+{
+  interface calc
+  {
+    double addfn(in double a,in double b);
+    double subfn(in double a,in double b);
+    double mulfn(in double a,in double b);
+    double divfn(in double a,in double b);
+  };
+};

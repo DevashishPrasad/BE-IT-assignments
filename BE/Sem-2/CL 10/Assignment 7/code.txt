@@ -1,0 +1,44 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(13,12,5,4,3,2);
+int i = 0;
+
+void setup() {
+  lcd.begin(16, 2);
+  delay(1000);
+}
+
+void loop() {
+  if(i == 0){
+  	lcd.setCursor(0,1);
+    i = 1;
+    lcd.print("Devashish PICT");
+  }
+  else{
+  	lcd.setCursor(0,0);
+    i = 0;
+    lcd.print("Roll No 43320");
+  }
+  
+  for (int i = 0; i < 15; i++) {
+    lcd.scrollDisplayLeft();
+    delay(150);
+  }
+
+  for (int i = 0; i < 30; i++) {
+    lcd.scrollDisplayRight();
+    delay(150);
+  }
+
+  for (int i= 0; i< 15; i++) {
+    lcd.scrollDisplayLeft();
+    delay(150);
+  }
+
+  delay(1500);
+  lcd.clear();
+  delay(1500);
+}
+
+
+ 

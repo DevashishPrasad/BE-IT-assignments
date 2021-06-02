@@ -1,0 +1,300 @@
+
+/* ==========================================================================
+   #FONT
+   ========================================================================== */
+.font-robo {
+  font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+}
+
+.font-poppins {
+  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+}
+
+/* ==========================================================================
+   #GRID
+   ========================================================================== */
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.row-space {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.col-2 {
+  width: -webkit-calc((100% - 30px) / 2);
+  width: -moz-calc((100% - 30px) / 2);
+  width: calc((100% - 30px) / 2);
+}
+
+@media (max-width: 767px) {
+  .col-2 {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+/**
+ * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ */
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+/* ==========================================================================
+   #RESET
+   ========================================================================== */
+/**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+body,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, dd, ol, ul,
+figure,
+hr,
+fieldset, legend {
+  margin: 0;
+  padding: 0;
+  
+}
+
+/**
+ * Remove trailing margins from nested lists.
+ */
+li > ol,
+li > ul {
+  margin-bottom: 0;
+}
+
+/**
+ * Remove default table spacing.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+fieldset {
+  min-width: 0;
+  /* [1] */
+  border: 0;
+}
+
+button {
+  outline: none;
+  background: none;
+  border: none;
+  background-color: beige;
+  border: cadetblue;
+}
+
+/* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+.page-wrapper {
+  min-height: 50vh;
+  background-color: #525252;
+}
+
+body {
+  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  background: url(assets/images/img3.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 800px;
+  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+h6 {
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   #BACKGROUND
+   ========================================================================== */
+.bg-blue {
+  background: #2c6ed5;
+}
+
+.bg-red {
+  background: #fa4251;
+}
+
+.bg-gra-01 {
+  background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
+  background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
+}
+
+.bg-gra-02 {
+  background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
+  background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+}
+
+/* ==========================================================================
+   #SPACING
+   ========================================================================== */
+.p-t-100 {
+  padding-top: 100px;
+}
+
+.p-t-130 {
+  padding-top: 130px;
+}
+
+.p-t-180 {
+  padding-top: 180px;
+}
+
+.p-t-20 {
+  padding-top: 20px;
+}
+
+.p-t-15 {
+  padding-top: 15px;
+}
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
+.p-t-30 {
+  padding-top: 30px;
+}
+
+.p-b-100 {
+  padding-bottom: 100px;
+}
+
+.m-r-45 {
+  margin-right: 45px;
+}
+
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.wrapper {
+  margin: 0 auto;
+}
+
+.wrapper--w960 {
+  max-width: 860px;
+}
+
+.wrapper--w780 {
+  max-width: 680px;
+}
+
+.wrapper--w680 {
+  max-width: 580px;
+}
+
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+  font-size: 24px;
+  color: #f3f0f0;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+.card {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  /* background-color: rgb(22, 22, 22); */
+  
+}
+
+.card-4 {
+  /* background: rgb(14, 13, 13); */
+  
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  /* border: solid black; */
+  -webkit-box-shadow: 0px 18px 50px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 18px 50px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 18px 50px 0px rgba(0, 0, 0, 0.15);
+}
+
+.card-4 .card-body {
+  padding: 30px 40px;
+  padding-bottom: 40px;
+  margin-top: 0%;
+  background-color: #141414;
+  
+}
+
+@media (max-width: 767px) {
+  .card-4 .card-body {
+    padding: 50px 40px;
+  }
+}
